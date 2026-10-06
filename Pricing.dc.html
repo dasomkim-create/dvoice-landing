@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site.js"></script>
+<style>
+@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+a{color:#2B45D4;text-decoration:none;}
+a:hover{color:#2138B5;}
+</style>
+</helmet>
+<div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
+  <dc-import name="SiteHeader" active="pricing" hint-size="100%,64px"></dc-import>
+
+  <section style="padding:152px 24px 56px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">요금</div>
+      <h1 data-reveal="" data-delay="80" style="margin:16px 0 0;font-size:clamp(34px,5vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;max-width:860px;text-wrap:balance;">상담실장 한 명을 더 뽑는 것과 비교해 보세요</h1>
+      <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:760px;">시작은 2주 콜 진단입니다. 장비는 무료로 빌려드리고 2주 이용료만 받습니다. 도입 후 요금은 채널과 등급, 회선 수로 정해지는 월 구독이며, 정확한 견적은 진단 리포트를 함께 본 뒤 드립니다.</p>
+    </div>
+  </section>
+
+  <section style="padding:0 24px;display:flex;justify-content:center;">
+    <div data-reveal="" data-reveal-panel="" style="width:100%;max-width:1120px;border-radius:36px;padding:clamp(24px,4vw,40px);background:radial-gradient(70% 120% at 100% 0%, #E7EAFC 0%, rgba(231,234,252,0) 60%),#F4F6FE;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;">
+        <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:15px;font-weight:600;color:#2B45D4;">2주 콜 진단</span><b style="font-size:clamp(20px,2.4vw,26px);font-weight:700;letter-spacing:-0.02em;">2주 동안 우리 병원에서 직접 써보고, 숫자로 판단하세요</b></div>
+        <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:54px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+      </div>
+      <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px;">
+        <sc-for list="{{ offer }}" as="o" hint-placeholder-count="3">
+          <div style="background:#fff;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px;">
+            <span style="font-size:13px;color:#8B95A1;">{{ o.k }}</span><b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;color:#2B45D4;">{{ o.v }}</b>
+            <p style="margin:0;font-size:14px;line-height:1.65;color:#6B7684;">{{ o.p }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;">
+        <div>
+          <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">도입 후</div>
+          <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">도입 후 월 구독</h2>
+        </div>
+        <span data-reveal="" data-delay="160" style="font-size:15px;color:#6B7684;">회선 수 기준 월 구독</span>
+      </div>
+
+      <div data-reveal="" data-reveal-panel="" style="margin-top:40px;overflow-x:auto;">
+        <div role="table" aria-label="채널별 등급 구성" style="min-width:720px;display:grid;grid-template-columns:minmax(160px,0.8fr) minmax(0,1fr) minmax(0,1.2fr);">
+          <div role="row" style="display:contents;">
+            <div role="columnheader" style="padding:0 20px 20px 4px;font-size:14px;font-weight:600;color:#8B95A1;align-self:end;">채널</div>
+            <div role="columnheader" style="padding:28px 24px 20px;display:flex;flex-direction:column;gap:6px;"><b style="font-size:22px;font-weight:700;letter-spacing:-0.01em;">STANDARD</b><span style="font-size:14px;color:#8B95A1;">기록과 전사</span></div>
+            <div role="columnheader" style="padding:28px 24px 20px;border-radius:28px 28px 0 0;background:#F4F6FE;display:flex;flex-direction:column;gap:6px;"><b style="font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#2B45D4;">PREMIUM</b><span style="font-size:14px;color:#6B7684;">분석과 정리까지</span></div>
+          </div>
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
+            <div role="row" style="display:contents;">
+              <div role="cell" style="padding:24px 20px 24px 4px;border-top:1px solid #E5E8EB;display:flex;flex-direction:column;gap:2px;"><b style="font-size:17px;font-weight:700;">{{ r.lead }}</b><small style="font-size:13px;color:#8B95A1;">{{ r.sub }}</small></div>
+              <div role="cell" style="padding:24px;border-top:1px solid #E5E8EB;font-size:15px;line-height:1.6;color:#4E5968;">{{ r.std }}</div>
+              <div role="cell" style="padding:24px;border-top:1px solid #E1E6FA;background:#F4F6FE;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;">
+                <sc-for list="{{ r.chips }}" as="c" hint-placeholder-count="3"><span style="font-size:13px;font-weight:600;padding:5px 11px;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};">{{ c.t }}</span></sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <div role="row" style="display:contents;">
+            <div role="cell" style="padding:24px 20px 24px 4px;border-top:1px solid #E5E8EB;"><b style="font-size:17px;font-weight:700;">공통</b></div>
+            <div role="cell" style="grid-column:2 / span 2;padding:24px;border-top:1px solid #E5E8EB;border-radius:0 0 28px 28px;background:linear-gradient(90deg,#FFFFFF 0%,#FFFFFF 45.4%,#F4F6FE 45.4%);display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:#4E5968;">
+              <sc-for list="{{ common }}" as="c" hint-placeholder-count="5"><span style="display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2B45D4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>{{ c }}</span></sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p data-reveal="" style="margin:20px 0 0;font-size:13px;line-height:1.7;color:#8B95A1;">회선 수 기준 월 구독 · 등급별 기능 구성은 예시이며 확정 요금표로 교체됩니다 · 안심병원 표시는 요금이 아니라 기준 충족으로 발급됩니다.</p>
+    </div>
+  </section>
+
+  <section style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;background:#F5F6F8;">
+    <div style="width:100%;max-width:1120px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">월 기준 비교</div>
+      <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">원장님 결재 한 장</h2>
+      <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;">
+        <div data-reveal="" style="border-radius:32px;padding:clamp(24px,3.6vw,36px);background:#FFFFFF;">
+          <span style="font-size:15px;font-weight:600;color:#8B95A1;">상담실장 1명 추가</span>
+          <dl style="margin:20px 0 0;display:grid;grid-template-columns:96px minmax(0,1fr);">
+            <sc-for list="{{ cmp }}" as="c" hint-placeholder-count="4">
+              <dt style="padding:16px 0;border-top:1px solid #F2F4F6;font-size:14px;color:#8B95A1;">{{ c.k }}</dt><dd style="margin:0;padding:16px 0;border-top:1px solid #F2F4F6;font-size:16px;line-height:1.5;color:#6B7684;">{{ c.a }}</dd>
+            </sc-for>
+          </dl>
+        </div>
+        <div data-reveal="" data-delay="100" style="border-radius:32px;padding:clamp(24px,3.6vw,36px);background:#FFFFFF;box-shadow:0 0 0 2px #2B45D4,0 30px 70px -40px rgba(43,69,212,0.45);">
+          <img src="dvoice-logo.svg" alt="D voice" style="height:24px;width:auto;display:block;">
+          <dl style="margin:20px 0 0;display:grid;grid-template-columns:96px minmax(0,1fr);">
+            <sc-for list="{{ cmp }}" as="c" hint-placeholder-count="4">
+              <dt style="padding:16px 0;border-top:1px solid #F2F4F6;font-size:14px;color:#8B95A1;">{{ c.k }}</dt><dd style="margin:0;padding:16px 0;border-top:1px solid #F2F4F6;font-size:16px;line-height:1.5;font-weight:700;color:#191F28;">{{ c.b }}</dd>
+            </sc-for>
+          </dl>
+        </div>
+      </div>
+      <p data-reveal="" style="margin:20px 0 0;font-size:14px;color:#6B7684;">회수 예상 금액은 2주 콜 진단 리포트의 우리 병원 실측치로 채워집니다.</p>
+    </div>
+  </section>
+
+  <section style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:860px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">자주 묻는 질문</div>
+      <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,40px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">비용과 도입에 대해</h2>
+      <div style="margin-top:40px;display:flex;flex-direction:column;gap:8px;">
+        <sc-for list="{{ faq }}" as="f" hint-placeholder-count="4">
+          <div data-reveal="" style="background:#F7F8FA;border-radius:22px;overflow:hidden;">
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;border:none;background:transparent;font:inherit;cursor:pointer;padding:22px 24px;text-align:left;font-size:17px;font-weight:600;color:#191F28;">
+              <span>{{ f.q }}</span>
+              <span style="flex:none;width:30px;height:30px;border-radius:50%;background:{{ f.sbg }};color:{{ f.sfg }};display:flex;align-items:center;justify-content:center;transform:rotate({{ f.rot }});transition:transform 450ms cubic-bezier(0.22,1,0.36,1),background 300ms,color 300ms;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>
+            </button>
+            <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows 520ms cubic-bezier(0.22,1,0.36,1);">
+              <div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 24px;font-size:15px;line-height:1.75;color:#4E5968;opacity:{{ f.op }};transition:opacity 420ms;">{{ f.a }}</div></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-header-dark="" style="position:relative;overflow:hidden;background:#0A1434;padding:clamp(96px,12vw,150px) 24px;display:flex;justify-content:center;">
+    <div aria-hidden="true" style="position:absolute;right:-180px;top:50%;width:0;height:0;pointer-events:none;">
+      <span style="position:absolute;left:-260px;top:-260px;width:520px;height:520px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.10);"></span>
+      <span style="position:absolute;left:-440px;top:-440px;width:880px;height:880px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.07);"></span>
+      <span style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,90,230,0.22),rgba(60,90,230,0));"></span>
+    </div>
+    <div data-reveal="" style="position:relative;width:100%;max-width:1120px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;color:#fff;">
+      <div style="flex:1 1 520px;max-width:720px;">
+        <div style="font-size:17px;font-weight:600;color:#A9B8FF;">2주 콜 진단</div>
+        <h2 style="margin:14px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">우리 병원 숫자를 먼저 보세요</h2>
+        <p style="margin:18px 0 0;font-size:17px;line-height:1.75;color:rgba(255,255,255,0.74);">장비는 무료로 빌려드리고, 2주 이용료만 받습니다. 도입하지 않으셔도 장비 비용은 없습니다.</p>
+      </div>
+      <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.08);" style="flex:none;height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,640px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { open: { 0: true } };
+  componentDidMount() { this.reveal(); }
+  componentDidUpdate() { this.reveal(); }
+  reveal() { clearTimeout(this.t); this.t = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }
+  renderVals() {
+    const chip = (t, k) => ({ t, bg: k === 'a' ? '#FFF4E5' : '#FFFFFF', fg: k === 'a' ? '#B7791F' : '#2B45D4' });
+    const FAQ = [
+      ['도입 후 요금은 어떻게 되나요?', '채널(콜·상담·진료)과 등급, 회선 수로 정해지는 월 구독입니다. 2주 콜 진단 리포트로 우리 병원의 놓친 전화와 회수 가능 건수를 먼저 보신 뒤 견적을 드립니다.'],
+      ['2주 콜 진단은 어떻게 진행되고, 비용은 얼마인가요?', '필요한 장비는 무료로 빌려드리고, 2주 이용료만 받습니다. 담당 엔지니어가 기존 회선에 장비를 연결하면 2주 동안 D voice를 병원에서 실제로 쓰시고, 마지막 날 진단 리포트를 받아보십니다. 도입하지 않으셔도 장비 비용은 없습니다.'],
+      ['작은 의원에도 필요한가요?', '직원이 적을수록 전화 한 통, 상담 한 건의 무게가 큽니다. 데스크 한 명이 진료 보조까지 하는 병원일수록 놓치는 전화가 많습니다. 요금은 회선 수 기준이라 규모에 맞춰 시작합니다.'],
+      ['지금 쓰는 전화기와 EMR을 바꿔야 하나요?', '전화기는 그대로입니다. 필요한 장비는 무료로 빌려드리고, 픽스앤컴이 관리하는 기존 회선 위에 연동하며 별도 공사가 없습니다. 진료 기록은 D-Note로 정리되어 복사해 쓰실 수 있고, EMR 직접 연동은 순차 제공됩니다.']
+    ];
+    const o = this.state.open;
+    return {
+      offer: [
+        { k: '장비', v: '무료 임대', p: '통화·상담 기록에 필요한 장비를 무료로 빌려드리고, 담당 엔지니어가 기존 회선에 연결합니다. 전화기는 그대로입니다.' },
+        { k: '비용', v: '2주 이용료만', p: '2주 동안 대시보드, 콜·상담 기록, 마케팅 분석을 실제로 쓰시는 이용료만 받습니다.' },
+        { k: '결과', v: '진단 리포트', p: '마지막 날 부재중 전화, 불만 통화, 유입 채널, 상담 보류 사유, 추정 손실 금액을 한 장으로 드립니다.' }
+      ],
+      rows: [
+        { lead: '콜레코드', sub: '유선전화 · 업무폰', std: '녹음 · 전사문 · 부재중 알림', chips: [chip('태그'), chip('응대 점수'), chip('유입 감지'), chip('D-Note'), chip('마케팅 분석')] },
+        { lead: '상담레코드', sub: '대면 상담', std: '녹음 · 전사문', chips: [chip('7항목 D-Note'), chip('관심 시술'), chip('다국어 감지')] },
+        { lead: '진료레코드', sub: '진료실', std: '녹음 · 전사문 · SOAP D-Note', chips: [chip('EMR 연동'), chip('준비 중', 'a')] }
+      ],
+      common: ['대시보드', '환자 타임라인', '직원 통계', '녹음 고지 기록', '설치 공사 없음'],
+      cmp: [
+        { k: '비용', a: '월 급여와 4대보험', b: '회선 수 기준 월 구독' },
+        { k: '시작까지', a: '채용과 교육 1~2개월', b: '기존 회선 연결' },
+        { k: '퇴사하면', a: '노하우와 환자 관계가 나감', b: '기록은 병원에 남음' },
+        { k: '보는 범위', a: '본인이 받은 전화', b: '모든 회선, 모든 상담' }
+      ],
+      faq: FAQ.map(([q, a], i) => {
+        const on = !!o[i];
+        return { q, a, open: on ? 'true' : 'false', rows: on ? '1fr' : '0fr', op: on ? 1 : 0, rot: on ? '45deg' : '0deg', sbg: on ? '#191F28' : '#E5E8EB', sfg: on ? '#FFFFFF' : '#4E5968', toggle: () => this.setState(s => ({ open: { ...s.open, [i]: !s.open[i] } })) };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

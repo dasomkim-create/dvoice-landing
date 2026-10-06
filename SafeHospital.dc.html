@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site.js"></script>
+<style>
+@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+a{color:#2B45D4;text-decoration:none;}
+a:hover{color:#2138B5;}
+</style>
+</helmet>
+<div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
+  <dc-import name="SiteHeader" active="safe" hint-size="100%,64px"></dc-import>
+
+  <section style="padding:136px 24px 96px;display:flex;justify-content:center;background:linear-gradient(180deg,#FFFFFF 0%,#F4F6FE 60%,#FFFFFF 100%);">
+    <div style="width:100%;max-width:1120px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));align-items:center;gap:48px clamp(32px,6vw,88px);">
+      <div style="min-width:0;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">D voice 안심병원</div>
+        <h1 data-reveal="" data-delay="80" style="margin:16px 0 0;font-size:clamp(34px,4.6vw,54px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;text-wrap:balance;">D voice 안심병원, 기록을 남기고 보여주는 병원의 표시</h1>
+        <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:600px;">기록이 병원만 보는 것이면 환자에게는 감시입니다. 환자에게도 열려 있으면 약속이 됩니다. 네 가지 약속을 지키는 병원에 안심병원 표시가 발급되고, 발급 기준은 D voice 데이터로 자동 확인됩니다.</p>
+        <div data-reveal="" data-delay="240" style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;">
+          <button type="button" onClick="{{ toCrit }}" style="height:56px;padding:0 24px;border:none;border-radius:16px;background:#2B45D4;color:#fff;font:inherit;font-weight:600;font-size:17px;cursor:pointer;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;" style-hover="translate:0 -2px;filter:brightness(1.06);" style-active="transform:scale(0.97);">발급 기준 보기</button>
+          <a href="Landing.dc.html#cta" style-hover="background:#EEF0F3;color:#191F28;" style="height:56px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;">2주 콜 진단 신청</a>
+        </div>
+      </div>
+      <div style="min-width:0;display:flex;flex-direction:column;align-items:center;gap:14px;">
+        <svg viewBox="0 0 240 240" role="img" aria-label="D voice 안심병원 표시 시안" style="width:min(100%,340px);height:auto;display:block;overflow:visible;filter:drop-shadow(0 30px 36px rgba(43,69,212,0.25));">
+          <defs>
+            <linearGradient id="shFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7390F6"></stop><stop offset="0.55" stop-color="#2B45D4"></stop><stop offset="1" stop-color="#1A2A9C"></stop></linearGradient>
+            <linearGradient id="shRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5168E0"></stop><stop offset="1" stop-color="#0025B6"></stop></linearGradient>
+            <radialGradient id="shDisc" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#E4E9FB"></stop></radialGradient>
+          </defs>
+          <circle cx="120" cy="120" r="100" fill="url(#shDisc)"></circle>
+          <circle cx="120" cy="120" r="90" fill="none" stroke="#5168E0" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="2 5"></circle>
+          <circle ref="{{ ringRef }}" cx="120" cy="120" r="108" fill="none" stroke="url(#shRing)" stroke-width="5" stroke-linecap="round" transform="rotate(-90 120 120)" style="stroke-dasharray:679;stroke-dashoffset:0;"></circle>
+          <g>
+            <path d="M120 60 L162 77 V114 C162 143 143 162 120 174 C97 162 78 143 78 114 V77 Z" fill="#14228A" transform="translate(0 8)"></path>
+            <path d="M120 60 L162 77 V114 C162 143 143 162 120 174 C97 162 78 143 78 114 V77 Z" fill="url(#shFace)"></path>
+            <path d="M120 60 L120 174 C97 162 78 143 78 114 V77 Z" fill="#FFFFFF" opacity="0.14"></path>
+            <path d="M121 66 L156 80" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round"></path>
+          </g>
+          <path ref="{{ checkRef }}" d="M100 116 L115 131 L142 101" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:62;stroke-dashoffset:0;"></path>
+        </svg>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;">
+          <b style="font-size:18px;font-weight:700;color:#10203A;">D voice 안심병원</b>
+          <span style="font-size:13px;color:#44526B;">상담·진료 기록 투명 공개 · 2026</span>
+          <span style="margin-top:6px;font-size:12px;color:#8B95A1;">표시 시안 · 명칭과 도형은 상표·의료광고 검토 후 확정</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div style="display:flex;flex-wrap:wrap;gap:24px clamp(32px,6vw,96px);align-items:flex-end;">
+        <div style="flex:1 1 420px;min-width:0;">
+          <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">네 가지 약속</div>
+          <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">기록을 남기고 보여주는 병원이라는 표시</h2>
+        </div>
+        <p data-reveal="" data-delay="160" style="flex:1 1 420px;min-width:0;margin:0;font-size:17px;line-height:1.75;color:#4E5968;">상담에서 무엇을 권했고 진료에서 무엇을 설명했는지 기록으로 남고, 환자가 원하면 볼 수 있습니다. 권유와 설명이 기록으로 남으니 환자는 안심하고 결정하고, 분쟁이 생겨도 양쪽 모두 근거를 갖습니다. 같은 견적이라면 환자에게는 이 표시가 병원을 고를 이유가 하나 더 됩니다.</p>
+      </div>
+      <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px;">
+        <sc-for list="{{ vowPairs }}" as="vp" hint-placeholder-count="2"><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;">
+        <sc-for list="{{ vp }}" as="v" hint-placeholder-count="4">
+          <div data-reveal="" data-delay="{{ v.delay }}" style="border-radius:28px;padding:28px 26px;background:#F7F8FA;display:flex;flex-direction:column;gap:12px;min-height:220px;transition:translate 300ms cubic-bezier(0.22,1,0.36,1),background 300ms;" style-hover="translate:0 -4px;background:#F2F4F6;">
+            <span style="font-size:40px;font-weight:200;line-height:1;color:#2B45D4;font-variant-numeric:tabular-nums;">{{ v.no }}</span>
+            <b style="margin-top:auto;font-size:20px;font-weight:700;letter-spacing:-0.02em;">{{ v.b }}</b>
+            <span style="font-size:15px;line-height:1.65;color:#6B7684;">{{ v.s }}</span>
+          </div>
+        </sc-for></div></sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="criteria" style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;background:#F5F6F8;">
+    <div style="width:100%;max-width:1120px;display:flex;flex-wrap:wrap;gap:40px clamp(32px,6vw,96px);">
+      <div style="flex:1 1 320px;min-width:0;padding-top:8px;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">발급 기준</div>
+        <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">발급 기준 다섯 가지</h2>
+        <p data-reveal="" data-delay="160" style="margin:18px 0 0;font-size:15px;line-height:1.7;color:#8B95A1;">기준 수치는 초안입니다. 분기마다 재판정하고, 두 분기 연속 미달 시 표시 사용이 중지됩니다.</p>
+      </div>
+      <ol data-reveal="" data-reveal-panel="" style="flex:1.6 1 520px;min-width:0;margin:0;padding:8px 0;list-style:none;border-radius:32px;background:#FFFFFF;">
+        <sc-for list="{{ crit }}" as="c" hint-placeholder-count="5">
+          <li style="display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:16px;padding:22px 28px;border-top:{{ c.bt }};">
+            <span style="font-size:14px;font-weight:700;color:#B0B8C1;font-variant-numeric:tabular-nums;">{{ c.k }}</span>
+            <span style="font-size:16px;line-height:1.55;font-weight:600;color:#333D4B;">{{ c.t }}</span>
+            <b style="font-size:15px;font-weight:700;color:#2B45D4;padding:6px 12px;border-radius:999px;background:#E8EDFD;white-space:nowrap;font-variant-numeric:tabular-nums;">{{ c.v }}</b>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+  </section>
+
+  <section style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">안심과 보안</div>
+      <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">기록은 병원 안에서, 정해진 방식으로만</h2>
+      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:12px;">
+        <sc-for list="{{ secPairs }}" as="sp" hint-placeholder-count="2"><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;">
+        <sc-for list="{{ sp }}" as="s" hint-placeholder-count="4">
+          <div data-reveal="" data-delay="{{ s.delay }}" style="border-radius:24px;padding:24px;box-shadow:0 0 0 1px #E5E8EB;display:flex;flex-direction:column;gap:8px;">
+            <b style="font-size:17px;font-weight:700;">{{ s.b }}</b>
+            <span style="font-size:15px;line-height:1.65;color:#6B7684;">{{ s.t }}</span>
+          </div>
+        </sc-for></div></sc-for>
+      </div>
+
+      <div style="margin-top:96px;max-width:860px;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">자주 묻는 질문</div>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px;">
+          <sc-for list="{{ faq }}" as="f" hint-placeholder-count="3">
+            <div data-reveal="" style="background:#F7F8FA;border-radius:22px;overflow:hidden;">
+              <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;border:none;background:transparent;font:inherit;cursor:pointer;padding:22px 24px;text-align:left;font-size:17px;font-weight:600;color:#191F28;">
+                <span>{{ f.q }}</span>
+                <span style="flex:none;width:30px;height:30px;border-radius:50%;background:{{ f.sbg }};color:{{ f.sfg }};display:flex;align-items:center;justify-content:center;transform:rotate({{ f.rot }});transition:transform 450ms cubic-bezier(0.22,1,0.36,1),background 300ms,color 300ms;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>
+              </button>
+              <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows 520ms cubic-bezier(0.22,1,0.36,1);">
+                <div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 24px;font-size:15px;line-height:1.75;color:#4E5968;opacity:{{ f.op }};transition:opacity 420ms;">{{ f.a }}</div></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-header-dark="" style="position:relative;overflow:hidden;background:#0A1434;padding:clamp(96px,12vw,150px) 24px;display:flex;justify-content:center;">
+    <div aria-hidden="true" style="position:absolute;right:-180px;top:50%;width:0;height:0;pointer-events:none;">
+      <span style="position:absolute;left:-260px;top:-260px;width:520px;height:520px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.10);"></span>
+      <span style="position:absolute;left:-440px;top:-440px;width:880px;height:880px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.07);"></span>
+      <span style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,90,230,0.22),rgba(60,90,230,0));"></span>
+    </div>
+    <div data-reveal="" style="position:relative;width:100%;max-width:1120px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;color:#fff;">
+      <div style="flex:1 1 520px;max-width:720px;">
+        <div style="font-size:17px;font-weight:600;color:#A9B8FF;">2주 콜 진단</div>
+        <h2 style="margin:14px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">우리 병원은 다섯 기준 중 몇 개를 충족할까요</h2>
+        <p style="margin:18px 0 0;font-size:17px;line-height:1.75;color:rgba(255,255,255,0.74);">2주 콜 진단 리포트에 안심병원 기준 대비 현재 충족 항목과 부족한 항목이 함께 담깁니다.</p>
+      </div>
+      <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.08);" style="flex:none;height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,640px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.ringRef = React.createRef(); this.checkRef = React.createRef(); this.state = { open: { 0: true } }; }
+  componentDidMount() {
+    this.reveal();
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const r = this.ringRef.current, c = this.checkRef.current, e = 'cubic-bezier(.22,1,.36,1)';
+    r && r.animate([{ strokeDashoffset: 679 }, { strokeDashoffset: 0 }], { duration: 1600, delay: 300, easing: e, fill: 'backwards' });
+    c && c.animate([{ strokeDashoffset: 62 }, { strokeDashoffset: 0 }], { duration: 700, delay: 1300, easing: e, fill: 'backwards' });
+  }
+  componentDidUpdate() { this.reveal(); }
+  reveal() { clearTimeout(this.t); this.t = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }
+  renderVals() {
+    const FAQ = [
+      ['환자가 녹음을 불편해하지 않을까요?', '안내 문구는 "상담과 진료 내용이 기록으로 남고, 원하시면 보여드립니다"입니다. 기록은 환자를 지키는 약속으로 전달되고, 상담실의 D voice 안심병원 카드가 그 약속을 보여줍니다. 통화 연결 시 고지가 먼저 나가고, 모든 기록에 고지 여부가 남습니다.'],
+      ['환자 데이터는 안전한가요?', '수집, 전송, 보관 전 구간을 암호화하고 병원 단위로 분리해 보관합니다. 보관 기간과 삭제 절차는 병원이 정하고, 관리자와 직원 권한이 나뉩니다.'],
+      ['직원들이 감시받는다고 싫어하지 않을까요?', '직원이 가장 먼저 반기는 것은 통화 후 메모와 상담일지가 사라지는 것입니다. 응대 점수는 개인을 평가하는 숫자가 아니라, 잘한 통화를 찾아 병원의 응대 기준을 맞추는 데 씁니다. 직원 입장에서는 "잘한 것이 기록으로 남는" 도구입니다.']
+    ];
+    const o = this.state.open;
+    const pair = a => [a.slice(0, 2), a.slice(2, 4)];
+    const V = [
+        ['먼저 알립니다', '전화·상담·진료가 기록된다는 사실을 시작할 때 고지합니다.'],
+        ['권유 이유를 남깁니다', '권유 시술, 견적, 환자의 결정이 상담 기록에 남습니다.'],
+        ['요청하면 보여줍니다', '본인의 상담·진료 요약을 정해진 기간 안에 제공합니다.'],
+        ['정해진 기간만 보관합니다', '보관 기간과 삭제 절차를 공개합니다.']
+      ].map(([b, s], i) => ({ b, s, no: '0' + (i + 1), delay: i * 80 }));
+    const S = [
+        ['전 구간 암호화', '수집, 전송, 보관 전 구간 암호화와 병원 단위 데이터 분리'],
+        ['녹음 고지 기록', '모든 콜·상담·진료 기록에 고지 여부가 남음'],
+        ['보관 정책', '보관 기간과 삭제 절차를 병원이 설정하고 공개'],
+        ['권한 분리', '관리자·직원 권한, 관리자 전용 통계와 설정']
+      ].map(([b, t], i) => ({ b, t, delay: i * 70 }));
+    return {
+      vowPairs: pair(V), secPairs: pair(S),
+      ringRef: this.ringRef, checkRef: this.checkRef,
+      toCrit: () => window.dvScrollTo('criteria', 80),
+      vows: [
+        ['먼저 알립니다', '전화·상담·진료가 기록된다는 사실을 시작할 때 고지합니다.'],
+        ['권유 이유를 남깁니다', '권유 시술, 견적, 환자의 결정이 상담 기록에 남습니다.'],
+        ['요청하면 보여줍니다', '본인의 상담·진료 요약을 정해진 기간 안에 제공합니다.'],
+        ['정해진 기간만 보관합니다', '보관 기간과 삭제 절차를 공개합니다.']
+      ].map(([b, s], i) => ({ b, s, no: '0' + (i + 1), delay: i * 80 })),
+      crit: [
+        ['모든 통화·상담·진료 기록에 녹음 고지', '100%'],
+        ['상담 기록에 권유 시술·견적·결정 여부 기재', '95% 이상'],
+        ['환자 열람 요청을 영업일 5일 안에 제공', '100%'],
+        ['불만 통화의 조치 완료', '90% 이상'],
+        ['보관 기간과 삭제 절차 공개', '등록']
+      ].map(([t, v], i) => ({ t, v, k: '0' + (i + 1), bt: i ? '1px solid #F2F4F6' : 'none' })),
+      sec: [
+        ['전 구간 암호화', '수집, 전송, 보관 전 구간 암호화와 병원 단위 데이터 분리'],
+        ['녹음 고지 기록', '모든 콜·상담·진료 기록에 고지 여부가 남음'],
+        ['보관 정책', '보관 기간과 삭제 절차를 병원이 설정하고 공개'],
+        ['권한 분리', '관리자·직원 권한, 관리자 전용 통계와 설정']
+      ].map(([b, t], i) => ({ b, t, delay: i * 70 })),
+      faq: FAQ.map(([q, a], i) => {
+        const on = !!o[i];
+        return { q, a, open: on ? 'true' : 'false', rows: on ? '1fr' : '0fr', op: on ? 1 : 0, rot: on ? '45deg' : '0deg', sbg: on ? '#191F28' : '#E5E8EB', sfg: on ? '#FFFFFF' : '#4E5968', toggle: () => this.setState(s => ({ open: { ...s.open, [i]: !s.open[i] } })) };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

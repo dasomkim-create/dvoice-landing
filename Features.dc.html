@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="data.js"></script>
+<script src="dv-ui.js"></script>
+<script src="site.js"></script>
+<style>
+@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+a{color:#2B45D4;text-decoration:none;}
+a:hover{color:#2138B5;}
+</style>
+</helmet>
+<div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
+  <dc-import name="SiteHeader" active="features" hint-size="100%,64px"></dc-import>
+
+  <section style="padding:152px 24px 40px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">기능 소개</div>
+        <h1 data-reveal="" data-delay="80" style="margin:16px 0 0;font-size:clamp(34px,5vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;max-width:900px;text-wrap:balance;">모든 화면은 원장님의 질문 하나에 답하도록 만들어졌습니다</h1>
+        <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:760px;">대시보드, 콜레코드, 상담레코드, 진료레코드, 마케팅 분석, 운영 관리, 안심과 보안. 각 화면이 어떤 질문에 답하고 무엇을 할 수 있는지, 제품 구성을 참고해 새로 그린 체험 화면과 함께 정리했습니다. 화면 속 버튼과 목록은 직접 눌러보실 수 있습니다.</p>
+    </div>
+  </section>
+
+  <div ref="{{ barRef }}" style="position:sticky;top:64px;z-index:30;padding:12px 24px;display:flex;justify-content:center;background:rgba(255,255,255,0.86);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);">
+    <div style="width:100%;max-width:1120px;display:flex;align-items:center;gap:16px 24px;flex-wrap:wrap;">
+      <nav aria-label="기능 목차" style="flex:1 1 0;min-width:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="8">
+          <button type="button" onClick="{{ c.go }}" style="flex:none;height:40px;padding:0 14px;border:none;border-radius:10px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};transition:background 250ms,color 250ms;" style-hover="background:#F2F4F6;color:#191F28;">{{ c.label }}</button>
+        </sc-for>
+      </nav>
+    </div>
+  </div>
+
+    <section id="summary" style="padding:72px 24px 120px;display:flex;justify-content:center;">
+      <div style="width:100%;max-width:1120px;">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 40px;margin-bottom:36px;">
+          <div style="flex:1 1 520px;min-width:0;">
+            <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">3분 요약</div>
+            <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">D voice가 병원에 주는 것, 여섯 가지만</h2>
+            <p data-reveal="" data-delay="160" style="margin:16px 0 0;font-size:17px;line-height:1.7;color:#4E5968;max-width:680px;">화면을 하나하나 보실 필요는 없습니다. 진료실 밖에서 무엇이 달라지는지, 원장님이 아셔야 할 핵심만 정리했습니다.</p>
+          </div>
+          <span data-reveal="" style="font-size:13px;color:#8B95A1;">← → 키로도 넘길 수 있어요</span>
+        </div>
+        <div data-reveal="" style="display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;">
+          <sc-for list="{{ pills }}" as="p" hint-placeholder-count="7">
+            <button type="button" onClick="{{ p.go }}" aria-current="{{ p.cur }}" style="flex:1 1 0;min-width:96px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:0 0 4px;border:none;background:transparent;font:inherit;cursor:pointer;text-align:left;" style-hover="opacity:0.8;">
+              <span style="font-size:13px;font-weight:600;color:{{ p.kc }};font-variant-numeric:tabular-nums;transition:color 300ms;">{{ p.no }}</span>
+              <span style="font-size:15px;font-weight:{{ p.fw }};color:{{ p.tc }};white-space:nowrap;transition:color 300ms;">{{ p.label }}</span>
+              <span style="display:block;width:100%;height:2px;margin-top:8px;background:#E5E8EB;overflow:hidden;"><span style="display:block;height:100%;width:{{ p.fill }};background:#191F28;transition:width 500ms cubic-bezier(0.22,1,0.36,1);"></span></span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div data-reveal="" data-reveal-panel="" aria-live="polite" style="margin-top:20px;display:grid;">
+          <sc-for list="{{ slides }}" as="s" hint-placeholder-count="1">
+            <article aria-hidden="{{ s.hidden }}" style="grid-area:1 / 1;min-width:0;border-radius:40px;background:radial-gradient(60% 90% at 85% 20%, rgba(214,222,250,0.9) 0%, rgba(214,222,250,0) 70%),linear-gradient(160deg,#F5F6F9 0%,#E9EDF5 100%);padding:clamp(24px,4.4vw,56px);display:flex;flex-wrap:wrap;gap:40px clamp(32px,5vw,72px);align-items:center;opacity:{{ s.op }};transform:translateY({{ s.ty }});filter:blur({{ s.bl }});pointer-events:{{ s.pe }};visibility:{{ s.vis }};transition:opacity 600ms cubic-bezier(0.22,1,0.36,1),transform 700ms cubic-bezier(0.22,1,0.36,1),filter 600ms cubic-bezier(0.22,1,0.36,1),visibility 0ms {{ s.visDelay }};">
+              <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;">
+                <span style="font-size:15px;font-weight:700;color:#6B7684;">{{ s.no }} · {{ s.label }}</span>
+                <h2 style="margin:14px 0 0;font-size:clamp(26px,3.2vw,38px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;text-wrap:balance;">{{ s.title }}</h2>
+                <p style="margin:16px 0 0;font-size:17px;line-height:1.7;color:#4E5968;">{{ s.short }}</p>
+                <sc-if value="{{ s.isPoint }}" hint-placeholder-val="{{ true }}">
+                  <ul style="margin:26px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+                    <sc-for list="{{ s.points }}" as="pt" hint-placeholder-count="3">
+                      <li style="display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.6;color:#333D4B;"><span style="flex:none;width:22px;height:22px;margin-top:2px;border-radius:50%;background:#2B45D4;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>{{ pt }}</li>
+                    </sc-for>
+                  </ul>
+                  <div style="margin-top:26px;padding:16px 20px;border-radius:20px;background:#FFFFFF;display:flex;flex-direction:column;gap:4px;">
+                    <span style="font-size:13px;font-weight:600;color:#8B95A1;">D voice가 없다면</span>
+                    <span style="font-size:15px;line-height:1.6;color:#6B7684;">{{ s.without }}</span>
+                  </div>
+                  <button type="button" onClick="{{ s.detail }}" style="align-self:flex-start;margin-top:22px;height:44px;padding:0 6px 0 0;border:none;background:transparent;font:inherit;font-size:15px;font-weight:600;color:#191F28;cursor:pointer;display:flex;align-items:center;gap:6px;transition:gap 260ms cubic-bezier(0.22,1,0.36,1);" style-hover="gap:10px;">기능 상세에서 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+                </sc-if>
+                <sc-if value="{{ s.isLast }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">
+                    <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:56px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="flex:1 1 400px;min-width:0;">
+                <sc-if value="{{ s.isPoint }}" hint-placeholder-val="{{ true }}">
+                  <div data-frag="">
+                    <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="frag" frag="{{ s.frag }}" tone="{{ s.tone }}" hint-size="100%,400px"></x-import>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ s.isLast }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:10px;">
+                    <sc-for list="{{ offer }}" as="o" hint-placeholder-count="3">
+                      <div style="background:#FFFFFF;border-radius:24px;padding:22px 24px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 18px;align-items:baseline;">
+                        <span style="font-size:13px;color:#8B95A1;">{{ o.k }}</span><b style="font-size:20px;font-weight:700;letter-spacing:-0.02em;color:#2B45D4;">{{ o.v }}</b>
+                        <span></span><p style="margin:0;font-size:14px;line-height:1.65;color:#6B7684;">{{ o.p }}</p>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+
+        <div style="margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <button type="button" onClick="{{ prev }}" disabled="{{ atFirst }}" style="height:52px;padding:0 20px;border:none;border-radius:16px;background:#F7F8FA;color:#4E5968;font:inherit;font-size:16px;font-weight:600;cursor:pointer;opacity:{{ prevOp }};transition:background 200ms,opacity 200ms;" style-hover="background:#EEF0F3;" style-active="transform:scale(0.97);">← 이전</button>
+          <span style="font-size:15px;font-weight:600;color:#8B95A1;font-variant-numeric:tabular-nums;"><b style="color:#191F28;">{{ stepNo }}</b> / 7</span>
+          <button type="button" onClick="{{ next }}" style="height:52px;padding:0 22px;border:none;border-radius:16px;background:#2B45D4;color:#fff;font:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:filter 200ms,translate 260ms cubic-bezier(0.22,1,0.36,1);" style-hover="filter:brightness(1.06);translate:0 -2px;" style-active="transform:scale(0.97);">{{ nextLabel }}</button>
+        </div>
+      </div>
+    </section>
+
+    <div style="padding:0 24px;display:flex;justify-content:center;"><div style="width:100%;max-width:1120px;border-top:1px solid #E5E8EB;padding-top:64px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">기능 상세</div>
+      <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">화면마다, 원장님의 질문 하나</h2>
+    </div></div>
+    <div>
+      <sc-for list="{{ features }}" as="f" hint-placeholder-count="2">
+        <section id="{{ f.id }}" style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;background:{{ f.bg }};">
+          <div style="width:100%;max-width:1120px;">
+            <div style="display:flex;flex-wrap:wrap;flex-direction:{{ f.dir }};gap:48px clamp(32px,5vw,72px);align-items:center;">
+              <div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;">
+                <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">{{ f.eyebrow }}</div>
+                <h2 data-reveal="" data-delay="60" style="margin:14px 0 0;font-size:clamp(26px,3.2vw,38px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;text-wrap:balance;">{{ f.h2 }}</h2>
+                <p data-reveal="" data-delay="120" style="margin:16px 0 0;font-size:17px;line-height:1.7;color:#4E5968;">{{ f.fd }}</p>
+                <ul style="margin:28px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;">
+                  <sc-for list="{{ f.dos }}" as="d" hint-placeholder-count="3">
+                    <li data-reveal="" data-delay="{{ d.delay }}" style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.65;color:#6B7684;"><span style="flex:none;width:22px;height:22px;margin-top:1px;border-radius:50%;background:#E8EDFD;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2B45D4" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span><b style="font-weight:700;color:#191F28;">{{ d.b }}</b> {{ d.t }}</span></li>
+                  </sc-for>
+                </ul>
+              </div>
+              <div data-reveal="" data-reveal-panel="" style="flex:1.5 1 560px;min-width:0;display:flex;flex-direction:column;gap:12px;">
+                <div style="border-radius:28px;overflow:hidden;background:#fff;box-shadow:0 40px 90px -50px rgba(30,40,60,0.35),0 0 0 1px rgba(0,0,0,0.05);">
+                  <div style="height:46px;display:flex;align-items:center;gap:16px;padding:0 18px;background:#F4F5F7;border-bottom:1px solid #EAECEF;">
+                    <span style="width:52px;display:flex;gap:8px;"><i style="width:12px;height:12px;border-radius:50%;background:#FF5F57;display:block;"></i><i style="width:12px;height:12px;border-radius:50%;background:#FEBC2E;display:block;"></i><i style="width:12px;height:12px;border-radius:50%;background:#28C840;display:block;"></i></span>
+                    <span style="flex:1;min-width:0;display:flex;justify-content:center;"><span style="width:min(100%,320px);height:28px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;color:#6B7684;box-shadow:0 0 0 1px rgba(0,0,0,0.05);">{{ f.url }}</span></span>
+                    <span style="flex:none;font-size:12px;font-weight:600;color:#2B45D4;padding:4px 10px;border-radius:999px;background:#E8EDFD;">직접 눌러보세요</span>
+                  </div>
+                  <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="{{ f.screen }}" hint-size="100%,472px"></x-import>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;padding:0 6px;font-size:13px;color:#8B95A1;">
+                  <span>제품 구성을 참고해 새로 그린 체험 화면 · 이름과 수치는 예시</span>
+                  <button type="button" onClick="{{ f.toStep }}" style="border:none;background:transparent;padding:0;font:inherit;font-size:13px;font-weight:600;color:#2B45D4;cursor:pointer;">3분 요약에서 보기 →</button>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;">
+              <sc-for list="{{ f.spec }}" as="sp" hint-placeholder-count="6">
+                <div data-reveal="" data-delay="{{ sp.delay }}" style="border-radius:20px;padding:20px 22px;background:{{ f.cardBg }};display:flex;flex-direction:column;gap:6px;">
+                  <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><b style="font-size:16px;font-weight:700;">{{ sp.b }}</b><sc-if value="{{ sp.soon }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:600;color:#6B7684;padding:2px 8px;border-radius:999px;background:#E5E8EB;">준비 중</span></sc-if></span>
+                  <span style="font-size:14px;line-height:1.6;color:#6B7684;">{{ sp.t }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </sc-for>
+
+      <section id="f-safe" style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;">
+        <div data-reveal="" data-reveal-panel="" style="width:100%;max-width:1120px;border-radius:40px;padding:clamp(28px,5vw,64px);background:radial-gradient(70% 120% at 100% 0%, #E7EAFC 0%, rgba(231,234,252,0) 60%),#F4F6FE;display:flex;flex-wrap:wrap;gap:32px 56px;align-items:center;">
+          <div style="flex:1 1 460px;min-width:0;">
+            <div style="font-size:17px;font-weight:600;color:#2B45D4;">안심과 보안</div>
+            <h2 style="margin:14px 0 0;font-size:clamp(26px,3.2vw,38px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">D voice 안심병원, 기록을 남기고 보여주는 병원의 표시</h2>
+            <p style="margin:16px 0 0;font-size:17px;line-height:1.7;color:#4E5968;">기록이 병원만 보는 것이면 환자에게는 감시입니다. 환자에게도 열려 있으면 약속이 됩니다. 네 가지 약속을 지키는 병원에 안심병원 표시가 발급되고, 발급 기준은 D voice 데이터로 자동 확인됩니다.</p>
+          </div>
+          <a href="SafeHospital.dc.html" style-hover="background:#fff;color:#191F28;translate:0 -2px;" style="flex:none;height:56px;padding:0 10px 0 24px;display:flex;align-items:center;gap:12px;border-radius:999px;background:rgba(255,255,255,0.75);color:#333D4B;font-weight:600;font-size:16px;box-shadow:0 0 0 1px rgba(0,0,0,0.05);transition:background 200ms,color 200ms,translate 260ms cubic-bezier(0.22,1,0.36,1);">발급 기준과 검증 방법 보기<span style="width:36px;height:36px;border-radius:50%;background:#2B45D4;color:#fff;display:grid;place-items:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+        </div>
+      </section>
+    </div>
+
+  <section data-header-dark="" style="position:relative;overflow:hidden;background:#0A1434;padding:clamp(96px,12vw,150px) 24px;display:flex;justify-content:center;">
+    <div aria-hidden="true" style="position:absolute;right:-180px;top:50%;width:0;height:0;pointer-events:none;">
+      <span style="position:absolute;left:-260px;top:-260px;width:520px;height:520px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.10);"></span>
+      <span style="position:absolute;left:-440px;top:-440px;width:880px;height:880px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.07);"></span>
+      <span style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,90,230,0.22),rgba(60,90,230,0));"></span>
+    </div>
+    <div data-reveal="" style="position:relative;width:100%;max-width:1120px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;color:#fff;">
+      <div style="flex:1 1 520px;max-width:720px;">
+        <div style="font-size:17px;font-weight:600;color:#A9B8FF;">2주 콜 진단</div>
+        <h2 style="margin:14px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">이 화면들을 우리 병원 숫자로 보고 싶으시다면</h2>
+        <p style="margin:18px 0 0;font-size:17px;line-height:1.75;color:rgba(255,255,255,0.74);">장비 무료 임대, 2주 이용료만으로 우리 병원에서 직접 써보시고 리포트로 판단하세요.</p>
+      </div>
+      <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.08);" style="flex:none;height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,640px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.barRef = React.createRef();
+    this.state = { step: 0, activeF: 'summary' };
+  }
+  points() {
+    return [
+      { id: 'morning', frag: 'morning', target: 'f-dash', label: '아침 30초', title: '출근하면 어젯밤 놓친 전화부터 보입니다', short: '부재중, 클레임, 조치할 일이 진료 전에 먼저 보입니다.', points: ['어제 18시부터 오늘 9시까지 부재중 전화와 회신할 번호', '클레임이 감지된 통화와 조치가 필요한 건', '오늘 수신·부재중·상담·진료 건수'], without: '부재중 전화는 전화기 기록을 뒤져야 알고, 대부분 그냥 지나갑니다.' },
+      { id: 'call', frag: 'call', target: 'f-call', label: '전화', title: '통화를 다시 듣지 않아도 어떤 전화였는지 압니다', short: '문의 유형, 응대 점수, 유입 채널, 예약 여부가 자동으로 붙습니다.', points: ['통화마다 문의 유형 태그와 1~10점 응대 점수', '환자의 첫마디에서 잡아낸 유입 채널', '접수·예약 여부까지 정리된 통화 요약'], without: '불만 전화가 있었는지 직원에게 물어봐야 압니다.' },
+      { id: 'fix', frag: 'fix', target: 'f-ops', label: '응대 관리', title: '문제를 찾고, 우리 병원 응대 기준을 만듭니다', short: '불만의 원인을 찾고, 잘한 통화로 응대 기준을 세웁니다.', points: ['불만 통화에서 반복되는 원인을 찾습니다', '응대 점수가 높은 통화를 교육 자료로 씁니다', '기준 적용 전후를 응대 점수와 불만 건수로 확인합니다'], without: '응대 교육이 원장님의 감과 잔소리에 머뭅니다.' },
+      { id: 'consult', frag: 'consult', target: 'f-cons', label: '상담', title: '실장이 바뀌어도 상담은 병원에 남습니다', short: '상담이 7개 항목으로 정리되고, 결정을 미룬 이유까지 남습니다.', points: ['상담 내용이 7개 항목 메모로 자동 정리', '권유 시술, 견적, 결정을 미룬 이유까지', '외국어 상담도 같은 양식으로'], without: '실장이 그만두면 상담 노하우와 보류 환자 목록이 함께 사라집니다.' },
+      { id: 'chart', frag: 'chart', target: 'f-visit', label: '진료', title: '진료가 끝나면 차트 초안도 끝나 있습니다', short: '진료 대화가 S·O·A·P로 정리되고, 쌓인 기록은 병원의 자산이 됩니다.', points: ['진료 대화가 S·O·A·P 차트 초안으로 정리', '검사 수치와 추적 계획이 그대로 남음', '쌓인 기록이 재진과 설명의무의 근거, 병원의 데이터가 됨'], without: '진료 후 밀린 차트를 기억에 의존해 정리합니다.' },
+      { id: 'channel', frag: 'channel', target: 'f-mkt', label: '마케팅', title: '광고비가 어디서 전화로 돌아왔는지 봅니다', short: '실제 걸려온 전화 기준으로 채널과 관심 시술을 봅니다.', points: ['실제 걸려온 전화 기준 채널별 문의 수', '상담에서 나온 관심 시술 비율', '강남언니·바비톡 이벤트와 문의 변화'], without: '광고 대행사 리포트의 클릭 수만 보고 예산을 정합니다.' }
+    ];
+  }
+  feats() {
+    return [
+      { id: 'f-dash', eyebrow: '대시보드', screen: 'mk-dash', url: 'app.dvoice.ai/dashboard', step: 0, h2: '출근하고 30초, 어젯밤과 오늘 병원에 무슨 일이 있었나', fd: '로그인하면 가장 먼저 보이는 화면입니다. 원장님이 직원에게 묻던 질문의 답이 먼저 떠 있습니다.',
+        dos: [['놓친 전화부터 봅니다.', '"어제 18시부터 오늘 9시까지 수신 부재중 N건"처럼 원하는 시간대로 알림을 봅니다.'], ['클레임과 조치 필요 건을 먼저 처리합니다.', '불만이 감지된 통화가 따로 모입니다.'], ['이번 주가 지난주와 어떻게 다른지 봅니다.', '통화 태그와 키워드의 흐름이 7일, 30일 단위로 보입니다.']],
+        spec: [['오늘 현황', '수신, 발신, 수신 부재중, 발신 부재중, 상담, 진료 건수'], ['콜 알림', '시작·종료 시각을 지정한 부재중 알림, 클레임 유의, 조치 필요'], ['회선 현황', '대표번호, 상담실, 진료실, 업무폰 등 연결된 회선 상태'], ['콜 태그 분포 추이', '오늘과 이전 7일·30일의 통화 태그 비교'], ['키워드 통계', '기간 내 통화에서 자주 나온 키워드'], ['최근 레코드', '콜·상담·진료 최근 기록과 바로가기']] },
+      { id: 'f-call', eyebrow: '콜레코드', screen: 'mk-call', url: 'app.dvoice.ai/call-record', step: 1, h2: '통화를 다시 듣지 않아도, 어떤 전화였는지 압니다', fd: '대표번호, 상담실, 업무폰으로 오간 모든 통화가 기록되고, 끝나는 순간 전사문과 태그, 응대 점수, 유입 채널, 요약이 붙습니다.',
+        dos: [['불만 통화만 걸러 봅니다.', '"접수 불만", "불만족" 태그로 거르고 해당 발언을 바로 읽습니다.'], ['잘한 통화를 찾습니다.', '응대 점수 9~10점 통화가 병원의 응대 기준이 됩니다.'], ['예약까지 갔는지 확인합니다.', '통화 요약에 접수 여부와 예약 일시가 남습니다.']],
+        spec: [['통화 자동 기록', '유선전화와 업무폰, 수신·발신·부재중을 모두 기록'], ['AI 전사문', '고객과 직원의 말을 나눠 시간순으로 표시, 복사 가능'], ['자동 태그와 근거 발화', '비용 문의, 예약·시간 문의, 진료 문의, 예약 변경·취소, 접수 불만, 응대·시설 불만, 회신필요, 연계필요, 위치·주차 문의 등'], ['응대 점수', '통화마다 1~10점, 색으로 구분해 목록에서 바로 확인'], ['유입 채널 감지', '네이버 플레이스·검색, 카카오톡, 구글, 인스타그램, 강남언니, 바비톡, 지인소개'], ['D-Note 통화 요약', '시술 내용, 상담자, 접수, 예약 일시, 특이사항을 병원 양식으로'], ['녹음 재생·다운로드', '필요할 때만 원본을 듣고 내려받기'], ['녹음 고지 기록', '통화마다 고지 여부가 남음'], ['검색과 내보내기', '환자·직원·번호·기간·태그·유입 필터, 엑셀 내보내기']] },
+      { id: 'f-cons', eyebrow: '상담레코드', screen: 'mk-cons', url: 'app.dvoice.ai/consult-record', step: 3, h2: '실장이 바뀌어도, 상담은 병원에 남습니다', fd: '상담실의 대면 상담을 녹음하면 관심 시술이 뽑히고, 상담 내용이 병원이 정한 7개 항목으로 정리됩니다.',
+        dos: [['왜 결정하지 않았는지 읽습니다.', '예산, 통증 걱정, 다운타임, 일정이 보류 사유로 남습니다.'], ['무엇을 얼마에 권했는지 확인합니다.', '권유 시술과 견적, 결정 여부가 항목별로 남습니다.'], ['외국인 상담도 같은 양식으로 봅니다.', '한국어, 영어, 중국어 상담의 언어가 감지됩니다.']],
+        spec: [['상담 녹음', '환자 화면이나 메뉴의 상담 녹음 버튼으로 시작'], ['화자별 전사문', '실장과 환자의 말을 시간순으로, 시술명에 태그'], ['관심 시술 자동 추출', '울쎄라, 필러, 물광 등 상담에서 언급된 시술'], ['7항목 D-Note', '이전 시술 경험, 피부 고민, 예산 및 일정, 통증 민감도, 다운타임, 희망 시술, 특이사항'], ['감지 언어·참여 인원', '한국어, 영어, 중국어 상담과 보호자 동석 여부'], ['환자 기준 조회', '같은 환자의 이전 상담과 통화를 바로 연결']] },
+      { id: 'f-visit', eyebrow: '진료레코드', screen: 'mk-visit', url: 'app.dvoice.ai/visit-record', step: 4, h2: '진료가 끝나면 차트 초안도 끝나 있습니다', fd: '진료실 대화를 녹음하면 주호소, 검사 수치, 진단, 계획이 S·O·A·P 형식으로 정리됩니다. 원장님은 확인하고 필요한 곳만 고치십니다.',
+        dos: [['차트를 쓰지 않고 확인합니다.', '검사 수치와 계획이 대화에서 그대로 옮겨집니다.'], ['재진 때 지난 진료를 한 줄로 봅니다.', '추적 계획이 환자 타임라인에 남습니다.'], ['설명한 내용의 근거를 남깁니다.', '처방 보류 이유, 생활 지도 내용이 원문과 함께 남습니다.']],
+        spec: [['진료 녹음', '환자 화면이나 메뉴의 진료 녹음 버튼으로 시작'], ['SOAP D-Note', 'S 주호소·병력, O 신체 계측·검사 수치, A 진단, P 치료·추적 계획'], ['D-Note 준비 상태', '진료 목록에서 전사와 차트 정리 완료 여부 확인'], ['담당의별 조회', '원장별 진료 기록과 녹음 시간'], ['환자 타임라인 연결', '같은 환자의 통화, 상담과 한 줄로'], ['EMR 연동', 'D-Note를 사용 중인 EMR로 직접 전송', 1]] },
+      { id: 'f-mkt', eyebrow: '마케팅 분석', screen: 'mk-mkt', url: 'app.dvoice.ai/marketing', step: 5, h2: '광고비가 어디서 전화로 돌아왔는지, 통화 기준으로 봅니다', fd: '광고 대행사 리포트의 노출과 클릭이 아니라, 우리 병원 전화기에 실제로 걸려온 문의를 채널별로 집계합니다.',
+        dos: [['채널별 실제 문의 수를 봅니다.', '네이버 플레이스, 검색, 인스타그램, 강남언니 중 어디서 전화가 왔는지.'], ['환자가 원하는 시술을 봅니다.', '상담에서 나온 관심 시술 비율로 이벤트를 정합니다.'], ['이벤트와 전화를 붙여 봅니다.', '강남언니·바비톡 이벤트 기간의 문의 변화를 확인합니다.']],
+        spec: [['채널별 유입 비율', '콜레코드 기준, 확인 불가 건은 제외해 별도 표시'], ['관심 시술 비율', '상담레코드 기준 시술별 건수와 비율'], ['일별 채널 트렌드', '날짜별·채널별 문의 흐름'], ['인사이트 요약', '최다 채널, 피크 일자, 전체 문의, 유입 감지 건수'], ['외부 이벤트 연동', '강남언니, 바비톡 이벤트 보기와 연동 관리'], ['리포트 다운로드', '기간을 지정해 마케팅 분석 리포트로 내려받기']] },
+      { id: 'f-ops', eyebrow: '운영 관리', screen: 'mk-client', url: 'app.dvoice.ai/patients', step: 2, h2: '환자 한 명, 직원 한 명, 회선 하나까지 보입니다', fd: '환자별로 통화·상담·진료가 한 줄로 이어지고, 직원별 응대 현황이 리포트로 나옵니다. 병원의 응대 기준을 만들고 지키는 데 필요한 화면입니다.',
+        dos: [['환자의 처음부터 지금까지 봅니다.', '첫 전화, 상담, 시술, 재진이 시간순 한 화면.'], ['직원별 응대를 숫자로 봅니다.', '통화 수, 평균 통화 길이, 평균 응대 점수.'], ['응대 기준을 만듭니다.', '점수 높은 통화의 녹음과 전사문을 내려받아 교육 자료로 씁니다.']],
+        spec: [['환자 목록', '차트번호, 연락처, 최근 기록, 콜·상담·진료 건수, 엑셀 일괄 등록'], ['환자 타임라인', '콜·상담·진료를 한 목록에서 D-Note 요약과 함께'], ['직원 통계', '회선 연결 직원별 통화 수, 평균 길이, 평균 응대 점수, 리포트 다운로드'], ['사용자·회선 관리', '유선전화와 업무폰을 직원에 연결, 회선별 라벨'], ['권한', '관리자와 직원 권한 분리, 관리자 전용 통계·설정'], ['응대 매뉴얼 자동 생성', '점수 높은 통화에서 모범 응대 문장을 자동 추출', 1]] }
+    ];
+  }
+  componentDidMount() {
+    this.readHash();
+    this.onHash = () => this.readHash();
+    window.addEventListener('hashchange', this.onHash);
+    this.onKey = e => {
+      const sm = document.getElementById('summary'); if (!sm || /INPUT|TEXTAREA|SELECT/.test((e.target || {}).tagName)) return;
+      const r = sm.getBoundingClientRect(); if (r.top > window.innerHeight * 0.6 || r.bottom < window.innerHeight * 0.4) return;
+      if (e.key === 'ArrowRight') this.go(this.state.step + 1);
+      if (e.key === 'ArrowLeft') this.go(this.state.step - 1);
+    };
+    window.addEventListener('keydown', this.onKey);
+    this.onScroll = () => {
+      let cur = 'summary';
+      ['summary', 'f-dash', 'f-call', 'f-cons', 'f-visit', 'f-mkt', 'f-ops', 'f-safe'].forEach(id => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < 180) cur = id; });
+      if (cur !== this.state.activeF) this.setState({ activeF: cur });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.reveal();
+    this.cleanT = setInterval(() => this.cleanFrags(), 400);
+  }
+  componentDidUpdate() { this.reveal(); this.cleanFrags(); }
+  cleanFrags() {
+    document.querySelectorAll('[data-frag] dv-ui').forEach(el => {
+      const sr = el.shadowRoot; if (!sr || sr.getElementById('dv-clean')) return;
+      const st = document.createElement('style'); st.id = 'dv-clean';
+      st.textContent = '.vis{background:transparent!important;overflow:visible!important;height:400px!important}.fr{max-width:420px!important;font-size:14.5px!important;padding:18px 20px!important;border-radius:24px!important}.vis .bl,.vis .arw{display:none!important}';
+      sr.appendChild(st);
+    });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this.onHash);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('scroll', this.onScroll);
+    clearInterval(this.cleanT);
+  }
+  reveal() { clearTimeout(this.rvT); this.rvT = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }
+  readHash() {
+    const h = location.hash.slice(1);
+    const m = h.match(/^summary-(\d)$/);
+    if (m) this.setState({ step: Math.max(0, Math.min(6, +m[1] - 1)) });
+    const id = m ? 'summary' : (h === 'detail' ? 'f-dash' : h);
+    if (id && document.getElementById(id)) setTimeout(() => window.dvScrollTo(id, 132), 150);
+  }
+  go(i) { this.setState({ step: Math.max(0, Math.min(6, i)) }); }
+  toSummary(step) {
+    if (step != null) this.setState({ step });
+    window.dvScrollTo('summary', 132); history.replaceState(null, '', '#summary');
+  }
+  toDetail(target) {
+    const id = target || 'f-dash';
+    window.dvScrollTo(id, 132); history.replaceState(null, '', '#' + id);
+  }
+  renderVals() {
+    const { step, activeF } = this.state;
+    const P = this.points();
+    const labels = P.map(p => p.label).concat('시작하기');
+    const slides = P.map((p, i) => ({
+      ...p, no: '0' + (i + 1), tone: String(i % 6), isPoint: true, isLast: false,
+      detail: () => this.toDetail(p.target)
+    })).concat([{ no: '07', label: '시작하기', title: '이 여섯 가지를, 우리 병원에서 2주 동안 직접 확인하세요', short: '장비는 무료로 빌려드리고 2주 이용료만 받습니다. 2주 동안 실제로 써보시고, 마지막 날 우리 병원 숫자가 담긴 진단 리포트로 판단하세요. 도입하지 않으셔도 장비 비용은 없습니다.', isPoint: false, isLast: true, points: [] }])
+      .map((s, i) => {
+        const on = i === step;
+        return { ...s, op: on ? 1 : 0, ty: on ? '0px' : (i < step ? '-18px' : '18px'), bl: on ? '0px' : '8px', pe: on ? 'auto' : 'none', vis: on ? 'visible' : 'hidden', visDelay: on ? '0ms' : '600ms', hidden: on ? 'false' : 'true' };
+      });
+    const F = this.feats();
+    const chipList = [['summary', '3분 요약']].concat(F.map(f => [f.id, f.eyebrow]), [['f-safe', '안심과 보안']]);
+    return {
+      barRef: this.barRef,
+      chips: chipList.map(([id, label]) => ({ label, go: () => { this.setState({ activeF: id }); window.dvScrollTo(id, 132); history.replaceState(null, '', '#' + id); }, bg: activeF === id ? '#191F28' : 'transparent', fg: activeF === id ? '#FFFFFF' : '#6B7684' })),
+      pills: labels.map((l, i) => ({ no: '0' + (i + 1), label: l, go: () => this.go(i), cur: i === step ? 'step' : 'false', kc: i === step ? '#191F28' : '#B0B8C1', tc: i === step ? '#191F28' : (i < step ? '#6B7684' : '#B0B8C1'), fw: i === step ? 700 : 600, fill: i <= step ? '100%' : '0%' })),
+      slides,
+      offer: [
+        { k: '장비', v: '무료 임대', p: '통화·상담 기록에 필요한 장비를 무료로 빌려드리고, 담당 엔지니어가 기존 회선에 연결합니다. 전화기는 그대로입니다.' },
+        { k: '비용', v: '2주 이용료만', p: '2주 동안 대시보드, 콜·상담 기록, 마케팅 분석을 실제로 쓰시는 이용료만 받습니다.' },
+        { k: '결과', v: '진단 리포트', p: '마지막 날 부재중 전화, 불만 통화, 유입 채널, 상담 보류 사유, 추정 손실 금액을 한 장으로 드립니다.' }
+      ],
+      stepNo: step + 1, atFirst: step === 0, prevOp: step === 0 ? 0.4 : 1,
+      prev: () => this.go(step - 1),
+      next: () => (step === 6 ? this.toDetail(null) : this.go(step + 1)),
+      nextLabel: step === 6 ? '기능 상세 보기 →' : '다음 →',
+      features: F.map((f, i) => ({
+        ...f, bg: i % 2 ? '#F5F6F8' : '#FFFFFF', cardBg: i % 2 ? '#FFFFFF' : '#F7F8FA', dir: i % 2 ? 'row-reverse' : 'row',
+        dos: f.dos.map((d, k) => ({ b: d[0], t: d[1], delay: 160 + k * 70 })),
+        spec: f.spec.map((s, k) => ({ b: s[0], t: s[1], soon: !!s[2], delay: k * 50 })),
+        toStep: () => this.toSummary(f.step)
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

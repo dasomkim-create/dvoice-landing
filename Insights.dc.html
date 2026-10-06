@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site.js"></script>
+<style>
+@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+a{color:#2B45D4;text-decoration:none;}
+a:hover{color:#2138B5;}
+input::placeholder{color:#8B95A1;}
+</style>
+</helmet>
+<div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
+  <dc-import name="SiteHeader" active="insights" hint-size="100%,64px"></dc-import>
+
+  <section style="padding:152px 24px 40px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">인사이트</div>
+      <h1 data-reveal="" data-delay="80" style="margin:16px 0 0;font-size:clamp(34px,5vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">병원 운영 이야기와 D voice 소식</h1>
+      <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:640px;">도입 사례, 언론 보도, D voice 팀이 쓴 병원 운영 글을 한곳에 모았습니다.</p>
+    </div>
+  </section>
+
+  <div style="position:sticky;top:64px;z-index:30;padding:12px 24px;display:flex;justify-content:center;background:rgba(255,255,255,0.86);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);">
+    <div style="width:100%;max-width:1120px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+      <div role="tablist" aria-label="분류" style="display:flex;gap:6px;flex-wrap:wrap;">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button type="button" role="tab" aria-selected="{{ t.on }}" onClick="{{ t.go }}" style="height:44px;padding:0 18px;border:none;border-radius:999px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};transition:background 250ms,color 250ms;" style-active="transform:scale(0.97);">{{ t.label }}<span style="margin-left:6px;font-size:13px;opacity:0.6;font-variant-numeric:tabular-nums;">{{ t.n }}</span></button>
+        </sc-for>
+      </div>
+      <label style="flex:0 1 320px;min-width:200px;height:44px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:14px;background:#F2F4F6;color:#8B95A1;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        <input type="search" value="{{ q }}" onChange="{{ onQ }}" placeholder="제목, 키워드로 찾기" aria-label="인사이트 검색" style="flex:1;min-width:0;border:none;background:transparent;outline:none;font:inherit;font-size:15px;color:#191F28;">
+      </label>
+    </div>
+  </div>
+
+  <section style="padding:24px 24px 120px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <sc-if value="{{ hasFeat }}" hint-placeholder-val="{{ true }}">
+        <a href="{{ feat.href }}" data-reveal="" data-reveal-panel="" style="display:flex;flex-wrap:wrap;gap:28px clamp(28px,4vw,56px);align-items:center;padding:14px;border-radius:40px;background:#F7F8FA;color:#191F28;transition:background 300ms;" style-hover="background:#F2F4F6;color:#191F28;">
+          <div style="flex:1.2 1 420px;min-width:0;aspect-ratio:16 / 10;border-radius:28px;background:repeating-linear-gradient(135deg,#E9ECF2 0 10px,#F1F3F7 10px 20px);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:#8B95A1;">{{ feat.thumb }}</span>
+          </div>
+          <div style="flex:1 1 340px;min-width:0;padding:8px 18px 18px 4px;display:flex;flex-direction:column;gap:14px;">
+            <span style="display:flex;align-items:center;gap:10px;font-size:14px;color:#8B95A1;"><span style="font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:{{ feat.cbg }};color:{{ feat.cfg }};">{{ feat.catLabel }}</span>{{ feat.date }} · {{ feat.src }}</span>
+            <h2 style="margin:0;font-size:clamp(24px,2.8vw,34px);line-height:1.38;font-weight:700;letter-spacing:-0.03em;text-wrap:balance;">{{ feat.title }}</h2>
+            <p style="margin:0;font-size:16px;line-height:1.7;color:#6B7684;">{{ feat.ex }}</p>
+            <span style="margin-top:6px;display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:#2B45D4;">읽어보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+          </div>
+        </a>
+      </sc-if>
+
+      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:40px 24px;">
+        <sc-for list="{{ items }}" as="a" hint-placeholder-count="6">
+          <a href="{{ a.href }}" data-reveal="" data-delay="{{ a.delay }}" style="display:flex;flex-direction:column;gap:14px;color:#191F28;" style-hover="color:#191F28;translate:0 -4px;">
+            <div style="aspect-ratio:16 / 10;border-radius:24px;background:repeating-linear-gradient(135deg,#EEF0F4 0 10px,#F6F7F9 10px 20px);display:flex;align-items:center;justify-content:center;">
+              <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#8B95A1;">{{ a.thumb }}</span>
+            </div>
+            <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#8B95A1;padding:0 4px;"><span style="font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:{{ a.cbg }};color:{{ a.cfg }};">{{ a.catLabel }}</span>{{ a.date }} · {{ a.src }}</span>
+            <h3 style="margin:0;padding:0 4px;font-size:19px;line-height:1.45;font-weight:700;letter-spacing:-0.02em;">{{ a.title }}</h3>
+            <p style="margin:0;padding:0 4px;font-size:15px;line-height:1.65;color:#6B7684;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ a.ex }}</p>
+          </a>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:96px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <b style="font-size:19px;font-weight:700;">찾는 글이 없어요</b>
+          <span style="font-size:15px;color:#8B95A1;">다른 키워드로 찾아보세요.</span>
+          <button type="button" onClick="{{ reset }}" style="margin-top:8px;height:44px;padding:0 18px;border:none;border-radius:12px;background:#F2F4F6;font:inherit;font-size:15px;font-weight:600;color:#4E5968;cursor:pointer;">전체 보기</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:56px;display:flex;justify-content:center;">
+          <button type="button" onClick="{{ more }}" style="height:52px;padding:0 24px;border:none;border-radius:16px;background:#F7F8FA;font:inherit;font-size:16px;font-weight:600;color:#4E5968;cursor:pointer;transition:background 200ms;" style-hover="background:#EEF0F3;color:#191F28;" style-active="transform:scale(0.97);">더 보기</button>
+        </div>
+      </sc-if>
+
+      <p style="margin:56px 0 0;font-size:13px;color:#8B95A1;">목록의 제목과 요약은 레이아웃 예시이며, 실제 보도와 글로 교체됩니다.</p>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,640px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { cat: 'all', q: '', limit: 6 };
+  componentDidMount() {
+    this.readHash = () => { const h = location.hash.slice(1); this.setState({ cat: ['news', 'blog', 'case'].includes(h) ? h : 'all', limit: 6 }); };
+    this.readHash(); window.addEventListener('hashchange', this.readHash);
+    this.reveal();
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.readHash); }
+  componentDidUpdate() { this.reveal(); }
+  reveal() { clearTimeout(this.t); this.t = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }
+  data() {
+    return [
+      { cat: 'case', date: '2026.09.30', src: '피부과 · 서울 강남', thumb: '사례 이미지 · A피부과', title: 'A피부과 · 야간 부재중 30건이 보이자, 12주 만에 광고비가 옮겨졌습니다', ex: '부재중 당일 회신율 22% → 81%, 평균 응대 점수 6.9 → 8.5. 무엇을 발견했고 무엇을 바꿨는지 정리했습니다.' },
+      { cat: 'case', date: '2026.09.16', src: '성형외과 · 서울', thumb: '사례 이미지 · B성형외과', title: 'B성형외과 · 외국인 상담이 같은 양식으로', ex: '중국어·영어 상담이 늘면서 통역 직원만 알던 상담 내용이 7항목 D-Note로 남기 시작했습니다.' },
+      { cat: 'case', date: '2026.08.20', src: '내과 · 검진센터 · 경기', thumb: '사례 이미지 · C내과', title: 'C내과 · 결과 회신 전화와 차트가 동시에 정리', ex: '본인 확인 절차가 통화 기록에 남고, 진료 차트는 SOAP 초안으로 받아 퇴근이 빨라졌습니다.' },
+      { cat: 'case', date: '2026.07.22', src: '치과 · 부산', thumb: '사례 이미지 · D치과', title: 'D치과 · 예약 변경 전화가 빈 체어가 되지 않도록', ex: '예약 변경·취소 태그가 붙은 통화를 모아 당일 빈자리를 대기 환자에게 바로 연락했습니다.' },
+      { cat: 'news', date: '2026.09.24', src: '보도자료', thumb: '보도 이미지', title: 'D voice, 운영 병·의원 35곳·누적 분석 대화 64만 건 넘어', ex: '병·의원의 전화와 상담, 진료 대화를 기록하고 정리하는 D voice가 운영 병·의원 35곳, 누적 분석 대화 64만 건을 넘었습니다.' },
+      { cat: 'blog', date: '2026.09.10', src: '운영', thumb: '썸네일 · 계산기 화면', title: '부재중 전화 한 통은 얼마일까, 숫자 다섯 개로 계산하기', ex: '하루 부재중 전화, 신규 문의 비율, 예약 전환율, 초진 매출, 진료일. 숫자 다섯 개면 한 달 동안 놓치고 있을 수 있는 초진 매출이 나옵니다.' },
+      { cat: 'blog', date: '2026.08.27', src: '응대', thumb: '썸네일 · 통화 전사문', title: '응대 점수 9점 통화의 세 가지 공통점', ex: '가격은 한 번에 금액으로, 가능한 시간은 두 개를 먼저, 내원 전 준비사항은 꼭 붙여서. 점수가 높은 통화를 모아 보면 우리 병원 말투의 기준이 보입니다.' },
+      { cat: 'blog', date: '2026.08.13', src: '상담', thumb: '썸네일 · 상담 D-Note', title: '실장이 바뀌어도 상담이 병원에 남으려면', ex: '보류 사유, 권유 시술, 견적이 7항목 D-Note로 남으면 인수인계는 열람으로 끝납니다.' },
+      { cat: 'blog', date: '2026.07.30', src: '마케팅', thumb: '썸네일 · 채널 도넛', title: '광고비, 클릭이 아니라 걸려온 전화로 보기', ex: '광고 대행사 리포트의 노출과 클릭 대신, 환자의 첫마디에서 잡은 유입 채널로 실제 문의 수를 집계해 봤습니다.' },
+      { cat: 'news', date: '2026.07.08', src: '보도자료', thumb: '보도 이미지', title: 'D voice 안심병원 표시, 발급 기준 초안 공개', ex: '녹음 고지, 권유 기록, 열람 제공, 불만 조치, 보관 정책. 다섯 가지 기준을 D voice 데이터로 자동 확인합니다.' },
+      { cat: 'blog', date: '2026.06.18', src: '운영', thumb: '썸네일 · 불만 태그', title: '불만 통화 12건 중 9건이 "접수 대기"였던 이유', ex: '불만 태그와 키워드를 함께 보면, 문제는 직원 태도가 아니라 접수 동선과 자격 조회 순서였습니다.' },
+      { cat: 'news', date: '2026.05.15', src: '머니투데이', thumb: '기사 이미지', title: '머니투데이 보도 · 기사 제목으로 교체', ex: '2026년 5월 15일 머니투데이에 보도된 기사입니다. 기사 제목과 요약, 원문 링크로 교체됩니다.' },
+      { cat: 'blog', date: '2026.04.29', src: '진료', thumb: '썸네일 · SOAP 초안', title: '진료가 끝나면 차트 초안도 끝나 있도록', ex: '진료 대화가 S·O·A·P 초안으로 정리되고, 차트의 한 줄이 대화의 어디서 왔는지 바로 확인합니다.' }
+    ];
+  }
+  renderVals() {
+    const { cat, q, limit } = this.state;
+    const D = this.data();
+    const CAT = { case: ['도입 사례', '#2B45D4', '#FFFFFF'], news: ['뉴스', '#191F28', '#FFFFFF'], blog: ['블로그', '#E8EDFD', '#2B45D4'] };
+    const deco = a => ({ ...a, href: a.cat === 'case' ? 'Cases.dc.html' : '#', catLabel: CAT[a.cat][0], cbg: CAT[a.cat][1], cfg: CAT[a.cat][2] });
+    const qq = q.trim().toLowerCase();
+    const list = D.filter(a => (cat === 'all' || a.cat === cat) && (!qq || (a.title + a.ex + a.src).toLowerCase().includes(qq))).sort((x, y) => y.date.localeCompare(x.date)).map(deco);
+    const feat = list[0];
+    const rest = list.slice(1);
+    const tabs = [['all', '전체'], ['case', '도입 사례'], ['news', '뉴스'], ['blog', '블로그']];
+    return {
+      tabs: tabs.map(([k, label]) => ({ label, n: k === 'all' ? D.length : D.filter(a => a.cat === k).length, on: cat === k ? 'true' : 'false', bg: cat === k ? '#191F28' : '#F2F4F6', fg: cat === k ? '#FFFFFF' : '#4E5968', go: () => { this.setState({ cat: k, limit: 6 }); history.replaceState(null, '', k === 'all' ? '#' : '#' + k); } })),
+      q, onQ: e => this.setState({ q: e.target.value, limit: 6 }),
+      hasFeat: !!feat, feat: feat || {},
+      items: rest.slice(0, limit).map((a, i) => ({ ...a, delay: (i % 3) * 80 })),
+      hasMore: rest.length > limit, more: () => this.setState({ limit: limit + 6 }),
+      empty: list.length === 0, reset: () => this.setState({ q: '', cat: 'all' })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site.js"></script>
+<style>
+@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+a{color:#2B45D4;text-decoration:none;}
+a:hover{color:#2138B5;}
+</style>
+</helmet>
+<div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
+  <dc-import name="SiteHeader" active="cases" hint-size="100%,64px"></dc-import>
+
+  <section style="padding:152px 24px 48px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div data-reveal="" style="display:flex;align-items:center;gap:8px;font-size:17px;font-weight:600;"><a href="Insights.dc.html" style="color:#8B95A1;">인사이트</a><span style="color:#D1D6DB;">/</span><span style="color:#2B45D4;">도입 사례</span></div>
+      <h1 data-reveal="" data-delay="80" style="margin:16px 0 0;font-size:clamp(34px,5vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">진료실 밖이 보이기 시작한 병원들</h1>
+      <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:680px;">합산 실적이 아니라 병원 한 곳의 전후입니다. 무엇을 발견했고, 무엇을 바꿨고, 숫자가 어떻게 달라졌는지.</p>
+      <div data-reveal="" data-delay="240" style="margin-top:32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+        <div role="group" aria-label="진료과 필터" style="display:flex;flex-wrap:wrap;gap:6px;">
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+            <button type="button" onClick="{{ f.go }}" aria-pressed="{{ f.on }}" style="height:44px;padding:0 18px;border:none;border-radius:999px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;background:{{ f.bg }};color:{{ f.fg }};transition:background 250ms,color 250ms;" style-active="transform:scale(0.97);">{{ f.label }}<span style="margin-left:6px;font-size:13px;opacity:0.6;font-variant-numeric:tabular-nums;">{{ f.n }}</span></button>
+          </sc-for>
+        </div>
+        <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#8B95A1;max-width:520px;"><span style="flex:none;font-size:12px;font-weight:700;color:#B7791F;padding:3px 9px;border-radius:999px;background:#FFF4E5;">예시</span>병원명과 수치는 사례 구조를 보여주기 위한 예시이며, 공개 동의를 받은 운영 병원의 실측치로 교체됩니다.</span>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ showFeat }}" hint-placeholder-val="{{ true }}">
+    <section style="padding:0 24px 24px;display:flex;justify-content:center;">
+      <article data-reveal="" data-reveal-panel="" style="width:100%;max-width:1120px;border-radius:40px;overflow:hidden;background:#F7F8FA;">
+        <div style="position:relative;overflow:hidden;background:#0A1434;color:#fff;padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:40px clamp(32px,5vw,72px);">
+          <div aria-hidden="true" style="position:absolute;right:-120px;top:-160px;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,90,230,0.28),rgba(60,90,230,0));pointer-events:none;"></div>
+          <div style="position:relative;flex:1 1 420px;min-width:0;display:flex;flex-direction:column;">
+            <span style="font-size:14px;font-weight:600;color:#A9B8FF;">피부과 · 서울 강남</span>
+            <h2 style="margin:14px 0 0;font-size:clamp(26px,3.2vw,38px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;text-wrap:balance;">A피부과 · 야간 부재중 30건이 보이자, 12주 만에 광고비가 옮겨졌습니다</h2>
+            <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:6px;">
+              <sc-for list="{{ facts }}" as="x" hint-placeholder-count="5"><span style="font-size:13px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14);color:rgba(255,255,255,0.86);">{{ x }}</span></sc-for>
+            </div>
+            <p style="margin:24px 0 0;font-size:16px;line-height:1.75;color:rgba(255,255,255,0.74);">원장님은 진료에 대한 자신감은 있었지만, 데스크와 상담실은 "잘 되고 있겠지"였습니다. 첫 대시보드에서 야간·주말 부재중이 주 30건 가까이 쌓이고 있다는 것을 처음 알았습니다.</p>
+          </div>
+          <div style="position:relative;flex:1 1 400px;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-content:center;">
+            <sc-for list="{{ mets }}" as="m" hint-placeholder-count="4">
+              <div style="border-radius:24px;padding:22px;background:rgba(255,255,255,0.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.12);display:flex;flex-direction:column;gap:6px;">
+                <span style="font-size:13px;color:rgba(255,255,255,0.7);">{{ m.l }}</span>
+                <span style="font-size:14px;color:rgba(255,255,255,0.45);text-decoration:line-through;font-variant-numeric:tabular-nums;">{{ m.from }}</span>
+                <b style="font-size:clamp(32px,3.4vw,44px);font-weight:700;line-height:1.05;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;">{{ m.to }}<small style="font-size:0.42em;font-weight:600;margin-left:2px;">{{ m.u }}</small></b>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:clamp(28px,5vw,56px);">
+          <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:28px 24px;">
+            <sc-for list="{{ phases }}" as="p" hint-placeholder-count="4">
+              <li data-reveal="" data-delay="{{ p.delay }}" style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:2px solid {{ p.line }};">
+                <span style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;"><b style="font-size:13px;font-weight:700;color:#2B45D4;">{{ p.k }}</b><span style="font-size:28px;font-weight:200;line-height:1;color:#B0B8C1;font-variant-numeric:tabular-nums;">{{ p.no }}</span></span>
+                <b style="font-size:19px;font-weight:700;letter-spacing:-0.02em;">{{ p.b }}</b>
+                <p style="margin:0;font-size:15px;line-height:1.65;color:#6B7684;">{{ p.p }}</p>
+              </li>
+            </sc-for>
+          </ol>
+          <figure style="margin:48px 0 0;padding:clamp(24px,4vw,40px);border-radius:28px;background:#FFFFFF;display:flex;flex-direction:column;gap:16px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2.4vw,28px);line-height:1.55;font-weight:700;letter-spacing:-0.025em;text-wrap:pretty;">"진료는 제가 제일 잘 압니다. 그런데 데스크와 상담실에서 무슨 일이 있는지는 몰랐어요. 이제는 아침에 그걸 먼저 봅니다."</blockquote>
+            <figcaption style="font-size:14px;color:#8B95A1;">A피부과 원장 · 예시</figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+  </sc-if>
+
+  <section style="padding:0 24px 120px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:24px;">
+        <sc-for list="{{ cards }}" as="c" hint-placeholder-count="3">
+          <article data-reveal="" data-delay="{{ c.delay }}" style="border-radius:32px;padding:28px;background:#FFFFFF;box-shadow:0 0 0 1px #E5E8EB;display:flex;flex-direction:column;gap:14px;transition:translate 300ms cubic-bezier(0.22,1,0.36,1),box-shadow 300ms;" style-hover="translate:0 -6px;box-shadow:0 0 0 1px #E5E8EB,0 30px 60px -36px rgba(30,40,60,0.3);">
+            <span style="display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#8B95A1;">{{ c.dept }}<span style="font-size:12px;font-weight:700;color:#B7791F;padding:2px 8px;border-radius:999px;background:#FFF4E5;">예시</span></span>
+            <h3 style="margin:0;font-size:21px;line-height:1.4;font-weight:700;letter-spacing:-0.02em;">{{ c.h }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.7;color:#6B7684;flex:1;">{{ c.p }}</p>
+            <div style="margin-top:6px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <sc-for list="{{ c.m }}" as="m" hint-placeholder-count="2">
+                <div style="border-radius:18px;padding:14px 16px;background:#F7F8FA;display:flex;flex-direction:column;gap:4px;"><span style="font-size:12px;color:#8B95A1;">{{ m.l }}</span><b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;color:#2B45D4;font-variant-numeric:tabular-nums;">{{ m.v }}</b></div>
+              </sc-for>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:96px;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">현장의 목소리</div>
+        <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(26px,3.2vw,38px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">현행 dvoice.ai에 게재된 후기</h2>
+        <div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;">
+          <figure data-reveal="" style="margin:0;border-radius:32px;padding:clamp(28px,4vw,44px);background:linear-gradient(160deg,#F3F1EF 0%,#E9E6E3 100%);display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:260px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2vw,26px);line-height:1.55;font-weight:700;letter-spacing:-0.02em;">"놓치는 전화가 사라지고, 상담 인수인계가 5분으로 줄었어요."</blockquote>
+            <figcaption style="display:flex;flex-direction:column;gap:2px;"><b style="font-size:16px;font-weight:700;">서울 강남구 ○○성형외과</b><span style="font-size:14px;color:#6B7684;">상담실장 · 현행 사이트 게재 후기</span></figcaption>
+          </figure>
+          <figure data-reveal="" data-delay="100" style="margin:0;border-radius:32px;padding:clamp(28px,4vw,44px);background:linear-gradient(160deg,#EEF1FA 0%,#E2E8F7 100%);display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:260px;">
+            <blockquote style="margin:0;font-size:clamp(20px,2vw,26px);line-height:1.55;font-weight:700;letter-spacing:-0.02em;">"외국인 상담도, 진료 차트 정리도 알아서 됩니다."</blockquote>
+            <figcaption style="display:flex;flex-direction:column;gap:2px;"><b style="font-size:16px;font-weight:700;">경기 ○○피부과</b><span style="font-size:14px;color:#6B7684;">원장 · 현행 사이트 게재 후기</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-header-dark="" style="position:relative;overflow:hidden;background:#0A1434;padding:clamp(96px,12vw,150px) 24px;display:flex;justify-content:center;">
+    <div aria-hidden="true" style="position:absolute;right:-180px;top:50%;width:0;height:0;pointer-events:none;">
+      <span style="position:absolute;left:-260px;top:-260px;width:520px;height:520px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.10);"></span>
+      <span style="position:absolute;left:-440px;top:-440px;width:880px;height:880px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.07);"></span>
+      <span style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,90,230,0.22),rgba(60,90,230,0));"></span>
+    </div>
+    <div data-reveal="" style="position:relative;width:100%;max-width:1120px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;color:#fff;">
+      <div style="flex:1 1 520px;max-width:720px;">
+        <div style="font-size:17px;font-weight:600;color:#A9B8FF;">2주 콜 진단</div>
+        <h2 style="margin:14px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">다음 사례는 원장님 병원일 수 있습니다</h2>
+        <p style="margin:18px 0 0;font-size:17px;line-height:1.75;color:rgba(255,255,255,0.74);">장비 무료 임대, 2주 이용료만. 2주 콜 진단 리포트가 우리 병원 사례의 첫 페이지가 됩니다.</p>
+      </div>
+      <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.08);" style="flex:none;height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,640px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { f: 'all' };
+  componentDidMount() { this.reveal(); }
+  componentDidUpdate() { this.reveal(); }
+  reveal() { clearTimeout(this.t); this.t = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }
+  renderVals() {
+    const f = this.state.f;
+    const CARDS = [
+      { d: 'skin', dept: '성형외과 · 서울', h: 'B성형외과 · 외국인 상담이 같은 양식으로', p: '중국어·영어 상담이 늘면서 통역 직원만 알던 상담 내용이 7항목 D-Note로 남기 시작했습니다. 실장 교체 때 인수인계가 5분 열람으로 끝났습니다.', m: [['상담 기록 완결', '97%'], ['인수인계', '5분']] },
+      { d: 'clinic', dept: '내과 · 검진센터 · 경기', h: 'C내과 · 결과 회신 전화와 차트가 동시에 정리', p: '검사 결과 회신 전화가 하루의 절반이었습니다. 본인 확인 절차가 통화 기록에 남고, 진료 차트는 SOAP 초안으로 받아 퇴근이 빨라졌습니다.', m: [['차트 정리 방식', '확인만'], ['회신 누락', '0건']] },
+      { d: 'dental', dept: '치과 · 부산', h: 'D치과 · 예약 변경 전화가 빈 체어가 되지 않도록', p: '예약 변경·취소 태그가 붙은 통화를 모아 당일 빈자리를 대기 환자에게 바로 연락했습니다. 부재중 알림으로 점심시간 전화도 회신합니다.', m: [['당일 빈자리 채움', '+18건/월'], ['부재중 회신', '당일']] }
+    ];
+    const F = [['all', '전체'], ['skin', '피부·성형'], ['clinic', '내과·검진'], ['dental', '치과']];
+    const count = k => k === 'all' ? 4 : CARDS.filter(c => c.d === k).length + (k === 'skin' ? 1 : 0);
+    return {
+      filters: F.map(([k, label]) => ({ label, n: count(k), on: f === k ? 'true' : 'false', go: () => this.setState({ f: k }), bg: f === k ? '#191F28' : '#F2F4F6', fg: f === k ? '#FFFFFF' : '#4E5968' })),
+      showFeat: f === 'all' || f === 'skin',
+      facts: ['원장 1', '상담실장 2', 'CS 3', '회선 8개', '콜·상담 PREMIUM'],
+      mets: [
+        { l: '부재중 당일 회신율', from: '22%', to: '81', u: '%' },
+        { l: '평균 응대 점수', from: '6.9', to: '8.5', u: '점' },
+        { l: '상담 후 예약 전환', from: '31%', to: '42', u: '%' },
+        { l: '새 실장 인수인계', from: '2주', to: '3', u: '일' }
+      ],
+      phases: [
+        { k: '발견 · 1~3주', b: '불만의 원인은 동선', p: '불만 통화 12건 중 9건이 "접수 대기". 직원 태도가 아니라 접수 동선과 자격 조회 순서의 문제였습니다.' },
+        { k: '기준 · 4~6주', b: '모범 통화 20건', p: '응대 점수 9점 이상 통화 20건을 골라 가격 안내, 시간 제시, 내원 전 안내 세 가지 기준을 만들었습니다.' },
+        { k: '인수인계 · 8주', b: '실장 교체에도 끊김 없음', p: '새 실장이 이전 실장의 상담 D-Note로 보류 환자 목록을 받아 첫 주에 재상담을 잡았습니다.' },
+        { k: '돈 · 12주', b: '광고비 재배분', p: '채널별 실제 문의 수를 보고 네이버 플레이스 비중을 올리고, 전화가 오지 않던 채널을 줄였습니다.' }
+      ].map((p, i) => ({ ...p, no: '0' + (i + 1), delay: i * 80, line: i === 3 ? '#2B45D4' : '#191F28' })),
+      cards: CARDS.filter(c => f === 'all' || c.d === f).map((c, i) => ({ ...c, delay: i * 80, m: c.m.map(([l, v]) => ({ l, v })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

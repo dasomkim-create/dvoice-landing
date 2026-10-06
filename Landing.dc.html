@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<meta name="ext-resource-dependency" content="case.mp4" data-resource-id="caseVideo">
+<template id="__bundler_thumbnail" data-bg-color="#FFFFFF"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#FFFFFF"></rect><rect x="30" y="30" width="40" height="40" rx="12" fill="#2B45D4"></rect><circle cx="50" cy="50" r="8" fill="#FFFFFF"></circle></svg></template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="data.js"></script>
+<script src="dv-ui.js"></script>
+<script src="calc3d.bundle.js"></script>
+<style>
+@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+a{color:#2B45D4;text-decoration:none;}
+a:hover{color:#2138B5;}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+input[type=number]{-moz-appearance:textfield;}
+@keyframes qbar{from{width:0}to{width:100%}}
+@keyframes nudgeA{0%,100%{translate:0 0}20%{translate:0 -10px}45%{translate:0 4px}70%{translate:0 -3px}}
+@keyframes nudgeB{0%,100%{translate:0 0}20%{translate:0 -10px}45%{translate:0 4px}70%{translate:0 -3px}}
+</style>
+</helmet>
+<div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
+
+  <dc-import name="SiteHeader" hint-size="100%,64px"></dc-import>
+
+  <nav aria-label="섹션 목차" style="position:fixed;left:24px;top:50%;transform:translateY(-50%);z-index:25;display:flex;flex-direction:column;opacity:{{ tocOp }};pointer-events:{{ tocPe }};transition:opacity 400ms;">
+    <sc-for list="{{ toc }}" as="t" hint-placeholder-count="13">
+      <button type="button" onClick="{{ t.go }}" onMouseEnter="{{ t.enter }}" onMouseLeave="{{ t.leave }}" onFocus="{{ t.enter }}" onBlur="{{ t.leave }}" aria-label="{{ t.label }}" style="position:relative;width:40px;height:12px;padding:0;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;">
+        <span style="display:block;height:1.5px;border-radius:1px;width:{{ t.w }};background:{{ t.c }};transition:width 300ms cubic-bezier(0.22,1,0.36,1),background 300ms;"></span>
+        <span style="position:absolute;left:34px;top:50%;transform:translate({{ t.lx }},-50%);white-space:nowrap;font-size:12px;font-weight:600;color:{{ t.lc }};padding:4px 9px;border-radius:8px;background:{{ t.lbg }};opacity:{{ t.lop }};pointer-events:none;transition:opacity 200ms,transform 260ms cubic-bezier(0.22,1,0.36,1);">{{ t.label }}</span>
+      </button>
+    </sc-for>
+  </nav>
+
+  <div ref="{{ morphRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;width:0;height:0;z-index:15;pointer-events:none;opacity:0;will-change:transform,width,height;"></div>
+  <div ref="{{ flyRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:20;pointer-events:none;opacity:0;display:flex;align-items:baseline;gap:4px;color:#14171B;font-weight:700;letter-spacing:-0.04em;font-variant-numeric:tabular-nums;will-change:transform,opacity;transform-origin:50% 50%;"><span ref="{{ flyNumRef }}" style="font-size:72px;line-height:1;">0</span><span style="font-size:24px;font-weight:600;color:#6E6A63;">만원</span></div>
+
+  <section ref="{{ introRef }}" style="position:relative;height:220vh;background:#FFFFFF;">
+    <div ref="{{ heroStickyRef }}" style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#FFFFFF;color:#191F28;transform-origin:50% 0%;will-change:transform;">
+      <canvas ref="{{ heroBgRef }}" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;"></canvas>
+      <div ref="{{ introBlockRef }}" style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px;max-width:900px;">
+        <div ref="{{ b0 }}" style="font-size:16px;font-weight:600;color:#2B45D4;">병·의원 전화 · 상담 · 진료 운영 플랫폼</div>
+        <h1 style="margin:22px 0 0;font-size:clamp(40px,6.6vw,76px);line-height:1.22;font-weight:700;letter-spacing:-0.035em;">
+          <span ref="{{ b1 }}" style="display:block;">어제도 울렸던 전화,</span>
+          <span ref="{{ b2 }}" style="display:block;">몇 통이 그냥 끊겼을까요?</span>
+        </h1>
+        <p ref="{{ descRef }}" style="margin:40px 0 0;font-size:clamp(18px,2.1vw,24px);line-height:1.6;font-weight:500;color:#4E5968;max-width:640px;">
+          <span ref="{{ b3 }}" style="display:block;">병원 전화의 손익, 감이 아니라 숫자로 보세요.</span>
+          <span ref="{{ b4 }}" style="display:block;margin-top:6px;">우리 병원 숫자 다섯 개만 넣으면 한 달 동안 놓치고 있는 초진 매출을 바로 알 수 있어요.</span>
+        </p>
+      </div>
+      <div ref="{{ hintRef }}" style="position:absolute;bottom:36px;left:50%;width:1px;height:44px;margin-left:-0.5px;background:linear-gradient(180deg,rgba(25,31,40,0),rgba(25,31,40,0.3));"></div>
+    </div>
+  </section>
+
+  <section id="calc" ref="{{ stageRef }}" style="position:relative;height:220vh;margin-top:-60vh;">
+    <div onMouseMove="{{ onPointer }}" onMouseLeave="{{ onPointerLeave }}" style="position:sticky;top:0;z-index:2;background:#FFFFFF;will-change:transform,clip-path;height:100vh;overflow:hidden;display:grid;flex-direction:column;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);grid-template-rows:1fr auto auto 1.5fr;column-gap:clamp(24px,4vw,64px);row-gap:28px;align-items:center;padding:80px max(24px, calc((100vw - 1180px) / 2)) 24px;">
+      <div ref="{{ copyRef }}" style="position:relative;z-index:2;grid-column:1;grid-row:2;align-self:end;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:10px;opacity:0;">
+        <div style="font-size:17px;font-weight:600;color:#2B45D4;">놓친 전화 계산기</div>
+        <h2 style="margin:0;font-size:clamp(26px,3.4vw,40px);line-height:1.3;font-weight:700;letter-spacing:-0.03em;">우리 병원 숫자를 넣어 보세요.</h2>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#6B7684;">지금 보이는 숫자는 예시예요.</p>
+      </div>
+      <div ref="{{ calcWrapRef }}" style="grid-column:1 / span 2;grid-row:1 / span 4;align-self:stretch;position:relative;flex:1 1 0;min-height:260px;width:100%;opacity:0;">
+        <canvas ref="{{ calcCanvasRef }}" role="img" aria-label="놓친 전화 계산기 3D 모델. 액정에 계산 결과가 보여요." style="position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;"></canvas>
+        <div style="position:absolute;left:-10%;right:-10%;bottom:-1px;height:6%;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,#FFFFFF 100%);"></div>
+        <span ref="{{ outRef }}" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"></span>
+      </div>
+      <div ref="{{ fieldsRef }}" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">
+        <sc-for list="{{ fields }}" as="f" hint-placeholder-count="5">
+          <label style="display:flex;flex-direction:column;gap:6px;padding:12px 12px 10px 14px;border-radius:18px;background:rgba(255,255,255,0.85);box-shadow:0 0 0 1px rgba(0,0,0,0.06),0 10px 24px -18px rgba(30,40,60,0.25);cursor:text;">
+            <span style="display:flex;flex-direction:column;min-width:0;"><span style="font-size:13px;font-weight:600;color:#333D4B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ f.label }}</span><span style="font-size:11px;color:#8B95A1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:15px;">{{ f.small }}</span></span>
+            <span style="display:flex;align-items:center;gap:4px;">
+              <button type="button" onClick="{{ f.dec }}" aria-label="줄이기" style="width:32px;height:32px;flex:none;border:none;border-radius:50%;background:#F2F4F6;font:inherit;font-size:17px;color:#4E5968;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-active="transform:scale(0.9);">−</button>
+              <span style="flex:1;min-width:0;display:flex;align-items:baseline;justify-content:center;gap:2px;"><input type="number" inputmode="numeric" min="0" max="{{ f.max }}" value="{{ f.value }}" onChange="{{ f.onChange }}" style="width:56px;border:none;background:transparent;font:inherit;font-size:20px;font-weight:700;text-align:right;color:#191F28;font-variant-numeric:tabular-nums;outline:none;padding:0;"><span style="font-size:12px;color:#8B95A1;">{{ f.unit }}</span></span>
+              <button type="button" onClick="{{ f.inc }}" aria-label="늘리기" style="width:32px;height:32px;flex:none;border:none;border-radius:50%;background:#F2F4F6;font:inherit;font-size:17px;color:#4E5968;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-active="transform:scale(0.9);">+</button>
+            </span>
+          </label>
+        </sc-for>
+      </div>
+      <div ref="{{ ctaRef }}" style="grid-column:1;grid-row:3;align-self:start;position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:14px;opacity:0;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;">
+          <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:52px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">2주 진단으로 실제 금액 확인하기</a>
+          <a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:52px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px 14px;font-size:13px;color:#6B7684;">
+          <span><b style="font-weight:600;color:#333D4B;">장비 무료 임대</b></span>
+          <span><b style="font-weight:600;color:#333D4B;">2주 이용료만</b> 내고 직접 사용</span>
+          <span>진단 리포트 포함</span>
+          <span>계산기의 − + 버튼으로 숫자를 바꿔 보세요</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="promise" ref="{{ heroSecRef }}" style="position:relative;height:calc(100vh + 170vh);">
+    <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
+    <div ref="{{ heroGlowRef }}" style="opacity:0;transition:opacity 300ms;position:absolute;left:50%;top:50%;width:1100px;height:1100px;margin:-550px 0 0 -550px;pointer-events:none;background:radial-gradient(50% 50% at 50% 50%, rgba(43,69,212,0.10), rgba(43,69,212,0) 70%);"></div>
+    <div ref="{{ heroRowRef }}" style="position:relative;width:100%;max-width:1120px;display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,72px);align-items:center;">
+      <div ref="{{ heroColRef }}" style="flex:1 1 420px;min-width:0;transform-origin:50% 50%;will-change:transform;">
+        <div style="font-size:17px;font-weight:600;color:#2B45D4;">D voice가 드리는 약속</div>
+        <h1 ref="{{ heroH1Ref }}" style="margin:16px 0 0;font-size:clamp(34px,4.8vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">진료는 원장님이<br>가장 잘 아세요.<br><span style="color:#8B95A1;">진료실 밖 운영은</span><br><span style="color:#2B45D4;">D voice가</span> 책임질게요.</h1>
+        <div ref="{{ heroCopyRef }}" style="opacity:0;">
+        <p style="margin:24px 0 0;font-size:18px;line-height:1.7;color:#4E5968;">데스크 전화, 상담실 상담, 진료실 설명까지 모든 대화가 기록되고 정리돼요. 어디서 환자를 놓치는지, 무엇이 불만인지, 누가 잘 응대하는지 아침 30초면 알 수 있어요.</p>
+        <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;">
+          <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:56px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">우리 병원 2주 콜 진단 신청</a>
+          <a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:56px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+        <div style="margin-top:32px;display:flex;align-items:center;gap:14px;">
+          <span style="font-size:44px;font-weight:700;letter-spacing:-0.04em;font-variant-numeric:tabular-nums;">35</span>
+          <span style="font-size:15px;line-height:1.5;color:#4E5968;">개 병·의원의 원장님이<br><b style="color:#191F28;font-weight:600;">이 화면으로 진료실 밖을 보고 있어요.</b></span>
+        </div>
+        </div>
+      </div>
+      <div ref="{{ heroLiveRef }}" style="flex:1 1 440px;min-width:0;opacity:0;will-change:transform,opacity;">
+        <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="live" hint-size="100%,520px"></x-import>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section style="padding:0 24px 40px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+        <sc-for list="{{ proof }}" as="p" hint-placeholder-count="6">
+          <div data-reveal="" data-delay="{{ p.delay }}" style="background:#F9FAFB;border-radius:24px;padding:24px 20px;display:flex;flex-direction:column;gap:6px;" style-hover="translate:0 -4px;box-shadow:0 18px 40px -20px rgba(30,40,60,0.25);">
+            <b data-count="" style="font-size:32px;font-weight:700;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;">{{ p.v }}</b>
+            <span style="font-size:14px;color:#6B7684;">{{ p.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:14px 0 0;font-size:12px;color:#8B95A1;">2026년 9월 기준 · 음성 인식 정확도는 자체 평가 기준입니다.</p>
+    </div>
+  </section>
+
+  <section id="check" ref="{{ quizSecRef }}" style="position:relative;height:{{ quizSecH }};">
+    <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 64px;overflow:hidden;">
+    <div ref="{{ quizWrapRef }}" style="width:100%;max-width:1120px;display:flex;flex-wrap:wrap;gap:clamp(24px,6vw,96px);align-items:center;">
+      <div ref="{{ quizLeftRef }}" style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:20px;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">원장님께 여쭙니다</div>
+        <h2 data-split="" style="margin:0;font-size:clamp(26px,4vw,46px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">이 여섯 가지 질문에 바로 답할 수 있나요?</h2>
+        <p ref="{{ quizDescRef }}" data-reveal="" data-delay="200" style="margin:0;font-size:17px;line-height:1.7;color:#4E5968;">진료를 잘하는 것과 병원 운영을 잘하는 건 다른 문제예요. "모른다"를 누르면 D voice에서 그 답을 어디서 보는지 알려드려요.</p>
+        <div data-reveal="" data-delay="280" style="display:flex;align-items:center;gap:12px;margin-top:8px;">
+          <span style="font-size:14px;font-weight:600;color:#191F28;font-variant-numeric:tabular-nums;white-space:nowrap;">{{ qStep }} / 6</span>
+          <div style="flex:1;display:flex;gap:6px;">
+            <sc-for list="{{ quizDots }}" as="d" hint-placeholder-count="6">
+              <button type="button" onClick="{{ d.go }}" aria-label="{{ d.label }}" style="flex:1;height:24px;border:none;background:transparent;padding:9px 0;cursor:{{ d.cur }};"><span style="display:block;height:6px;border-radius:3px;background:{{ d.bg }};transform:scaleY({{ d.sy }});transition:background 400ms,transform 300ms;"></span></button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div ref="{{ quizListRef }}" style="flex:1 1 440px;min-width:0;position:relative;height:min(460px,56vh);">
+        <sc-for list="{{ quiz }}" as="q" hint-placeholder-count="6">
+          <div data-q="{{ q.i }}" style="position:absolute;inset:0;display:flex;align-items:center;pointer-events:{{ q.pe }};z-index:{{ q.z }};">
+            <div style="position:relative;overflow:hidden;width:100%;border-radius:32px;padding:32px;display:flex;flex-direction:column;gap:18px;background:{{ q.bg }};box-shadow:{{ q.glow }};opacity:{{ q.op }};transform:translateY({{ q.ty }}) scale({{ q.sc }});filter:blur({{ q.bl }});animation:{{ q.anim }};transition:opacity 650ms cubic-bezier(0.22,1,0.36,1),transform 650ms cubic-bezier(0.22,1,0.36,1),filter 650ms cubic-bezier(0.22,1,0.36,1),background 400ms,box-shadow 400ms;">
+              <sc-if value="{{ q.counting }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:0;top:0;height:4px;background:{{ q.barC }};animation:qbar {{ q.barMs }} linear forwards;"></span></sc-if>
+              <span style="font-size:15px;font-weight:700;color:#2B45D4;">질문 {{ q.n }}</span>
+              <div style="font-size:clamp(22px,2.4vw,28px);line-height:1.45;font-weight:700;letter-spacing:-0.02em;color:#191F28;">{{ q.q }}</div>
+              <div role="group" aria-label="질문 답변" style="display:flex;gap:8px;margin-top:6px;">
+                <button type="button" onClick="{{ q.onKnow }}" aria-pressed="{{ q.know }}" style="flex:1;height:56px;border:none;border-radius:16px;font:inherit;font-size:16px;font-weight:600;cursor:pointer;background:{{ q.knowBg }};color:{{ q.knowFg }};transition:all 200ms;" style-active="transform:scale(0.97);">바로 안다</button>
+                <button type="button" onClick="{{ q.onDont }}" aria-pressed="{{ q.dont }}" style="flex:1;height:56px;border:none;border-radius:16px;font:inherit;font-size:16px;font-weight:600;cursor:pointer;background:{{ q.dontBg }};color:{{ q.dontFg }};transition:all 200ms;" style-active="transform:scale(0.97);">모른다</button>
+              </div>
+              <sc-if value="{{ q.dont }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;border-radius:20px;padding:18px 20px;">
+                  <b style="font-size:14px;font-weight:600;color:#2B45D4;">D voice에서는 · {{ q.screen }}</b>
+                  <p style="margin:6px 0 0;font-size:16px;line-height:1.65;color:#333D4B;">{{ q.a }}</p>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:22px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <span style="font-size:13px;color:#8B95A1;">{{ qHint }}</span>
+      <button type="button" onClick="{{ quizSkip }}" style="border:none;background:transparent;font:inherit;font-size:13px;font-weight:600;color:#6B7684;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 10px;">건너뛰기</button>
+    </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
+    <section ref="{{ quizResRef }}" style="position:relative;height:200vh;">
+      <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
+        <div aria-live="polite" style="width:100%;max-width:980px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;">
+          <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">원장님의 답</div>
+          <div data-reveal="" data-delay="80" style="display:flex;align-items:baseline;gap:12px;">
+            <span style="font-size:20px;font-weight:600;color:#6B7684;">모른다</span>
+            <span style="font-size:clamp(88px,14vw,160px);font-weight:700;line-height:1;letter-spacing:-0.04em;font-variant-numeric:tabular-nums;color:#191F28;">{{ qScore }}</span>
+            <small style="font-size:32px;font-weight:600;color:#B0B8C1;">/ 6</small>
+          </div>
+          <div data-reveal="" data-delay="160" style="display:flex;gap:6px;width:min(360px,100%);">
+            <sc-for list="{{ quizDots }}" as="d" hint-placeholder-count="6">
+              <span style="flex:1;height:8px;border-radius:4px;background:{{ d.bg }};"></span>
+            </sc-for>
+          </div>
+          <b data-reveal="" data-delay="260" style="font-size:clamp(30px,4.6vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;color:#191F28;max-width:900px;text-wrap:balance;">{{ qMsg.big }}</b>
+          <p data-reveal="" data-delay="380" style="margin:0;font-size:clamp(17px,1.8vw,20px);line-height:1.7;color:#4E5968;max-width:680px;">{{ qMsg.rest }}</p>
+          <a data-reveal="" data-delay="460" href="#cta" style="height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;">우리 병원 답을 2주 진단으로 받기</a>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <section id="day" style="padding:140px 24px;display:flex;justify-content:center;background:linear-gradient(180deg,#FFFFFF 0%,#F7F8FA 20%,#F7F8FA 80%,#FFFFFF 100%);">
+    <div style="width:100%;max-width:1120px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">같은 하루, 다른 병원</div>
+      <h2 data-split="" style="margin:14px 0 0;font-size:clamp(30px,4.4vw,48px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;max-width:900px;">진료 실력이 같아도, 진료실 밖이 보이는 병원과 안 보이는 병원은 다르게 운영돼요</h2>
+      <div role="table" aria-label="D voice 없는 병원과 쓰는 병원의 하루 비교" style="margin-top:56px;display:flex;flex-direction:column;gap:10px;">
+        <div role="row" style="display:grid;grid-template-columns:110px minmax(0,1fr) minmax(0,1fr);gap:10px;padding:0 4px;font-size:14px;font-weight:600;">
+          <div role="columnheader" style="color:#8B95A1;">시간</div>
+          <div role="columnheader" style="color:#8B95A1;">D voice가 없는 병원</div>
+          <div role="columnheader" style="color:#2B45D4;">D voice를 쓰는 병원</div>
+        </div>
+        <sc-for list="{{ day }}" as="d" hint-placeholder-count="7">
+          <div role="row" data-reveal="" style="display:grid;grid-template-columns:110px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:stretch;">
+            <div role="cell" style="padding:20px 4px;display:flex;flex-direction:column;gap:2px;"><b style="font-size:16px;font-weight:700;">{{ d.when }}</b><span style="font-size:14px;color:#8B95A1;font-variant-numeric:tabular-nums;">{{ d.time }}</span></div>
+            <div role="cell" style="padding:20px 22px;border-radius:20px;background:#fff;font-size:15px;line-height:1.65;color:#6B7684;">{{ d.no }}</div>
+            <div role="cell" style="padding:20px 22px;border-radius:20px;background:#fff;box-shadow:0 0 0 1.5px rgba(43,69,212,0.25);font-size:15px;line-height:1.65;color:#333D4B;">{{ d.pre }}<b style="font-weight:700;color:#2B45D4;">{{ d.b }}</b>{{ d.post }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <p data-split="" style="margin:56px 0 0;font-size:clamp(20px,2.4vw,26px);line-height:1.55;font-weight:600;color:#333D4B;text-align:center;">환자는 두 병원의 차이를 <b style="color:#2B45D4;">전화 한 통</b>에서 느끼고, 원장님은 그 차이를 <b style="color:#2B45D4;">월말 매출</b>에서 느끼세요.</p>
+    </div>
+  </section>
+
+  <section id="manage" ref="{{ loopSecRef }}" style="position:relative;height:calc(100vh + 300vh);">
+    <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
+      <div style="width:100%;max-width:1120px;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">전화와 상담</div>
+        <h2 data-split="" style="margin:12px 0 0;font-size:clamp(28px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">보이면 관리할 수 있고, 관리하면 나아져요</h2>
+        <p ref="{{ loopDescRef }}" data-reveal="" data-delay="200" style="margin:16px 0 0;font-size:17px;line-height:1.7;color:#4E5968;max-width:720px;">원장님이 가장 통제하기 어려운 건 데스크의 전화와 상담실의 대화예요. D voice는 기록에서 멈추지 않고 문제를 찾고, 매뉴얼로 만들고, 나아졌는지 숫자로 확인하는 데까지 이어져요.</p>
+        <div ref="{{ loopRef }}" data-reveal="" style="margin-top:40px;">
+          <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="loop" hint-size="100%,520px"></x-import>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="callrec" style="padding:140px 0 140px 24px;display:flex;justify-content:center;overflow:hidden;background:#F5F6F8;">
+    <div style="width:100%;max-width:1120px;display:flex;flex-wrap:wrap;gap:48px clamp(32px,4vw,64px);align-items:stretch;">
+      <div style="flex:1 1 300px;display:flex;flex-direction:column;justify-content:space-between;max-width:420px;padding:72px 24px 96px 0;gap:48px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <h2 data-split="" style="margin:0;font-size:clamp(28px,3.6vw,42px);line-height:1.3;font-weight:700;letter-spacing:-0.03em;">콜레코드</h2>
+          <p data-reveal="" data-delay="160" style="margin:0;font-size:17px;line-height:1.7;color:#4E5968;">태그로 거르고, 통화를 눌러 대화와 요약을 확인해 보세요. 제품 구성을 참고해 새로 그린 체험 화면이며, 데이터는 예시예요.</p>
+        </div>
+        <a href="Features.dc.html" data-reveal="" data-delay="240" style-hover="background:#fff;color:#191F28;translate:0 -2px;" style="align-self:flex-start;height:52px;padding:0 10px 0 22px;display:flex;align-items:center;gap:12px;border-radius:999px;background:rgba(255,255,255,0.7);color:#4E5968;font-weight:600;font-size:16px;box-shadow:0 0 0 1px rgba(0,0,0,0.05);transition:background 200ms,color 200ms,translate 260ms cubic-bezier(0.22,1,0.36,1);">자세히 보기<span style="width:34px;height:34px;border-radius:50%;background:#E5E8EB;display:grid;place-items:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+      </div><div id="explorer" data-reveal="" style="flex:2 1 560px;min-width:0;margin-right:calc(-1 * max(0px, (100vw - 1144px) / 2));border-radius:28px 0 0 28px;overflow:hidden;background:#fff;box-shadow:0 40px 90px -50px rgba(30,40,60,0.3),0 0 0 1px rgba(0,0,0,0.05);">
+        <div style="height:46px;display:flex;align-items:center;gap:16px;padding:0 18px;background:#F4F5F7;border-bottom:1px solid #EAECEF;">
+          <span style="width:52px;display:flex;gap:8px;"><i style="width:12px;height:12px;border-radius:50%;background:#FF5F57;display:block;"></i><i style="width:12px;height:12px;border-radius:50%;background:#FEBC2E;display:block;"></i><i style="width:12px;height:12px;border-radius:50%;background:#28C840;display:block;"></i></span>
+          <span style="flex:1;min-width:0;display:flex;justify-content:center;"><span style="width:min(100%,360px);height:28px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;color:#6B7684;box-shadow:0 0 0 1px rgba(0,0,0,0.05);">app.dvoice.ai/call-record</span></span>
+          <span style="width:52px;"></span>
+        </div>
+        <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="explorer" bare="1" hint-size="100%,600px"></x-import>
+      </div>
+      
+    </div>
+  </section>
+
+  <section id="insight" ref="{{ insSecRef }}" style="position:relative;height:calc(100vh + 300vh);background:linear-gradient(180deg,#FFFFFF 0%,#F7F8FA 12%,#F7F8FA 88%,#FFFFFF 100%);">
+    <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
+      <div style="width:100%;max-width:1120px;display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,80px);align-items:center;">
+        <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;">
+          <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">환자 이해</div>
+          <h2 data-split="" style="margin:14px 0 0;font-size:clamp(26px,3.6vw,42px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">설문을 돌리지 않아도, 환자가 한 말이 곧 병원의 데이터예요</h2>
+          <p ref="{{ insDescRef }}" data-reveal="" data-delay="200" style="margin:16px 0 0;font-size:17px;line-height:1.7;color:#4E5968;">어디서 왔는지, 무엇을 원하는지, 무엇에 만족하고 무엇에 불만인지. 전화와 상담에서 나온 말이 그대로 집계돼요.</p>
+          <div style="margin-top:28px;display:flex;flex-direction:column;gap:4px;">
+            <sc-for list="{{ insItems }}" as="it" hint-placeholder-count="4">
+              <button type="button" onClick="{{ it.go }}" style="position:relative;display:flex;gap:16px;text-align:left;border:none;background:transparent;font:inherit;cursor:pointer;padding:14px 0 14px 20px;">
+                <span style="position:absolute;left:0;top:14px;bottom:14px;width:2px;background:#E5E8EB;overflow:hidden;"><span style="display:block;width:100%;height:{{ it.prog }};background:#191F28;"></span></span>
+                <span style="display:flex;flex-direction:column;gap:6px;">
+                  <span style="font-size:13px;font-weight:600;color:{{ it.kc }};transition:color 400ms;">{{ it.k }}</span>
+                  <b style="font-size:clamp(19px,2vw,24px);font-weight:700;letter-spacing:-0.02em;color:{{ it.tc }};transition:color 400ms;">{{ it.h }}</b>
+                  <span style="display:grid;grid-template-rows:{{ it.rows }};transition:grid-template-rows 500ms cubic-bezier(0.22,1,0.36,1);"><span style="overflow:hidden;font-size:15px;line-height:1.65;color:#6B7684;">{{ it.p }}</span></span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="flex:1 1 460px;min-width:0;position:relative;height:min(500px,60vh);">
+          <div style="position:absolute;inset:0;border-radius:36px;background:#fff;box-shadow:0 30px 70px -30px rgba(30,40,60,0.28),0 0 0 1px rgba(0,0,0,0.04);"></div>
+          <sc-for list="{{ insPanels }}" as="pn" hint-placeholder-count="4">
+            <div style="position:absolute;inset:0;padding:32px;display:flex;flex-direction:column;opacity:{{ pn.op }};transform:translateY({{ pn.ty }}) scale({{ pn.sc }});filter:blur({{ pn.bl }});pointer-events:{{ pn.pe }};transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 700ms cubic-bezier(0.22,1,0.36,1),filter 700ms cubic-bezier(0.22,1,0.36,1);">
+              <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;margin-bottom:22px;"><span style="font-weight:700;color:{{ pn.color }};">{{ pn.k }}</span><span style="color:#8B95A1;">{{ pn.sample }}</span></div>
+              <div style="flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;justify-content:center;">
+                <sc-if value="{{ pn.isDonut }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="donut" hint-size="100%,200px"></x-import></sc-if>
+                <sc-if value="{{ pn.isInterest }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="interest" hint-size="100%,260px"></x-import></sc-if>
+                <sc-if value="{{ pn.isVoice }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:10px;">
+                    <sc-for list="{{ pn.voices }}" as="v" hint-placeholder-count="3">
+                      <div style="border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;background:{{ pn.vbg }};opacity:{{ v.op }};transform:translateY({{ v.ty }});transition:opacity 600ms cubic-bezier(0.22,1,0.36,1) {{ v.dl }},transform 600ms cubic-bezier(0.22,1,0.36,1) {{ v.dl }};"><q style="font-size:16px;font-weight:600;line-height:1.55;color:#191F28;">{{ v.q }}</q><small style="font-size:12.5px;color:#8B95A1;">{{ v.s }}</small></div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story" ref="{{ storySecRef }}" style="position:relative;height:calc(100vh + 700vh);">
+    <div ref="{{ storyStickyRef }}" style="position:sticky;top:0;height:100vh;overflow:hidden;color:#fff;background:#0B0D10;clip-path:inset(16% 22% round 56px);will-change:clip-path;">
+      <video ref="{{ videoRef }}" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.25);"></video>
+      <div ref="{{ storyShadeRef }}" style="position:absolute;inset:0;background:rgba(6,8,14,0.5);"></div>
+      <div style="position:absolute;inset:0;padding:84px clamp(20px,4vw,56px) 36px;display:flex;flex-direction:column;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;padding-bottom:14px;font-size:13px;font-weight:600;">
+          <span>도입 사례</span><span style="color:rgba(255,255,255,0.8);">서울 강남 · A피부과</span><span style="color:rgba(255,255,255,0.8);">도입 12주</span><span style="color:rgba(255,255,255,0.8);">예시 사례 · 실측치로 교체 예정</span>
+        </div>
+        <div ref="{{ storyStageRef }}" style="position:relative;flex:1;min-height:0;">
+
+          <div style="position:absolute;left:{{ s0.l }};top:{{ s0.t }};width:{{ s0.w }};display:flex;flex-direction:column;gap:28px;opacity:{{ s0.op }};transform:{{ s0.tr }};filter:blur({{ s0.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <h3 style="margin:0;font-size:clamp(32px,4.6vw,64px);line-height:1.18;font-weight:700;letter-spacing:-0.035em;">"전화가 보이기 시작하니, 직원에게 할 말이 생겼습니다"</h3>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:560px;">
+              <div style="padding:12px 12px 0 0;display:flex;flex-direction:column;gap:2px;"><b style="font-size:clamp(30px,3vw,44px);font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums;">1</b><span style="font-size:13px;color:rgba(255,255,255,0.8);">원장</span></div>
+              <div style="padding:12px 12px 0 0;display:flex;flex-direction:column;gap:2px;"><b style="font-size:clamp(30px,3vw,44px);font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums;">2</b><span style="font-size:13px;color:rgba(255,255,255,0.8);">상담실장</span></div>
+              <div style="padding:12px 12px 0 0;display:flex;flex-direction:column;gap:2px;"><b style="font-size:clamp(30px,3vw,44px);font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums;">3</b><span style="font-size:13px;color:rgba(255,255,255,0.8);">CS</span></div>
+              <div style="padding:12px 12px 0 0;display:flex;flex-direction:column;gap:2px;"><b style="font-size:clamp(30px,3vw,44px);font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums;">8</b><span style="font-size:13px;color:rgba(255,255,255,0.8);">회선</span></div>
+            </div>
+          </div>
+
+          <div style="position:absolute;left:{{ s1.l }};top:{{ s1.t }};width:{{ s1.w }};opacity:{{ s1.op }};transform:{{ s1.tr }};filter:blur({{ s1.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">01</b><span style="font-size:15px;font-weight:600;">1주차</span></div>
+            <h3 style="margin:18px 0 0;font-size:clamp(28px,3.4vw,46px);line-height:1.25;font-weight:700;letter-spacing:-0.03em;">보이지 않던 것을 봤다</h3>
+            <p style="margin:12px 0 0;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:rgba(255,255,255,0.88);">첫 대시보드에서 야간·주말 부재중이 주 30건 가까이 쌓이고 있었다.</p>
+            <div style="margin-top:24px;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:4px;max-width:380px;">
+              <sc-for list="{{ dots30 }}" as="d" hint-placeholder-count="30"><span style="aspect-ratio:1/1;border:1px solid rgba(255,255,255,0.6);background:{{ d.bg }};transition:background 300ms {{ d.dl }};"></span></sc-for>
+            </div>
+            <div style="margin-top:8px;max-width:380px;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.75);"><span>야간·주말 부재중</span><span>주 30건 가까이</span></div>
+          </div>
+
+          <div style="position:absolute;left:{{ s2.l }};top:{{ s2.t }};width:{{ s2.w }};opacity:{{ s2.op }};transform:{{ s2.tr }};filter:blur({{ s2.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">02</b><span style="font-size:15px;font-weight:600;">3주차</span></div>
+            <h3 style="margin:18px 0 0;font-size:clamp(28px,3.4vw,46px);line-height:1.25;font-weight:700;letter-spacing:-0.03em;">원인을 찾았다</h3>
+            <p style="margin:12px 0 0;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:rgba(255,255,255,0.88);">불만 통화 12건 중 9건이 "접수 대기". 직원이 아니라 동선의 문제였다.</p>
+            <div style="margin-top:24px;display:grid;grid-template-columns:repeat(6,28px);gap:10px;">
+              <sc-for list="{{ dots12 }}" as="d" hint-placeholder-count="12"><span style="width:28px;height:28px;border-radius:50%;border:1.5px solid #fff;background:{{ d.bg }};transition:background 300ms {{ d.dl }};"></span></sc-for>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:18px;font-size:12px;color:rgba(255,255,255,0.75);"><span>● 접수 대기 9</span><span>○ 그 밖의 불만 3</span></div>
+          </div>
+
+          <div style="position:absolute;left:{{ s3.l }};top:{{ s3.t }};width:{{ s3.w }};opacity:{{ s3.op }};transform:{{ s3.tr }};filter:blur({{ s3.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">03</b><span style="font-size:15px;font-weight:600;">6주차</span></div>
+            <h3 style="margin:18px 0 0;font-size:clamp(28px,3.4vw,46px);line-height:1.25;font-weight:700;letter-spacing:-0.03em;">기준을 만들었다</h3>
+            <p style="margin:12px 0 0;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:rgba(255,255,255,0.88);">응대 점수 9점 이상 통화 20건으로 전화 응대 기준을 만들고 전 직원이 들었다.</p>
+            <div style="position:relative;margin-top:24px;max-width:440px;height:96px;">
+              <sc-for list="{{ dots20 }}" as="d" hint-placeholder-count="20"><span style="position:absolute;left:{{ d.x }};bottom:{{ d.y }};width:8px;height:8px;border-radius:50%;background:#fff;opacity:{{ d.op }};transform:scale({{ d.sc }});transition:opacity 300ms {{ d.dl }},transform 400ms cubic-bezier(0.22,1,0.36,1) {{ d.dl }};"></span></sc-for>
+              <span style="position:absolute;left:0;right:0;bottom:20px;height:1px;background:rgba(255,255,255,0.6);"></span>
+              <sc-for list="{{ ticks }}" as="t" hint-placeholder-count="11"><span style="position:absolute;left:{{ t.x }};bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:{{ t.c }};"><i style="display:block;width:1px;height:6px;background:rgba(255,255,255,0.6);"></i>{{ t.n }}</span></sc-for>
+            </div>
+            <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,0.75);">응대 점수 · 9점 이상 통화 20건</div>
+          </div>
+
+          <div style="position:absolute;left:{{ s4.l }};top:{{ s4.t }};width:{{ s4.w }};opacity:{{ s4.op }};transform:{{ s4.tr }};filter:blur({{ s4.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">04</b><span style="font-size:15px;font-weight:600;">12주차</span></div>
+            <h3 style="margin:18px 0 0;font-size:clamp(28px,3.4vw,46px);line-height:1.25;font-weight:700;letter-spacing:-0.03em;">돈의 흐름을 바꿨다</h3>
+            <p style="margin:12px 0 0;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:rgba(255,255,255,0.88);">전화가 실제로 온 채널로 광고비를 옮겼다. 네이버 플레이스 비중을 올렸다.</p>
+            <div style="margin-top:24px;display:grid;grid-template-columns:auto minmax(0,1fr);max-width:460px;font-size:14px;">
+              <span style="padding:12px 18px 12px 0;color:rgba(255,255,255,0.7);">이전</span><span style="padding:12px 0;color:rgba(255,255,255,0.85);">광고 대행사 리포트의 노출과 클릭 수</span>
+              <span style="padding:12px 18px 12px 0;color:rgba(255,255,255,0.7);">이후</span><span style="padding:12px 0;font-weight:700;">실제 걸려온 전화 수 → 네이버 플레이스 비중 ↑</span>
+            </div>
+          </div>
+
+          <div style="position:absolute;left:{{ s5.l }};top:{{ s5.t }};width:{{ s5.w }};display:flex;flex-direction:column;gap:20px;opacity:{{ s5.op }};transform:{{ s5.tr }};filter:blur({{ s5.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <span style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.8);max-width:240px;">A피부과 원장</span>
+            <h3 style="margin:0;font-size:clamp(36px,5.4vw,76px);line-height:1.15;font-weight:700;letter-spacing:-0.04em;">진료는 제가 제일 잘 압니다.</h3>
+            <p style="margin:0;font-size:clamp(18px,2vw,24px);line-height:1.6;color:rgba(255,255,255,0.9);max-width:640px;">그런데 데스크와 상담실에서 무슨 일이 있는지는 몰랐어요. 이제는 아침에 그걸 먼저 봅니다.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px;padding-top:14px;">
+          <b style="font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;">{{ storyNo }} / 06</b>
+          <div style="display:flex;gap:6px;flex:1;max-width:320px;">
+            <sc-for list="{{ storyBars }}" as="b" hint-placeholder-count="6"><span style="flex:1;height:2px;background:{{ b.bg }};transition:background 400ms;"></span></sc-for>
+          </div>
+        </div>
+      </div>
+      <div ref="{{ glassRef }}" style="position:absolute;left:50%;top:50%;width:min(940px,calc(100% - 40px));transform:translate(-50%,-50%) scale(0.18);opacity:0;visibility:hidden;border-radius:36px;padding:clamp(24px,4vw,48px);background:linear-gradient(135deg,rgba(28,46,160,0.6) 0%,rgba(10,20,80,0.55) 100%);-webkit-backdrop-filter:blur(28px) saturate(150%);backdrop-filter:blur(28px) saturate(150%);border:1px solid rgba(255,255,255,0.22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.28),0 40px 120px -30px rgba(0,10,60,0.6);">
+        <div ref="{{ glassInRef }}" style="opacity:0;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.25);"><b style="font-size:clamp(20px,2.2vw,28px);font-weight:700;">도입 효과</b><span style="font-size:14px;color:rgba(255,255,255,0.8);">A피부과 · 도입 12주 뒤</span></div>
+          <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:28px 24px;">
+            <sc-for list="{{ caseMetrics }}" as="m" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <span style="font-size:14px;color:rgba(255,255,255,0.82);">{{ m.l }}</span>
+                <span style="font-size:15px;color:rgba(255,255,255,0.55);text-decoration:line-through;font-variant-numeric:tabular-nums;">{{ m.from }}</span>
+                <span data-gcount="" style="font-size:clamp(40px,4.4vw,60px);font-weight:700;line-height:1;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;">{{ m.to }}<small style="font-size:0.4em;font-weight:600;margin-left:2px;">{{ m.u }}</small></span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases-h" ref="{{ hzSecRef }}" style="position:relative;height:calc(100vh + 220vh);background:#F5F6F8;">
+    <div ref="{{ hzStickyRef }}" style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(32px,6vh,72px);padding:84px 0 48px;overflow:hidden;">
+      <div style="width:100%;max-width:1120px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:14px;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">도입 사례</div>
+        <h2 data-split="" style="margin:0;font-size:clamp(30px,4.4vw,52px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">서울 강남 A피부과,<br>도입 12주 뒤에 달라진 것</h2>
+      </div>
+      <div ref="{{ hzViewRef }}" style="width:100%;overflow:visible;">
+        <div ref="{{ hzTrackRef }}" style="display:flex;gap:24px;width:max-content;padding:0 max(24px, calc((100vw - 1120px) / 2 + 24px));will-change:transform;">
+          <sc-for list="{{ caseMetrics }}" as="m" hint-placeholder-count="4">
+            <article style="flex:none;width:clamp(280px,30vw,400px);padding:14px;border-radius:40px;background:#fff;display:flex;flex-direction:column;gap:22px;box-shadow:0 30px 60px -40px rgba(30,40,60,0.25);transition:translate 300ms cubic-bezier(0.22,1,0.36,1);" style-hover="translate:0 -6px;">
+              <div style="position:relative;height:clamp(220px,34vh,340px);border-radius:28px;overflow:hidden;background:linear-gradient(160deg,#F1F3F8 0%,#E6EBF6 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+                <span style="position:absolute;left:50%;top:50%;width:70%;height:70%;margin:-35% 0 0 -35%;border-radius:50%;background:radial-gradient(closest-side,rgba(43,69,212,0.14),rgba(43,69,212,0));"></span>
+                <span style="position:relative;font-size:17px;color:#8B95A1;text-decoration:line-through;font-variant-numeric:tabular-nums;">{{ m.from }}</span>
+                <span style="position:relative;font-size:clamp(48px,5vw,72px);font-weight:700;line-height:1;letter-spacing:-0.04em;color:#2B45D4;font-variant-numeric:tabular-nums;">{{ m.to }}<small style="font-size:0.36em;font-weight:600;margin-left:3px;">{{ m.u }}</small></span>
+              </div>
+              <div style="padding:0 18px 18px;display:flex;flex-direction:column;gap:6px;">
+                <span style="font-size:15px;color:#8B95A1;">A피부과 · 도입 12주</span>
+                <b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">{{ m.l }}</b>
+              </div>
+            </article>
+          </sc-for>
+          <article style="flex:none;width:clamp(280px,30vw,400px);padding:14px;border-radius:40px;background:#fff;display:flex;flex-direction:column;gap:22px;box-shadow:0 30px 60px -40px rgba(30,40,60,0.25);">
+            <div style="height:clamp(220px,34vh,340px);border-radius:28px;background:linear-gradient(160deg,#F3F1EF 0%,#E9E6E3 100%);display:flex;align-items:center;padding:32px;"><blockquote style="margin:0;font-size:clamp(19px,1.7vw,23px);line-height:1.55;font-weight:700;letter-spacing:-0.02em;">"놓치는 전화가 사라지고, 상담 인수인계가 5분으로 줄었어요."</blockquote></div>
+            <div style="padding:0 18px 18px;display:flex;flex-direction:column;gap:6px;"><span style="font-size:15px;color:#8B95A1;">상담실장</span><b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">서울 강남구 ○○성형외과</b></div>
+          </article>
+          <article style="flex:none;width:clamp(280px,30vw,400px);padding:14px;border-radius:40px;background:#fff;display:flex;flex-direction:column;gap:22px;box-shadow:0 30px 60px -40px rgba(30,40,60,0.25);">
+            <div style="height:clamp(220px,34vh,340px);border-radius:28px;background:linear-gradient(160deg,#EEF1FA 0%,#E2E8F7 100%);display:flex;align-items:center;padding:32px;"><blockquote style="margin:0;font-size:clamp(19px,1.7vw,23px);line-height:1.55;font-weight:700;letter-spacing:-0.02em;">"외국인 상담도, 진료 차트 정리도 알아서 됩니다."</blockquote></div>
+            <div style="padding:0 18px 18px;display:flex;flex-direction:column;gap:6px;"><span style="font-size:15px;color:#8B95A1;">원장</span><b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">경기 ○○피부과</b></div>
+          </article>
+          <div style="flex:none;width:clamp(240px,22vw,300px);display:flex;flex-direction:column;justify-content:center;gap:8px;">
+            <a href="Cases.dc.html" style-hover="background:#fff;color:#191F28;" style="height:54px;padding:0 22px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:16px;background:rgba(255,255,255,0.7);color:#4E5968;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;">도입 사례 모두 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+            <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:54px;padding:0 22px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" style="padding:140px 24px;display:flex;justify-content:center;background:linear-gradient(180deg,#FFFFFF 0%,#F7F8FA 20%,#F7F8FA 80%,#FFFFFF 100%);">
+    <div style="width:100%;max-width:1120px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">진료</div>
+      <h2 data-split="" style="margin:14px 0 0;font-size:clamp(30px,4.4vw,48px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">차트는 진료와 함께 끝나고, 쌓인 기록은 병원의 자산이 돼요</h2>
+      <p data-reveal="" data-delay="200" style="margin:20px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:720px;">환자와 나눈 대화가 S·O·A·P 차트 초안으로 정리돼요. 원장님은 환자를 보고 확인만 하면 돼요. 차트의 한 줄을 누르면 그 줄이 대화의 어디서 왔는지 보여요.</p>
+      <div data-reveal="" style="margin-top:56px;">
+        <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="soap" hint-size="100%,560px"></x-import>
+      </div>
+      <div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:10px;">
+        <sc-for list="{{ assets3 }}" as="a" hint-placeholder-count="3">
+          <div data-reveal="" data-delay="{{ a.delay }}" style="background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:10px;" style-hover="translate:0 -4px;box-shadow:0 18px 40px -20px rgba(30,40,60,0.25);">
+            <span style="font-size:13px;font-weight:700;color:#12A26B;">{{ a.k }}</span>
+            <h3 style="margin:0;font-size:19px;font-weight:700;letter-spacing:-0.02em;">{{ a.h }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.65;color:#6B7684;">{{ a.p }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:16px 0 0;font-size:13px;color:#8B95A1;">진료 기록의 분석·활용은 환자 동의와 개인정보 보호 기준 안에서 이루어져요.</p>
+    </div>
+  </section>
+
+  <section id="points" style="padding:140px 24px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1200px;">
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">3분 요약</div>
+        <h2 data-split="" style="margin:14px 0 0;font-size:clamp(30px,4.4vw,48px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">원장님이 아셔야 할 것은 여섯 가지뿐이에요</h2>
+        <p data-reveal="" data-delay="200" style="margin:20px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:680px;">화면을 하나하나 볼 필요는 없어요. D voice가 병원에 주는 것만 핵심으로 추렸어요.</p>
+      </div>
+      <div style="margin-top:64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px 16px;">
+        <sc-for list="{{ points }}" as="p" hint-placeholder-count="6">
+          <a href="{{ p.href }}" data-reveal="" data-delay="{{ p.delay }}" style="display:flex;flex-direction:column;gap:22px;color:#191F28;" style-hover="translate:0 -6px;">
+            <div style="border-radius:28px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,0.04);">
+              <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="frag" frag="{{ p.frag }}" tone="{{ p.tone }}" hint-size="100%,340px"></x-import>
+            </div>
+            <div style="padding:0 8px;display:flex;flex-direction:column;gap:8px;">
+              <b style="font-size:20px;font-weight:700;line-height:1.45;letter-spacing:-0.02em;">{{ p.title }}</b>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#4E5968;">{{ p.short }}</p>
+              <span style="font-size:14px;color:#8B95A1;">{{ p.label }}</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+      <div data-reveal="" style="margin-top:48px;display:flex;justify-content:center;"><a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:54px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+    </div>
+  </section>
+
+  <section id="safe-home" ref="{{ safeSecRef }}" style="position:relative;height:calc(100vh + 160vh);background:linear-gradient(180deg,#FFFFFF 0%,#F4F6FE 50%,#FFFFFF 100%);">
+    <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
+      <div ref="{{ safeRowRef }}" style="width:100%;max-width:1120px;display:flex;align-items:center;gap:clamp(32px,6vw,88px);perspective:1400px;">
+        <div ref="{{ safeIconRef }}" style="flex:none;width:min(340px,34vw);display:flex;flex-direction:column;align-items:center;gap:14px;will-change:transform;">
+          <svg viewBox="0 0 240 240" role="img" aria-label="D voice 안심병원 표시 시안" style="width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 30px 36px rgba(43,69,212,0.25));">
+            <defs>
+              <linearGradient id="sgFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7390F6"></stop><stop offset="0.55" stop-color="#2B45D4"></stop><stop offset="1" stop-color="#1A2A9C"></stop></linearGradient>
+              <linearGradient id="sgRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5168E0"></stop><stop offset="1" stop-color="#0025B6"></stop></linearGradient>
+              <radialGradient id="sgDisc" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#E4E9FB"></stop></radialGradient>
+            </defs>
+            <g ref="{{ safeDiscRef }}" style="opacity:0;">
+              <circle cx="120" cy="120" r="100" fill="url(#sgDisc)"></circle>
+              <circle cx="120" cy="120" r="90" fill="none" stroke="#5168E0" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="2 5"></circle>
+            </g>
+            <circle ref="{{ safeRingRef }}" cx="120" cy="120" r="108" fill="none" stroke="url(#sgRing)" stroke-width="5" stroke-linecap="round" transform="rotate(-90 120 120)" style="stroke-dasharray:679;stroke-dashoffset:679;"></circle>
+            <g ref="{{ safeShieldRef }}" style="transform-box:fill-box;transform-origin:50% 50%;opacity:0;">
+              <path d="M120 60 L162 77 V114 C162 143 143 162 120 174 C97 162 78 143 78 114 V77 Z" fill="#14228A" transform="translate(0 8)"></path>
+              <path d="M120 60 L162 77 V114 C162 143 143 162 120 174 C97 162 78 143 78 114 V77 Z" fill="url(#sgFace)"></path>
+              <path d="M120 60 L120 174 C97 162 78 143 78 114 V77 Z" fill="#FFFFFF" opacity="0.14"></path>
+              <path d="M121 66 L156 80" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round"></path>
+            </g>
+            <path ref="{{ safeCheckRef }}" d="M100 116 L115 131 L142 101" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:62;stroke-dashoffset:62;"></path>
+          </svg>
+          <div ref="{{ safeLabelRef }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;opacity:0;">
+            <b style="font-size:18px;font-weight:700;color:#10203A;">D voice 안심병원</b>
+            <span style="font-size:13px;color:#44526B;">상담·진료 기록 투명 공개 · 2026</span>
+            <span style="margin-top:6px;font-size:12px;color:#8B95A1;">표시 시안 · 명칭과 도형은 상표·의료광고 검토 후 확정</span>
+          </div>
+        </div>
+        <div ref="{{ safeTextRef }}" style="flex:1 1 0;min-width:0;opacity:0;">
+          <div style="font-size:17px;font-weight:600;color:#2B45D4;">D voice 안심병원</div>
+          <h2 style="margin:14px 0 0;font-size:clamp(30px,4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">기록을 남기고 보여주는 병원이라는 표시</h2>
+          <p ref="{{ safeDescRef }}" style="margin:20px 0 0;font-size:17px;line-height:1.75;color:#4E5968;">상담에서 무엇을 권했고 진료에서 무엇을 설명했는지 기록으로 남고, 환자가 원하면 볼 수 있어요. 권유와 설명이 기록으로 남으니 환자는 안심하고 결정하고, 분쟁이 생겨도 양쪽 모두 근거를 가져요. 같은 견적이라면 환자에게는 이 표시가 병원을 고를 이유가 하나 더 돼요.</p>
+          <ul style="margin:28px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;">
+            <sc-for list="{{ vows }}" as="v" hint-placeholder-count="4">
+              <li style="background:#fff;border-radius:20px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 0 0 1px #E5E8EB;transition:translate 300ms cubic-bezier(0.22,1,0.36,1),box-shadow 300ms;" style-hover="translate:0 -4px;box-shadow:0 18px 40px -20px rgba(30,40,60,0.25);">
+                <span style="flex:none;width:24px;height:24px;margin-top:1px;border-radius:50%;background:#2B45D4;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+                <span style="display:flex;flex-direction:column;gap:4px;"><b style="font-size:16px;font-weight:700;">{{ v.b }}</b><span style="font-size:14px;line-height:1.55;color:#6B7684;">{{ v.s }}</span></span>
+              </li>
+            </sc-for>
+          </ul>
+          <div style="margin-top:20px;"><a href="SafeHospital.dc.html" style="font-size:15px;font-weight:600;">발급 기준과 검증 방법 보기 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="start" style="padding:140px 24px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">시작하기</div>
+      <h2 data-split="" style="margin:14px 0 0;font-size:clamp(30px,4.4vw,48px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">2주 동안 직접 써보시고, 우리 병원 리포트로 판단하세요</h2>
+      <p data-reveal="" data-delay="200" style="margin:20px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:680px;">장비는 무료로 빌려드리고 2주 이용료만 받아요. 도입은 우리 병원 숫자를 보고 결정하세요.</p>
+      <div data-reveal="" style="margin-top:56px;border-radius:36px;padding:clamp(24px,4vw,40px);background:#F4F6FE;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;">
+          <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:14px;font-weight:700;color:#2B45D4;">2주 콜 진단</span><b style="font-size:clamp(20px,2.4vw,26px);font-weight:700;letter-spacing:-0.02em;">2주 동안 우리 병원에서 직접 써보고, 숫자로 판단하세요</b></div>
+          <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:54px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a>
+        </div>
+        <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px;">
+          <sc-for list="{{ offer }}" as="o" hint-placeholder-count="3">
+            <div style="background:#fff;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px;">
+              <span style="font-size:13px;color:#8B95A1;">{{ o.k }}</span><b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;color:#2B45D4;">{{ o.v }}</b>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:#6B7684;">{{ o.p }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="margin:64px auto 0;max-width:860px;display:flex;flex-direction:column;">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+          <div data-reveal="" data-delay="{{ s.delay }}" style="position:relative;display:grid;grid-template-columns:52px 1fr;gap:20px;padding-bottom:32px;">
+            <span style="position:absolute;left:25px;top:60px;bottom:8px;width:2px;border-radius:1px;background:{{ s.line }};"></span>
+            <span style="width:52px;height:52px;border-radius:50%;background:#2B45D4;color:#fff;font-size:19px;font-weight:700;display:flex;align-items:center;justify-content:center;">{{ s.n }}</span>
+            <div style="padding-top:12px;display:flex;flex-direction:column;gap:6px;"><b style="font-size:19px;font-weight:700;">{{ s.b }} <small style="font-size:13px;font-weight:500;color:#8B95A1;margin-left:4px;">{{ s.s }}</small></b><p style="margin:0;font-size:15px;line-height:1.65;color:#6B7684;">{{ s.p }}</p></div>
+          </div>
+        </sc-for>
+        <div data-reveal="" style="background:#191F28;color:rgba(255,255,255,0.85);border-radius:24px;padding:22px 26px;font-size:16px;line-height:1.65;">원장님이 부담하실 것은 <b style="color:#fff;">2주 이용료</b>뿐이에요. 장비는 무료로 빌려드리고, 원장님은 리포트 한 장만 보시면 돼요.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="padding:140px 24px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:860px;">
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">자주 묻는 질문</div>
+      <h2 data-split="" style="margin:14px 0 0;font-size:clamp(30px,4.4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">원장님들이 도입 전에 가장 많이 물으신 것</h2>
+      <div style="margin-top:48px;display:flex;flex-direction:column;gap:8px;">
+        <sc-for list="{{ faq }}" as="f" hint-placeholder-count="7">
+          <div data-reveal="" style="background:#F7F8FA;border-radius:22px;overflow:hidden;">
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;border:none;background:transparent;font:inherit;cursor:pointer;padding:22px 24px;text-align:left;font-size:17px;font-weight:600;color:#191F28;">
+              <span>{{ f.q }}</span>
+              <span style="flex:none;width:30px;height:30px;border-radius:50%;background:{{ f.sbg }};color:{{ f.sfg }};display:flex;align-items:center;justify-content:center;transform:rotate({{ f.rot }});transition:transform 450ms cubic-bezier(0.22,1,0.36,1),background 300ms,color 300ms;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>
+            </button>
+            <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows 520ms cubic-bezier(0.22,1,0.36,1);">
+              <div style="overflow:hidden;min-height:0;">
+                <div style="padding:0 24px 24px;font-size:15px;line-height:1.75;color:#4E5968;opacity:{{ f.op }};transform:translateY({{ f.ty }});transition:opacity 420ms cubic-bezier(0.22,1,0.36,1),transform 520ms cubic-bezier(0.22,1,0.36,1);">{{ f.a }}<sc-if value="{{ f.link }}" hint-placeholder-val="{{ false }}"> <a href="Pricing.dc.html" style="font-weight:600;">요금 구조 보기 →</a></sc-if></div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" data-header-dark="" ref="{{ ctaSecRef }}" style="position:relative;z-index:2;min-height:120vh;padding:200px 24px 200px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0A1434;will-change:transform,clip-path;">
+    <div ref="{{ ctaRingsRef }}" aria-hidden="true" style="position:absolute;left:50%;top:54%;width:0;height:0;pointer-events:none;opacity:0;">
+      <span style="position:absolute;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.10);"></span>
+      <span style="position:absolute;left:-480px;top:-480px;width:960px;height:960px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.08);"></span>
+      <span style="position:absolute;left:-680px;top:-680px;width:1360px;height:1360px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.06);"></span>
+      <span style="position:absolute;left:-900px;top:-900px;width:1800px;height:1800px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(170,190,255,0.045);"></span>
+      <span style="position:absolute;left:-420px;top:-420px;width:840px;height:840px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,90,230,0.22),rgba(60,90,230,0));"></span>
+    </div>
+    <div ref="{{ ctaInRef }}" style="position:relative;width:100%;max-width:1120px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px;align-items:center;color:#FFFFFF;opacity:0;">
+      <div>
+        <div style="font-size:17px;font-weight:600;color:#A9B8FF;">2주 콜 진단</div>
+        <h2 style="margin:14px 0 0;font-size:clamp(30px,4.4vw,48px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">지금 이 순간에도, 진료실 밖에서 전화는 울리고 있어요</h2>
+        <p style="margin:20px 0 0;font-size:17px;line-height:1.75;color:rgba(255,255,255,0.74);">장비는 무료로 빌려드리고, 2주 이용료만 받아요. 2주 동안 우리 병원에서 D voice를 직접 쓰시고, 마지막 날 부재중 전화, 불만 통화, 채널별 유입, 상담 보류 사유를 한 장으로 받아보세요. 결정은 리포트를 보고 나서 해도 돼요.</p>
+        <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:8px;font-size:14px;color:rgba(255,255,255,0.78);">
+          <span style="padding:8px 14px;border-radius:999px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.12);"><b style="font-weight:600;color:#FFFFFF;">장비 무료 임대</b></span>
+          <span style="padding:8px 14px;border-radius:999px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.12);"><b style="font-weight:600;color:#FFFFFF;">2주 이용료만</b></span>
+          <span style="padding:8px 14px;border-radius:999px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.12);">진단 리포트 포함</span>
+          <span style="padding:8px 14px;border-radius:999px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.12);">도입하지 않아도 장비 비용 없음</span>
+        </div>
+        <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;">
+          <a href="#cta" data-cta-final="" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a>
+          <a href="Features.dc.html#summary" style-hover="background:#FFFFFF;color:#191F28;" style="height:58px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:rgba(255,255,255,0.9);color:#333D4B;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="position:relative;width:100%;height:clamp(380px,44vw,560px);"><canvas ref="{{ ctaCanvasRef }}" role="img" aria-label="2주 콜 진단 리포트 예시 수치를 차례로 보여주는 계산기" style="position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;"></canvas></div>
+        <span style="font-size:13px;color:rgba(255,255,255,0.62);">계산기의 − + 버튼으로 숫자를 바꿔 보세요</span>
+      </div>
+    </div>
+  </section>
+
+  <footer data-header-dark="" style="padding:120px 24px 72px;display:flex;justify-content:center;background:#0A1434;">
+    <div style="width:100%;max-width:1120px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:32px;font-size:14px;line-height:1.8;color:rgba(255,255,255,0.58);">
+        <div style="min-width:0;"><b style="display:block;margin-bottom:8px;font-size:15px;color:#FFFFFF;">D voice by RobotCom</b>로봇컴 주식회사 · 대표 김재훈<br>사업자등록번호 266-88-03639<br>본점 대전광역시 중구 대종로 590, 4층 433호<br>기업부설연구소 서울시 광진구 능동로 3라길 13, 1층 104호<br>Tel 02-452-3338 · info@robotcom.ai</div>
+        <div style="display:flex;flex-direction:column;"><b style="margin-bottom:8px;font-size:15px;color:#FFFFFF;">제품</b><a href="Features.dc.html#f-dash" style="color:rgba(255,255,255,0.58);">대시보드</a><a href="Features.dc.html#f-call" style="color:rgba(255,255,255,0.58);">콜레코드</a><a href="Features.dc.html#f-cons" style="color:rgba(255,255,255,0.58);">상담레코드</a><a href="Features.dc.html#f-visit" style="color:rgba(255,255,255,0.58);">진료레코드</a><a href="Features.dc.html#f-mkt" style="color:rgba(255,255,255,0.58);">마케팅 분석</a></div>
+        <div style="display:flex;flex-direction:column;"><b style="margin-bottom:8px;font-size:15px;color:#FFFFFF;">알아보기</b><a href="Features.dc.html#summary" style-hover="translate:0 -2px;filter:brightness(1.06);" style="color:rgba(255,255,255,0.58);transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">3분 요약</a><a href="Cases.dc.html" style-hover="translate:0 -2px;filter:brightness(1.06);" style="color:rgba(255,255,255,0.58);transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">도입 사례</a><a href="SafeHospital.dc.html" style="color:rgba(255,255,255,0.58);">D voice 안심병원</a><a href="Pricing.dc.html" style="color:rgba(255,255,255,0.58);">요금</a><a href="Insights.dc.html" style="color:rgba(255,255,255,0.58);">아티클</a><a href="#faq" style="color:rgba(255,255,255,0.58);">자주 묻는 질문</a></div>
+        <div style="display:flex;flex-direction:column;"><b style="margin-bottom:8px;font-size:15px;color:#FFFFFF;">시작하기</b><a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="color:rgba(255,255,255,0.58);transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a><a href="#calc" style="color:rgba(255,255,255,0.58);">놓친 전화 계산기</a><span style="margin-top:10px;">머니투데이 2026.05.15 보도</span></div>
+      </div>
+      <div style="margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.12);font-size:12px;line-height:1.7;color:rgba(255,255,255,0.45);">© 2026 로봇컴 주식회사 (D voice). All rights reserved. 이 사이트는 개발 전달용 시안이며, "예시"로 표시된 사례와 수치는 실측치로 교체됩니다.</div>
+      <img src="robotcom-logo-white.svg" alt="RobotCom" style="display:block;width:100%;height:auto;margin-top:120px;">
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;blurAmount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:0,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;텍스트 등장&quot;},&quot;riseDistance&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:36,&quot;min&quot;:0,&quot;max&quot;:120,&quot;step&quot;:4,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;텍스트 등장&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    ['morphRef','heroStickyRef','ctaSecRef','ctaRingsRef','ctaInRef','flyRef','flyNumRef','heroBgRef','descRef','hzSecRef','hzStickyRef','hzViewRef','hzTrackRef','introRef','introBlockRef','hintRef','stageRef','stageBgRef','rowRef','copyRef','phoneBoxRef','scalerRef','phoneRef','sheenRef','outRef','yearRef','ptRef','b0','b1','b2','b3','b4','quizWrapRef','quizLeftRef','quizListRef','quizSecRef','quizDescRef','quizResRef','insSecRef','insDescRef','heroSecRef','heroGlowRef','heroRowRef','heroColRef','heroH1Ref','heroCopyRef','heroLiveRef','ctaRef','loopSecRef','loopRef','loopDescRef','storySecRef','videoRef','calcWrapRef','calcCanvasRef','fieldsRef','ctaCanvasRef','storyStageRef','storyShadeRef','storyStickyRef','glassRef','glassInRef','safeSecRef','safeRowRef','safeIconRef','safeTextRef','safeRingRef','safeDiscRef','safeShieldRef','safeCheckRef','safeLabelRef','safeDescRef'].forEach(k => this[k] = React.createRef());
+    this.insP = 0; this.nudge = 0;
+    this.state = { v: { k1: '0', k2: '0', k3: '0', k4: '0', k5: '0' }, tocA: -1, tocH: -1, nar: false, tocShow: false, tocDark: false, storyA: 0, ptA: 0, quiz: [null,null,null,null,null,null], faqOpen: { 0: true }, qActive: 0, qSkip: false };
+    this.shown = { out: 0, year: 0, pt: 0 };
+    this.tilt = { x: 0, y: 0, tx: 0, ty: 0 };
+    this.counted = false;
+  }
+  defs() {
+    return [
+      { id: 'k1', label: '하루 평균 부재중 전화', small: '진료 중, 점심, 야간 포함', unit: '통', step: 1, max: 999 },
+      { id: 'k2', label: '그중 신규 환자 문의 비율', small: '가격·예약 문의', unit: '%', step: 5, max: 100 },
+      { id: 'k3', label: '신규 문의가 예약되는 비율', small: '통화가 연결됐을 때', unit: '%', step: 5, max: 100 },
+      { id: 'k4', label: '초진 1명당 평균 매출', small: '첫 시술·진료 기준', unit: '만원', step: 5, max: 99999 },
+      { id: 'k5', label: '월 진료일', small: '', unit: '일', step: 1, max: 31 }
+    ];
+  }
+  setVal(id, raw, max) {
+    cancelAnimationFrame(this.fillRaf);
+    let s = String(raw).replace(/[^0-9.]/g, '');
+    if (s !== '' && +s > max) s = String(max);
+    this.setState(st => ({ v: { ...st.v, [id]: s } }));
+  }
+  calc() {
+    const g = id => Math.max(0, parseFloat(this.state.v[id]) || 0);
+    const pts = g('k1') * g('k5') * (g('k2') / 100) * (g('k3') / 100);
+    const won = pts * g('k4');
+    return { out: won, year: won * 12, pt: pts };
+  }
+  exVals() { return { k1: 5, k2: 40, k3: 30, k4: 30, k5: 22 }; }
+  autoFill(target) {
+    cancelAnimationFrame(this.fillRaf);
+    const ids = ['k1','k2','k3','k4','k5'], t0 = performance.now(), per = 560, gap = 320;
+    const step = now => {
+      const v = {}; let done = true;
+      ids.forEach((id, i) => { const t = Math.max(0, Math.min(1, (now - t0 - i * gap) / per)); if (t < 1) done = false; v[id] = String(Math.round(target[id] * (1 - Math.pow(1 - t, 3)))); });
+      this.setState({ v });
+      this.filling = !done;
+      if (!done) this.fillRaf = requestAnimationFrame(step); else this.calc3d && this.calc3d.pulse();
+    };
+    this.filling = true;
+    this.fillRaf = requestAnimationFrame(step);
+  }
+  onCalcKey(l) {
+    if (l === 'AC') return this.autoFill(this.exVals());
+    if (l === '=') return this.calcReplay();
+    const m = /^(inc|dec):(\d)$/.exec(l); if (!m) return;
+    const f = this.defs()[+m[2]], cur = parseFloat(this.state.v[f.id]) || 0;
+    this.setVal(f.id, m[1] === 'inc' ? Math.min(f.max, cur + f.step) : Math.max(0, cur - f.step), f.max);
+  }
+  calcReplay() { const cur = {}; Object.keys(this.state.v).forEach(k => { cur[k] = parseFloat(this.state.v[k]) || 0; }); this.autoFill(cur); }
+  nextReport() {
+    const R = [['수신 전화','412','건'],['부재중','47','건'],['당일 미회신','23','건'],['불만 태그 통화','9','건'],['1위 유입 채널','네이버 플레이스',''],['안심병원 기준','5개 중 2개 충족',''],['미회신으로 놓친 초진 추정','396','만원 / 월']];
+    this.repI = ((this.repI ?? -1) + 1) % R.length; const x = R[this.repI];
+    if (this.cta3d) { this.cta3d.setDisplay({ label: x[0], main: x[1], unit: x[2], sub: '2주 콜 진단 리포트 · A피부과 · 09.01 ~ 09.14' }); this.cta3d.press('='); }
+  }
+  tocList() { return [['calc','놓친 전화 계산기'],['promise','D voice의 약속'],['check','여섯 가지 질문'],['day','같은 하루'],['manage','전화와 상담'],['callrec','콜레코드'],['insight','환자 이해'],['story','도입 사례'],['visit','진료'],['points','3분 요약'],['safe-home','안심병원'],['start','시작하기'],['faq','자주 묻는 질문']]; }
+  countTo(target, dur) {
+    const from = { ...this.shown }, t0 = performance.now();
+    cancelAnimationFrame(this.countRaf);
+    const fmt = n => Math.round(n).toLocaleString('ko-KR');
+    const step = now => {
+      const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 4);
+      ['out','year','pt'].forEach(k => { this.shown[k] = from[k] + (target[k] - from[k]) * e; });
+      if (this.outRef.current) this.outRef.current.textContent = fmt(this.shown.out);
+      if (this.yearRef.current) this.yearRef.current.textContent = fmt(this.shown.year);
+      if (this.ptRef.current) this.ptRef.current.textContent = fmt(this.shown.pt);
+      if (t < 1) this.countRaf = requestAnimationFrame(step);
+    };
+    this.countRaf = requestAnimationFrame(step);
+  }
+  splitChars(el) {
+    if (!el || el.__split) return el ? el.__split : [];
+    const chars = [];
+    const walk = node => {
+      Array.from(node.childNodes).forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(w => {
+            if (!w) return;
+            if (/^\s+$/.test(w)) { frag.appendChild(document.createTextNode(w)); return; }
+            const word = document.createElement('span');
+            word.style.cssText = 'display:inline-block;white-space:nowrap;';
+            Array.from(w).forEach(c => {
+              const s = document.createElement('span');
+              s.textContent = c;
+              s.style.cssText = 'display:inline-block;will-change:transform,filter,opacity;';
+              word.appendChild(s); chars.push(s);
+            });
+            frag.appendChild(word);
+          });
+          n.parentNode.replaceChild(frag, n);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
+      });
+    };
+    walk(el);
+    el.__split = chars;
+    return chars;
+  }
+  setChar(s, k, blur, rise) {
+    s.style.opacity = k;
+    s.style.filter = (k >= 1 || !blur) ? 'none' : `blur(${(1 - k) * blur}px)`;
+    s.style.transform = `translateY(${(1 - k) * rise}em)`;
+  }
+  spring(key, target) {
+    const st = this['_sp' + key] || (this['_sp' + key] = { x: target, v: 0 });
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { st.x = target; st.v = 0; return target; }
+    st.v += (target - st.x) * 0.075; st.v *= 0.76; st.x += st.v;
+    if (Math.abs(target - st.x) < 0.0004 && Math.abs(st.v) < 0.0004) st.x = target;
+    return st.x;
+  }
+  enhanceButtons() {
+    const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('a').forEach(a => {
+      if (a.__dvb && a.querySelector('[data-dvb]')) return;
+      const cs = getComputedStyle(a), bg = cs.backgroundColor, h = a.offsetHeight;
+      const primary = bg === 'rgb(43, 69, 212)';
+      const secondary = !primary && h >= 50 && cs.borderRadius !== '0px' && bg !== 'rgba(0, 0, 0, 0)' && !!a.querySelector('svg');
+      if (!primary && !secondary) return;
+      a.__dvb = true;
+      if (cs.position === 'static') a.style.position = 'relative';
+      a.style.overflow = 'hidden'; a.style.isolation = 'isolate';
+      a.style.boxShadow = primary
+        ? 'inset 0 1px 0 rgba(255,255,255,0.24), inset 0 -1px 0 rgba(10,20,80,0.22), inset 0 0 0 1px rgba(255,255,255,0.10), 0 1px 2px rgba(20,30,80,0.16)'
+        : 'inset 0 1px 0 rgba(255,255,255,0.9), inset 0 0 0 1px rgba(25,31,40,0.07), inset 0 -1px 2px rgba(25,31,40,0.04)';
+      a.style.transform = 'scale(1)';
+      a.style.transition = (a.style.transition ? a.style.transition + ', ' : '') + 'transform 480ms cubic-bezier(0.22,1,0.36,1), box-shadow 260ms';
+      const mk = st => { const e = document.createElement('span'); e.setAttribute('data-dvb', ''); e.setAttribute('aria-hidden', 'true'); Object.assign(e.style, { position: 'absolute', inset: '0', borderRadius: 'inherit', pointerEvents: 'none' }, st); a.appendChild(e); return e; };
+      const glow = mk({ opacity: '0', transition: 'opacity 520ms', background: 'radial-gradient(160px circle at var(--mx,50%) var(--my,50%), ' + (primary ? 'rgba(226,236,255,0.30)' : 'rgba(43,69,212,0.09)') + ', rgba(255,255,255,0) 70%)' });
+      const ring = mk({ opacity: '0', padding: '1.25px', backgroundImage: 'linear-gradient(100deg, rgba(255,255,255,0) 38%, ' + (primary ? 'rgba(236,243,255,0.95)' : 'rgba(110,140,255,0.75)') + ' 50%, rgba(255,255,255,0) 62%)', backgroundSize: '260% 100%', backgroundPosition: '130% 0', backgroundRepeat: 'no-repeat', WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)', WebkitMaskComposite: 'xor', mask: 'linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)' });
+      const arrow = a.querySelector('svg'); if (arrow) arrow.style.transition = 'transform 320ms cubic-bezier(0.22,1,0.36,1)';
+      a.__dvSweep = (dur = 1300) => { if (rm || !ring.animate) return; ring.animate([{ opacity: 0, backgroundPosition: '130% 0' }, { opacity: 1, offset: 0.18 }, { opacity: 1, offset: 0.8 }, { opacity: 0, backgroundPosition: '-30% 0' }], { duration: dur, easing: 'cubic-bezier(0.45,0,0.2,1)' }); };
+      a.addEventListener('pointerenter', e => { if (e.pointerType !== 'mouse') return; a.style.transform = 'scale(1.015)'; glow.style.opacity = '1'; if (arrow) arrow.style.transform = 'translateX(6px)'; a.style.filter = 'contrast(1.04)'; a.__dvSweep(1600); });
+      a.addEventListener('pointermove', e => { const r = a.getBoundingClientRect(); a.style.setProperty('--mx', (e.clientX - r.left) + 'px'); a.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+      a.addEventListener('pointerleave', () => { a.style.transform = 'scale(1)'; glow.style.opacity = '0'; if (arrow) arrow.style.transform = ''; a.style.filter = ''; });
+      if (!a.hasAttribute('data-cta-final') && !a.closest('header')) {
+        const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); setTimeout(() => a.__dvSweep(1300), 350); } }, { threshold: 0.9 });
+        io.observe(a);
+      }
+    });
+  }
+  drawAmbient(p) {
+    const c = this.heroBgRef.current; if (!c) return;
+    const cl = v => Math.max(0, Math.min(1, v));
+    const w = c.clientWidth, h = c.clientHeight; if (!w || !h) return;
+    const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+    if (c.width !== Math.round(w * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+    const x = c.getContext('2d'), t = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : performance.now() / 1000;
+    x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const bg = x.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#FFFFFF'); bg.addColorStop(1, '#FFFFFF');
+    x.fillStyle = bg; x.fillRect(0, 0, w, h);
+    const cx = w * 0.5, cy = h * 0.48, R = Math.max(w, h);
+    const glow = (gx, gy, r, col) => { const g = x.createRadialGradient(gx, gy, 0, gx, gy, r); g.addColorStop(0, col); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, w, h); };
+    glow(cx + Math.sin(t * 0.13) * w * 0.06, cy + Math.cos(t * 0.11) * h * 0.04, R * 0.42, 'rgba(43,69,212,0.08)');
+    glow(w * 0.72 + Math.cos(t * 0.09) * w * 0.05, h * 0.7, R * 0.3, 'rgba(120,150,255,0.07)');
+    const grow = 1 + 0.9 * Math.pow(cl((p - 0.25) / 0.6), 1.4), fade = 1 - cl((p - 0.8) / 0.2);
+    const ry = h * 0.58;
+    x.lineWidth = 1;
+    for (let i = 0; i < 3; i++) {
+      const k = cl((((t % 4.6) / 4.6) - i * 0.12) / 0.88);
+      if (k <= 0 || k >= 1) continue;
+      const e = 1 - Math.pow(1 - k, 2.2), rr = R * (0.06 + e * 0.5) * grow, a = (1 - k) * Math.min(1, k * 8) * (0.22 - i * 0.06) * fade;
+      x.strokeStyle = 'rgba(43,69,212,' + a.toFixed(3) + ')';
+      x.beginPath(); x.ellipse(cx, ry, rr, rr * 0.6, 0, 0, Math.PI * 2); x.stroke();
+    }
+    for (let i = 1; i <= 3; i++) {
+      const rr = R * 0.14 * i * grow, a = 0.07 * fade * (1 - i * 0.22);
+      x.strokeStyle = 'rgba(43,69,212,' + a.toFixed(3) + ')';
+      x.beginPath(); x.ellipse(cx, ry, rr, rr * 0.6, 0, 0, Math.PI * 2); x.stroke();
+    }
+  }
+  colShift() {
+    const cw = this.calcWrapRef.current, cp = this.copyRef.current; if (!cw || !cp || this.cmpMode) return 0;
+    if (this._gapMode !== this._mode) { this._gapMode = this._mode; this._gap = parseFloat(getComputedStyle(cw.parentElement).columnGap) || 0; }
+    const s = cp.offsetLeft + cp.offsetWidth + (this._gap || 0), e = cw.offsetLeft + cw.offsetWidth;
+    return (s + e) / 2 - (cw.offsetLeft + cw.offsetWidth / 2);
+  }
+  frame() {
+    const vh = window.innerHeight, vw = window.innerWidth, cl = x => Math.max(0, Math.min(1, x));
+    const blur = this.props.blurAmount ?? 12;
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    const intro = this.introRef.current;
+    if (intro) {
+      const r = intro.getBoundingClientRect();
+      const p = cl(-r.top / (r.height - vh));
+      const dOut = ease(cl((p - 0.08) / 0.22));
+      if (this.descRef.current) { const d = this.descRef.current; d.style.opacity = 1 - dOut; d.style.filter = dOut > 0 ? 'blur(' + dOut * 6 + 'px)' : 'none'; }
+      if (this.b0.current) this.b0.current.style.opacity = 1 - dOut;
+      const stEl = this.stageRef.current, overlay = stEl && !this.cmpMode;
+      const sTop = stEl ? stEl.getBoundingClientRect().top : vh;
+      const x = overlay ? this.spring('hero', cl((vh - sTop) / vh)) : 0, xt = overlay ? cl((vh - sTop) / vh) : 0;
+      const blk = this.introBlockRef.current, hst = this.heroStickyRef.current;
+      if (blk) { blk.style.opacity = (1 - cl(x * 1.3)).toFixed(3); blk.style.filter = 'none'; blk.style.transform = 'translateY(' + (-x * 5).toFixed(2) + 'vh)'; }
+      if (hst) { hst.style.transform = 'none'; hst.style.borderRadius = '0px'; }
+      if (stEl && stEl.firstElementChild) {
+        const inner = stEl.firstElementChild;
+        if (false) {
+          const k = 1 - Math.min(1, Math.max(0, x)), lag = (xt - x) * vh * 0.32;
+          inner.style.clipPath = 'inset(0 ' + (k * 4.5).toFixed(2) + 'vw 0 ' + (k * 4.5).toFixed(2) + 'vw round ' + (k * 56).toFixed(1) + 'px ' + (k * 56).toFixed(1) + 'px 0 0)';
+          inner.style.transform = Math.abs(lag) > 0.5 ? 'translateY(' + lag.toFixed(1) + 'px)' : 'none';
+        } else { inner.style.clipPath = 'none'; inner.style.transform = 'none'; }
+      }
+      this.drawAmbient(p);
+      if (this.hintRef.current) this.hintRef.current.style.opacity = cl(1 - p * 6);
+    }
+    const st = this.stageRef.current, cw = this.calcWrapRef.current, cp = this.copyRef.current, cta = this.ctaRef.current, fl = this.fieldsRef.current;
+    if (st && cw && cp && cta && fl) {
+      const tiny = false;
+      if (cp.lastElementChild) cp.lastElementChild.style.display = tiny ? 'none' : '';
+      if (cta.lastElementChild) cta.lastElementChild.style.display = tiny ? 'none' : '';
+      const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const r = st.getBoundingClientRect(), q = rm ? 1 : cl((vh * 1.0 - r.top) / (vh * 1.2));
+      const mvF = (rm || this.cmpMode) ? 1 : ease(cl((-r.top / vh - 0.12) / 0.55)), shPx = this.cmpMode ? 0 : this.colShift();
+      const link = !!this.linkMode;
+      const exR = link ? cl((-r.top - 2 * vh) / vh) : cl((vh * 1.25 - r.bottom) / (vh * 0.6));
+      const ex = rm ? 0 : ease(exR);
+      this.tilt.x += (this.tilt.tx - this.tilt.x) * 0.06;
+      this.tilt.y += (this.tilt.ty - this.tilt.y) * 0.06;
+      const sil = cl(q / 0.8);
+      const bodyOut = link ? ease(cl(exR / 0.55)) : ex * 0.15;
+      cw.style.opacity = cl(q * 2) * (1 - bodyOut);
+      cw.style.filter = sil < 1 ? 'blur(' + (1 - sil) * 18 + 'px)' : 'none';
+      cw.style.transform = link && bodyOut > 0 ? 'translateY(' + (bodyOut * 14).toFixed(2) + 'vh) scale(' + (1 - bodyOut * 0.1).toFixed(4) + ')' : 'none';
+      this.calcExit = link ? exR : 0;
+      { const inner = st.firstElementChild, bgA = (rm || this.cmpMode) ? 1 : ease(cl((mvF - 0.5) / 0.5)); if (inner) inner.style.backgroundColor = 'rgba(255,255,255,' + bgA.toFixed(3) + ')'; }
+      if (this.calc3d) this.calc3d.setPose(q, mvF > 0.95 ? this.tilt.x : 0, mvF > 0.95 ? this.tilt.y : 0, ex, 1 - mvF, shPx * mvF);
+      const c = (rm ? 1 : cl((mvF - 0.6) / 0.4)) * (link ? 1 - ease(cl(exR / 0.3)) : 1);
+      [cp, cta].forEach(el => { el.style.opacity = c; el.style.transform = 'translateY(' + (1 - c) * 24 + 'px)'; el.style.filter = c < 1 ? 'blur(' + (1 - c) * 8 + 'px)' : 'none'; });
+      if (!this.counted && q > 0.88) { this.counted = true; this.autoFill(this.exVals()); }
+      if (this.counted && q < 0.25 && !rm) { this.counted = false; cancelAnimationFrame(this.fillRaf); this.filling = false; this.setState({ v: { k1: '0', k2: '0', k3: '0', k4: '0', k5: '0' } }); }
+    }
+    {
+      const tg = this.calc(), fm = n => Math.round(n).toLocaleString('ko-KR');
+      ['out', 'year', 'pt'].forEach(k => { const d = tg[k] - this.shown[k]; this.shown[k] = Math.abs(d) < 0.5 ? tg[k] : this.shown[k] + d * 0.12; });
+      const fl3 = this.defs().map(f => ({ label: f.label, small: f.small, value: this.state.v[f.id], unit: f.unit }));
+      if (this.calc3d) this.calc3d.setFields(fl3);
+      if (this.cta3d) { this.cta3d.setFields(fl3); this.cta3d.setDisplay({ label: '한 달 동안 놓치고 있을 수 있는 초진 매출', main: fm(tg.out), unit: '만원', sub: '1년이면 약 ' + fm(tg.year) + '만원 · 초진 ' + fm(tg.pt) + '명' }); }
+      if (this.calc3d) {
+        this.calc3d.setDisplay({ label: '한 달 동안 놓치고 있을 수 있는 초진 매출', main: fm(tg.out), unit: '만원', sub: '1년이면 약 ' + fm(tg.year) + '만원 · 초진 ' + fm(tg.pt) + '명' });
+        if (this.lastOut !== undefined && this.lastOut !== tg.out && !this.filling) this.calc3d.pulse();
+        this.lastOut = tg.out;
+      }
+      if (this.outRef.current) { const t = '한 달 약 ' + fm(tg.out) + '만원'; if (this.outRef.current.textContent !== t) this.outRef.current.textContent = t; }
+    }
+    if (this.cta3d && this.ctaCanvasRef.current) { const r = this.ctaCanvasRef.current.getBoundingClientRect(); this.cta3d.setPose(ease(cl((vh - r.top) / (vh * 0.8))), 0, 0); }
+    {
+      const hs = this.hzSecRef.current, ht = this.hzTrackRef.current, hst = this.hzStickyRef.current, hv = this.hzViewRef.current;
+      if (hs && ht && hst && hv) {
+        const pin = vw >= 900 && vh >= 700;
+        if (pin) {
+          if (hs.style.height !== 'calc(320vh)') { hs.style.height = 'calc(320vh)'; hst.style.position = 'sticky'; hst.style.height = '100vh'; hv.style.overflowX = 'visible'; }
+          const r = hs.getBoundingClientRect(), p = cl(-r.top / (r.height - vh));
+          const max = Math.max(0, ht.scrollWidth - vw);
+          this.hzX = (this.hzX ?? 0) + (p * max - (this.hzX ?? 0)) * 0.14;
+          ht.style.transform = 'translate3d(' + (-this.hzX).toFixed(1) + 'px,0,0)';
+        } else if (hs.style.height !== 'auto') {
+          hs.style.height = 'auto'; hst.style.position = 'relative'; hst.style.height = 'auto'; hst.style.padding = '120px 0'; hv.style.overflowX = 'auto'; ht.style.transform = 'none';
+        }
+      }
+    }
+    {
+      const cs = this.ctaSecRef.current, ci = this.ctaInRef.current, cr = this.ctaRingsRef.current;
+      if (cs && ci && cr) {
+        const r = cs.getBoundingClientRect(), t = cl((vh - r.top) / vh), x = this.spring('cta', t), k = 1 - Math.min(1, Math.max(0, x));
+        const lag = (t - x) * vh * 0.32;
+        cs.style.clipPath = k > 0.001 ? 'inset(0 ' + (k * 4.5).toFixed(2) + 'vw 0 ' + (k * 4.5).toFixed(2) + 'vw round ' + (k * 56).toFixed(1) + 'px ' + (k * 56).toFixed(1) + 'px 0 0)' : 'none';
+        cs.style.transform = Math.abs(lag) > 0.5 ? 'translateY(' + lag.toFixed(1) + 'px)' : 'none';
+        cr.style.opacity = cl(x).toFixed(3);
+        cr.style.transform = 'scale(' + (0.9 + 0.1 * cl(x)).toFixed(4) + ')';
+        const ap = ease(cl((t - 0.45) / 0.4));
+        ci.style.opacity = ap.toFixed(3); ci.style.transform = 'translateY(' + ((1 - ap) * 16).toFixed(1) + 'px)';
+        if (ap > 0.95 && !this.ctaLit) { this.ctaLit = true; const b = cs.querySelector('[data-cta-final]'); setTimeout(() => b && b.__dvSweep && b.__dvSweep(1600), 250); }
+      }
+    }
+    const sf = this.safeSecRef.current, sr = this.safeRowRef.current, si = this.safeIconRef.current, stx = this.safeTextRef.current;
+    if (sf && sr && si && stx) {
+      const wd = vw >= 900 && vh >= 700, r = sf.getBoundingClientRect();
+      const p = wd ? cl(-r.top / (r.height - vh)) : cl((vh - r.top) / (vh * 0.9));
+      const seg = (a, b) => cl((p - a) / (b - a));
+      const ring = ease(seg(0, 0.2)), pop = ease(seg(0.12, 0.3)), chk = ease(seg(0.26, 0.38)), mv = wd ? ease(seg(0.4, 0.66)) : 1, tx = wd ? ease(seg(0.56, 0.8)) : ease(seg(0.4, 0.75));
+      if (this.safeRingRef.current) this.safeRingRef.current.style.strokeDashoffset = 679 * (1 - ring);
+      if (this.safeDiscRef.current) this.safeDiscRef.current.style.opacity = pop;
+      if (this.safeShieldRef.current) { this.safeShieldRef.current.style.opacity = cl(pop * 1.5); this.safeShieldRef.current.style.transform = 'scale(' + (0.4 + 0.6 * pop) + ')'; }
+      if (this.safeCheckRef.current) this.safeCheckRef.current.style.strokeDashoffset = 62 * (1 - chk);
+      if (this.safeLabelRef.current) this.safeLabelRef.current.style.opacity = chk;
+      const dx = wd ? sr.offsetWidth / 2 - (si.offsetLeft + si.offsetWidth / 2) : 0;
+      si.style.transform = 'translateX(' + dx * (1 - mv) + 'px) scale(' + (1 + (wd ? 0.45 : 0) * (1 - mv)) + ') rotateY(' + (1 - pop) * -40 + 'deg)';
+      stx.style.opacity = tx; stx.style.transform = 'translateY(' + (1 - tx) * 30 + 'px)'; stx.style.filter = tx < 1 ? 'blur(' + (1 - tx) * 8 + 'px)' : 'none';
+    }
+    const qs = this.quizSecRef.current;
+    if (qs) {
+      if (this.quizDescRef.current) this.quizDescRef.current.style.display = (vw < 900 && vh < 820) ? 'none' : '';
+      const g = this.quizGeom();
+      const idx = Math.max(0, Math.min(5, Math.floor((window.scrollY - g.top) / g.step)));
+      if (idx !== this.state.qActive) this.setState({ qActive: idx });
+    }
+    const hs = this.heroSecRef.current, hc = this.heroColRef.current, hl = this.heroLiveRef.current, hrow = this.heroRowRef.current, hcp = this.heroCopyRef.current;
+    const wide = vw >= 900 && vh >= 700;
+    {
+      {
+      const st0 = this.stageRef.current, ct0 = this.ctaSecRef.current, hd = null;
+      if (hd) {
+        const dark = (st0 && st0.getBoundingClientRect().top > 64 && !this.cmpMode && window.scrollY < (this.introRef.current ? this.introRef.current.offsetHeight : 0)) || (ct0 && ct0.getBoundingClientRect().top < 64);
+        if (dark !== this.hdrDark) {
+          this.hdrDark = dark;
+          hd.style.transition = 'background 320ms, box-shadow 320ms';
+          hd.style.background = dark ? 'rgba(10,20,52,0.55)' : 'rgba(255,255,255,0.78)';
+          const logo = hd.querySelector('img'); 
+          hd.querySelectorAll('nav a').forEach(a => { a.style.color = dark ? 'rgba(255,255,255,0.78)' : '#4E5968'; });
+          const sec = hd.querySelector('div > a[href="Features.dc.html#summary"]'); if (sec) { sec.style.background = dark ? 'rgba(255,255,255,0.1)' : '#F7F8FA'; sec.style.color = dark ? '#FFFFFF' : '#4E5968'; }
+        }
+      }
+    }
+      const fly = this.flyRef.current, fn = this.flyNumRef.current, cw = this.calcWrapRef.current;
+      if (fly && fn && cw && hs && hl) {
+        const ex = this.calcExit || 0, link = !!this.linkMode && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const hr = hs.getBoundingClientRect(), pp = link ? cl(-hr.top / (hr.height - vh)) : 0;
+        const fin = cl((ex - 0.3) / 0.2), m = ease(cl((pp - 0.08) / 0.32)), fout = cl((pp - 0.34) / 0.1);
+        const op = 0;
+        fly.style.opacity = op.toFixed(3);
+        if (op > 0) {
+          const txt = Math.round(this.calc().out).toLocaleString('ko-KR'); if (fn.textContent !== txt) fn.textContent = txt;
+          const cr = cw.getBoundingClientRect(), lr = hl.getBoundingClientRect();
+          const fw = fly.offsetWidth, fh = fly.offsetHeight;
+          const sx = cr.left + cr.width / 2 + this.colShift(), sy = Math.max(120, cr.top + cr.height * 0.2 - (ex > 0.55 ? (ex - 0.55) * 60 : 0));
+          const tx = lr.left + lr.width * 0.12, ty = lr.top + 92;
+          const x = sx + (tx - sx) * m, y = sy + (ty - sy) * m, sc = 1 - 0.7 * m;
+          fly.style.transform = 'translate(' + (x - fw / 2).toFixed(1) + 'px,' + (y - fh / 2).toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')';
+        }
+        if (hrow) hrow.style.opacity = link ? cl(1 - hr.top / (vh * 0.2)).toFixed(3) : '';
+        const ui = hl.querySelector('dv-ui');
+        if (ui && !ui.hasAttribute('data-manual')) ui.setAttribute('data-manual', '');
+      }
+    }
+    const mode = (wide ? 'W' : 'N') + (vw >= 900 ? 'w' : 'n') + (vh < 860 ? 's' : 't') + (vw < 700 || vh < 760 ? 'c' : 'r');
+    if (mode !== this._mode) { this._mode = mode; this.applyLayout(wide, vw >= 900, vh < 860); }
+    if (hs && hc && hl && hrow && hcp) {
+      const narrow = !wide, r = hs.getBoundingClientRect();
+      const p = narrow ? cl((vh - r.top) / vh) : cl(-r.top / (r.height - vh));
+      const chars = this.splitChars(this.heroH1Ref.current), n = chars.length || 1;
+      const a0 = narrow ? 0.1 : 0.0, span = narrow ? 0.5 : 0.24;
+      chars.forEach((s, i) => this.setChar(s, ease(cl((p - a0 - span * (i / n)) / 0.08)), blur, 0.6));
+      const mv = narrow ? 1 : ease(cl((p - 0.32) / 0.34));
+      const dx = narrow ? 0 : hrow.offsetWidth / 2 - (hc.offsetLeft + hc.offsetWidth / 2);
+      hc.style.transform = `translateX(${dx * (1 - mv)}px) scale(${1 + 0.12 * (1 - mv)})`;
+      const lv = narrow ? ease(cl((p - 0.6) / 0.4)) : mv;
+      const on = lv > 0.55;
+      if (hl.__on !== on) {
+        hl.__on = on;
+        hl.style.transition = 'opacity 620ms cubic-bezier(0.22,1,0.36,1), transform 620ms cubic-bezier(0.22,1,0.36,1)';
+        hl.style.opacity = on ? 1 : 0; hl.style.transform = on ? 'scale(1)' : 'scale(0.97)';
+        if (on && !this.liveStarted) { this.liveStarted = true; setTimeout(() => { const go = (n) => { const ui = hl.querySelector('dv-ui'); if (ui && ui.start) ui.start(); else if (n < 20) setTimeout(() => go(n + 1), 200); }; go(0); }, 650); }
+      }
+      const c2 = narrow ? ease(cl((p - 0.5) / 0.3)) : ease(cl((p - 0.58) / 0.24));
+      hcp.style.opacity = c2; hcp.style.transform = `translateY(${(1 - c2) * 24}px)`; hcp.style.filter = c2 < 1 ? `blur(${(1 - c2) * 8}px)` : 'none';
+      if (this.heroGlowRef.current) { const gO = narrow ? 1 : ease(cl((p - 0.05) / 0.4)); this.heroGlowRef.current.style.opacity = gO.toFixed(3); this.heroGlowRef.current.style.transform = `translateX(${(narrow ? 0 : 1) * mv * 22}%) scale(${0.7 + 0.4 * p})`; }
+    }
+    const ins = this.insSecRef.current;
+    if (ins) {
+      const r = ins.getBoundingClientRect();
+      const p = wide ? cl(-r.top / (r.height - vh)) * 4 : cl((vh * 0.55 - r.top) / Math.max(1, r.height * 0.8)) * 4;
+      const pq = Math.round(p * 50) / 50;
+      if (pq !== this.insP) { this.insP = pq; this.setState({ insP: pq }); }
+    }
+    const ls = this.loopSecRef.current, lw = this.loopRef.current;
+    if (ls && lw) {
+      const el = lw.querySelector('dv-ui');
+      if (el && el.setStep) {
+        if (wide) {
+          const r = ls.getBoundingClientRect(), p = cl(-r.top / (r.height - vh)) * 4, i = Math.min(3, Math.floor(p));
+          el.setStep(i, p - i);
+          if (!el.onStepClick) el.onStepClick = k => { const L = this.loopSecRef.current; if (!L) return; const t = L.getBoundingClientRect().top + window.scrollY, h = L.offsetHeight - window.innerHeight; window.scrollTo({ top: t + h * (k + 0.1) / 4, behavior: 'smooth' }); };
+        } else if (el.ext) el.setStep(null);
+      }
+    }
+    const ss = this.storySecRef.current, vd = this.videoRef.current;
+    if (ss) {
+      const r = ss.getBoundingClientRect(), p = cl(-r.top / (r.height - vh));
+      const ee = ease(cl(1 - r.top / vh)), stk = this.storyStickyRef.current;
+      if (stk) { const k = 1 - ee; stk.style.clipPath = k > 0.001 ? 'inset(' + (k * 16) + '% ' + (k * 22) + '% round ' + (k * 56) + 'px)' : 'none'; }
+      if (vd) { vd.style.transform = 'scale(' + (1.25 - 0.25 * ee) + ')';
+        if (vd.duration && !vd.seeking && r.top < vh && r.bottom > 0) { const t = p * (vd.duration - 0.05); if (Math.abs(vd.currentTime - t) > 0.04) vd.currentTime = t; } }
+      const a = Math.min(5, Math.floor(cl(p / 0.7) * 6));
+      if (a !== this.state.storyA) this.setState({ storyA: a });
+      const gp = cl((p - 0.7) / 0.24), ge = ease(gp);
+      if (this.storyStageRef.current) this.storyStageRef.current.style.opacity = 1 - cl(gp * 2.5);
+      if (this.storyShadeRef.current) this.storyShadeRef.current.style.background = 'rgba(6,8,14,' + (0.5 + 0.2 * ge) + ')';
+      const gl = this.glassRef.current, gi = this.glassInRef.current;
+      if (gl) { gl.style.opacity = cl(gp * 4); gl.style.visibility = gp > 0 ? 'visible' : 'hidden'; gl.style.transform = 'translate(-50%,-50%) scale(' + (0.18 + 0.82 * ge) + ')'; }
+      if (gi) { const c = cl((gp - 0.55) / 0.35); gi.style.opacity = c; gi.style.transform = 'translateY(' + (1 - c) * 16 + 'px)'; }
+      if (!this.gCounted && gp > 0.85 && gl) { this.gCounted = true; gl.querySelectorAll('[data-gcount]').forEach((el, i) => this.countUp(el, i * 120)); }
+    }
+    const now = performance.now();
+    if (!this._tocT || now - this._tocT > 150) {
+      this._tocT = now;
+      const ids = this.tocList(); let ta = -1;
+      ids.forEach(([id], i) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= vh * 0.45) ta = i; });
+      if (this.introRef.current && this.introRef.current.getBoundingClientRect().bottom > vh * 0.9) ta = -1;
+      const show = vw >= 1180 && ta >= 0, dark = ta >= 0 && ids[ta][0] === 'story';
+      if (ta !== this.state.tocA || show !== this.state.tocShow || dark !== this.state.tocDark) this.setState({ tocA: ta, tocShow: show, tocDark: dark });
+    }
+    {
+      // 도입 효과 glass box → 도입 사례 first card: one shape morphs between the two sections
+      const mo = this.morphRef.current, gl = this.glassRef.current, hs = this.hzSecRef.current, ht = this.hzTrackRef.current;
+      const card = ht && ht.querySelector('article');
+      if (mo && gl && hs && card) {
+        const hr = hs.getBoundingClientRect(), active = vw >= 900 && vh >= 700 && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const m = active ? cl((vh - hr.top) / vh) : 1;
+        if (m > 0 && m < 1) {
+          const k = ease(m), a = gl.getBoundingClientRect(), b = card.getBoundingClientRect();
+          if (!this.glassBg) { const c = getComputedStyle(gl).backgroundColor.match(/[\d.]+/g) || [30, 45, 120, 0.6]; this.glassBg = c.map(Number); if (this.glassBg.length < 4) this.glassBg.push(1); }
+          const L = (p, q) => p + (q - p) * k, g = this.glassBg;
+          const bg = 'rgba(' + Math.round(L(Math.min(g[0], 40), 255)) + ',' + Math.round(L(Math.min(g[1], 56), 255)) + ',' + Math.round(L(Math.max(g[2], 120), 255)) + ',' + L(Math.max(g[3], 0.92), 1).toFixed(3) + ')';
+          Object.assign(mo.style, { opacity: '1', width: L(a.width, b.width).toFixed(1) + 'px', height: L(a.height, b.height).toFixed(1) + 'px', transform: 'translate(' + L(a.left, b.left).toFixed(1) + 'px,' + L(a.top, b.top).toFixed(1) + 'px)', borderRadius: L(36, 40).toFixed(1) + 'px', background: bg, boxShadow: '0 30px 60px -40px rgba(30,40,60,' + (0.25 + 0.3 * (1 - k)).toFixed(2) + ')' });
+          gl.style.opacity = '0'; card.style.opacity = k > 0.96 ? ((k - 0.96) / 0.04).toFixed(3) : '0';
+          this.morphOn = true;
+        } else if (this.morphOn || m >= 1) {
+          if (this.morphOn) { mo.style.opacity = '0'; this.morphOn = false; }
+          if (card.style.opacity !== '') card.style.opacity = '';
+        }
+      }
+    }
+    this.raf = requestAnimationFrame(() => this.frame());
+  }
+  applyLayout(wide, wideW, short) {
+    const cs = this.stageRef.current, cwr = this.calcWrapRef.current, fld = this.fieldsRef.current;
+    if (cs && cwr && fld) {
+      const cmp = window.innerWidth < 700 || window.innerHeight < 760, inner = cs.firstElementChild;
+      this.linkMode = !cmp && window.innerWidth >= 900 && window.innerHeight >= 700;
+      cs.style.height = cmp ? 'auto' : (this.linkMode ? '400vh' : '220vh'); cs.style.marginTop = cmp ? '0' : (this.linkMode ? '-170vh' : '-100vh'); if (this.introRef.current) this.introRef.current.style.height = (!cmp && this.linkMode) ? '290vh' : '220vh'; this.cmpMode = cmp;
+      if (inner) { inner.style.position = cmp ? 'relative' : 'sticky'; inner.style.height = cmp ? 'auto' : '100vh'; inner.style.padding = cmp ? '96px 20px 72px' : '80px max(24px, calc((100vw - 1180px) / 2)) 24px'; inner.style.display = cmp ? 'flex' : 'grid'; inner.style.gap = cmp ? '16px' : ''; inner.style.columnGap = cmp ? '' : 'clamp(24px,4vw,64px)'; inner.style.rowGap = cmp ? '' : '28px'; }
+      if (this.copyRef.current) this.copyRef.current.style.alignSelf = cmp ? 'stretch' : 'end';
+      if (this.ctaRef.current) this.ctaRef.current.style.alignSelf = cmp ? 'stretch' : 'start';
+      cwr.style.flex = cmp ? 'none' : '1 1 0'; cwr.style.height = cmp ? 'min(125vw, 560px)' : ''; cwr.style.minHeight = cmp ? '0' : '260px';
+    }
+    const sf = this.safeSecRef.current, sr = this.safeRowRef.current, si = this.safeIconRef.current, stx = this.safeTextRef.current;
+    if (sf && sr && si && stx) {
+      sf.style.height = wide ? 'calc(100vh + 160vh)' : 'auto';
+      const st = sf.firstElementChild; if (st) { st.style.position = wide ? 'sticky' : 'relative'; st.style.height = wide ? '100vh' : 'auto'; st.style.padding = wide ? '84px 24px 40px' : '120px 24px'; }
+      sr.style.flexDirection = wide ? 'row' : 'column'; si.style.width = wide ? 'min(340px,34vw)' : 'min(300px,80vw)'; stx.style.flex = wide ? '1 1 0' : 'none';
+      if (this.safeDescRef.current) this.safeDescRef.current.style.display = (wide && short) ? 'none' : '';
+    }
+    if (!wideW !== !!this.state.nar) this.setState({ nar: !wideW });
+    const ls = this.loopSecRef.current;
+    if (ls) {
+      ls.style.height = wide ? 'calc(100vh + 300vh)' : 'auto';
+      const st = ls.firstElementChild; if (st) { st.style.position = wide ? 'sticky' : 'relative'; st.style.height = wide ? '100vh' : 'auto'; st.style.padding = wide ? '84px 24px 40px' : '120px 24px'; }
+      if (this.loopDescRef.current) this.loopDescRef.current.style.display = (wide && short) ? 'none' : '';
+    }
+    const qw = this.quizWrapRef.current;
+    if (qw) { qw.style.flexWrap = wideW ? 'nowrap' : 'wrap'; Array.from(qw.children).forEach((c, i) => { c.style.flex = wideW ? '1 1 0' : (i ? '1 1 440px' : '1 1 380px'); }); }
+    const hs = this.heroSecRef.current, hrow = this.heroRowRef.current, hc = this.heroColRef.current, hl = this.heroLiveRef.current;
+    if (hs && hrow && hc && hl) {
+      hrow.style.flexWrap = wide ? 'nowrap' : 'wrap';
+      hc.style.flex = wide ? '1 1 0' : '1 1 420px'; hl.style.flex = wide ? '1 1 0' : '1 1 440px';
+      hs.style.height = wide ? 'calc(100vh + 170vh)' : 'auto';
+      hs.style.marginTop = this.linkMode ? '-100vh' : '0';
+      const st = hs.firstElementChild; if (st) { st.style.position = wide ? 'sticky' : 'relative'; st.style.height = wide ? '100vh' : 'auto'; st.style.padding = wide ? '84px 24px 40px' : '120px 24px'; }
+    }
+    const ins = this.insSecRef.current;
+    if (ins) {
+      if (this.insDescRef.current) this.insDescRef.current.style.display = (wide && short) ? 'none' : '';
+      const st = ins.firstElementChild, row = st && st.firstElementChild;
+      ins.style.height = wide ? 'calc(100vh + 300vh)' : 'auto';
+      if (st) { st.style.position = wide ? 'sticky' : 'relative'; st.style.height = wide ? '100vh' : 'auto'; st.style.padding = wide ? '84px 24px 40px' : '120px 24px'; }
+      if (row) { row.style.flexWrap = wide ? 'nowrap' : 'wrap'; Array.from(row.children).forEach((c, i) => { c.style.flex = wide ? '1 1 0' : (i ? '1 1 460px' : '1 1 400px'); if (i) c.style.height = wide ? 'min(500px,60vh)' : '480px'; }); }
+    }
+  }
+  countUp(el, delay) {
+    const tn = Array.from(el.childNodes).find(n => n.nodeType === 3);
+    if (!tn) return;
+    const orig = tn.textContent, m = orig.match(/^\s*([\d][\d,.]*)(\D{0,2})\s*$/);
+    if (!m) return;
+    const num = parseFloat(m[1].replace(/,/g, '')), dec = (m[1].split('.')[1] || '').length, comma = m[1].includes(',');
+    const fmt = v => dec ? v.toFixed(dec) : (comma ? Math.round(v).toLocaleString('ko-KR') : String(Math.round(v)));
+    tn.textContent = orig.replace(m[1], fmt(0));
+    setTimeout(() => {
+      const t0 = performance.now(), dur = 1300;
+      const step = now => { const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 4);
+        tn.textContent = t < 1 ? orig.replace(m[1], fmt(num * e)) : orig; if (t < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }, delay);
+  }
+  quizGeom() {
+    const el = this.quizSecRef.current, vh = window.innerHeight;
+    const top = el ? el.getBoundingClientRect().top + window.scrollY : 0;
+    return { top, step: vh * 0.8, vh };
+  }
+  quizLimit() {
+    if (this.state.qSkip) return null;
+    const first = this.state.quiz.findIndex(x => !x);
+    if (first < 0) return null;
+    const g = this.quizGeom();
+    return g.top + first * g.step + g.step * 0.5;
+  }
+  quizGo(i) {
+    const g = this.quizGeom();
+    window.scrollTo({ top: g.top + i * g.step + g.step * 0.15, behavior: 'smooth' });
+  }
+  installQuizLock() {
+    const blocked = () => { const L = this.quizLimit(); return L != null && window.scrollY >= L - 2 && window.scrollY < L + window.innerHeight; };
+    const nudge = () => { if (Date.now() - (this.lastNudge || 0) > 600) { this.lastNudge = Date.now(); this.nudge++; this.forceUpdate(); } };
+    this.onWheel = e => { if (e.deltaY > 0 && Date.now() < (this.resLockUntil || 0)) { e.preventDefault(); return; } if (e.deltaY > 0 && blocked()) { e.preventDefault(); nudge(); } };
+    let ty = 0;
+    this.onTS = e => { ty = e.touches[0].clientY; };
+    this.onTM = e => { if (ty - e.touches[0].clientY > 0 && blocked()) e.preventDefault(); };
+    this.onKey = e => { if (['ArrowDown','PageDown',' ','End'].includes(e.key) && blocked() && !/INPUT|TEXTAREA|SELECT|BUTTON/.test(document.activeElement.tagName)) e.preventDefault(); };
+    this.onScroll = () => {
+      if (this._locking) return;
+      const L = this.quizLimit();
+      if (L != null && window.scrollY > L + 2 && window.scrollY < L + window.innerHeight * 1.5) {
+        this._locking = true; window.scrollTo(0, L); requestAnimationFrame(() => { this._locking = false; });
+      }
+    };
+    window.addEventListener('wheel', this.onWheel, { passive: false });
+    window.addEventListener('touchstart', this.onTS, { passive: true });
+    window.addEventListener('touchmove', this.onTM, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+  }
+  componentDidMount() {
+    this.installQuizLock();
+    new Promise(res => { if (window.mountCalc) return res({ mountCalc: window.mountCalc }); const t = setInterval(() => { if (window.mountCalc) { clearInterval(t); res({ mountCalc: window.mountCalc }); } }, 50); }).then(m => {
+      if (this.calcCanvasRef.current) m.mountCalc(this.calcCanvasRef.current, { mode: 'stepper', frame: { top: 5.1, bottom: -5.15, width: 6.9 }, onKey: l => this.onCalcKey(l) }).then(c => { this.calc3d = c; });
+      if (this.ctaCanvasRef.current) m.mountCalc(this.ctaCanvasRef.current, { mode: 'stepper', idle: true, frame: { top: 5.1, bottom: -5.15, width: 6.9 }, onKey: l => this.onCalcKey(l) }).then(c => { this.cta3d = c; });
+    }).catch(e => console.warn('3D 계산기를 불러오지 못했어요', e));
+    
+    const vd = this.videoRef.current; if (vd) { vd.muted = true; vd.playsInline = true; vd.pause();
+      fetch((window.__resources && window.__resources.caseVideo) || 'case.mp4').then(r => r.blob()).then(b => { if (!this.videoRef.current) return; this.vidUrl = URL.createObjectURL(b); this.videoRef.current.src = this.vidUrl; }).catch(() => {}); }
+    this.ptT = setInterval(() => {
+      const sec = document.getElementById('points'); if (!sec) return;
+      const r = sec.getBoundingClientRect(); if (r.bottom < 0 || r.top > window.innerHeight) return;
+      const a = ((this.state.ptA || 0) + 1) % 6; this.setState({ ptA: a });
+      const els = sec.querySelectorAll('dv-ui'); els.forEach((e, j) => { if (j === a) e.setAttribute('active', ''); else e.removeAttribute('active'); }); if (els[a] && els[a].replay) els[a].replay();
+    }, 2800);
+    const blur = this.props.blurAmount ?? 12;
+    const D0 = [120, 380, 560, 980, 1080];
+    [this.b0, this.b1, this.b2, this.b3, this.b4].forEach((ref, li) => {
+      const chars = this.splitChars(ref.current);
+      chars.forEach((s, i) => {
+        this.setChar(s, 0, 4, 0.12);
+        const d = D0[li] + (li === 1 || li === 2 ? i * 22 : 0);
+        s.style.transition = `opacity 700ms cubic-bezier(0.25,1,0.5,1) ${d}ms, transform 700ms cubic-bezier(0.25,1,0.5,1) ${d}ms, filter 700ms cubic-bezier(0.25,1,0.5,1) ${d}ms`;
+      });
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      [this.b0, this.b1, this.b2, this.b3, this.b4].forEach(ref => (ref.current && ref.current.__split || []).forEach(s => { s.style.opacity = 1; s.style.filter = 'blur(0px)'; s.style.transform = 'translateY(0)'; }));
+    }));
+    this.raf = requestAnimationFrame(() => this.frame());
+    setTimeout(() => this.enhanceButtons(), 400); this.btnT = setInterval(() => this.enhanceButtons(), 1500);
+    this.setupReveal();
+    if (!window.DV) { const t = setInterval(() => { if (window.DV) { clearInterval(t); this.forceUpdate(); } }, 50); }
+  }
+  componentDidUpdate(pp, ps) {
+    this.setupReveal();
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf); cancelAnimationFrame(this.countRaf); cancelAnimationFrame(this.fillRaf); clearInterval(this.ptT); clearInterval(this.repT); clearInterval(this.btnT); this.calc3d && this.calc3d.dispose(); this.cta3d && this.cta3d.dispose(); if (this.vidUrl) URL.revokeObjectURL(this.vidUrl);
+    this.io && this.io.disconnect();
+    clearTimeout(this.qT);
+    window.removeEventListener('wheel', this.onWheel); window.removeEventListener('touchstart', this.onTS);
+    window.removeEventListener('touchmove', this.onTM); window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('scroll', this.onScroll);
+  }
+  setupReveal() {
+    const blur = this.props.blurAmount ?? 12, dist = this.props.riseDistance ?? 36;
+    const E = 'cubic-bezier(0.22,1,0.36,1)';
+    if (!this.io) {
+      this.io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const el = e.target, d = +(el.dataset.delay || 0);
+          if (el.hasAttribute('data-split')) {
+            (el.__split || []).forEach((s, i) => {
+              const dd = d + Math.min(i * 28, 1100);
+              s.style.transition = `opacity 800ms ${E} ${dd}ms, transform 800ms ${E} ${dd}ms`;
+              requestAnimationFrame(() => { s.style.opacity = 1; s.style.transform = 'translateY(0)'; });
+            });
+          } else {
+            el.style.transition = `opacity 1000ms ${E} ${d}ms, filter 1000ms ${E} ${d}ms, transform 1200ms ${E} ${d}ms, translate 350ms ${E}, box-shadow 350ms ${E}`;
+            requestAnimationFrame(() => { el.style.opacity = '1'; el.style.filter = 'blur(0px)'; el.style.transform = 'translateY(0)'; });
+            const cs = Array.from(el.querySelectorAll('[data-count]'));
+            if (el.hasAttribute('data-count')) cs.push(el);
+            cs.forEach(c => this.countUp(c, d + 200));
+          }
+          this.io.unobserve(el);
+        });
+      }, { threshold: 0.15 });
+    }
+    document.querySelectorAll('[data-split]:not([data-rv])').forEach(el => {
+      el.setAttribute('data-rv', '');
+      this.splitChars(el).forEach(s => this.setChar(s, 0, 0, 0.5));
+      this.io.observe(el);
+    });
+    document.querySelectorAll('[data-reveal]:not([data-rv])').forEach(el => {
+      el.setAttribute('data-rv', '');
+      el.style.opacity = '0';
+      el.style.filter = `blur(${blur}px)`;
+      const big = el.offsetHeight > 280;
+      if (big) el.style.transformOrigin = '50% 0%';
+      el.style.transform = big ? `translateY(${dist * 1.4}px) scale(0.955)` : `translateY(${dist}px)`;
+      this.io.observe(el);
+    });
+  }
+  renderVals() {
+    const v = this.state.v, DV = window.DV || { quiz: [], points: [] };
+    const qs = this.state.quiz, n = qs.filter(x => x === 'dont').length, answered = qs.some(x => x);
+    let qMsg = { big: '답하지 못한 질문 하나하나가 매달 놓치는 초진, 쌓이는 불만, 사라지는 상담 노하우로 이어져요.', rest: 'D voice를 쓰는 병원은 이 여섯 가지를 매일 아침 한 화면에서 봐요.' };
+    if (answered) {
+      if (n === 0) qMsg = { big: 'D voice는 묻지 않아도 매일 아침 먼저 알려드려요.', rest: '모두 답하셨다면 이미 직원에게 많이 물어보고 계신 거예요.' };
+      else if (n <= 2) qMsg = { big: '남은 ' + n + '개가 매달 놓치는 초진과 반복되는 불만으로 이어져요.', rest: '대부분 보고 계시네요. D voice를 쓰는 병원은 이것까지 매일 봐요.' };
+      else qMsg = { big: '병원 운영의 절반이 보이지 않는 상태예요.', rest: '진료 실력과 상관없이, 답하지 못한 ' + n + '개의 질문 때문에 매달 매출과 평판이 새고 있어요. D voice를 쓰는 병원은 여섯 가지 모두 매일 아침 한 화면에서 봐요.' };
+    }
+    const setQ = (i, val) => {
+      const a = this.state.quiz.slice(); a[i] = val;
+      this.setState({ quiz: a, qCount: i + ':' + val + ':' + Date.now() });
+      clearTimeout(this.qT);
+      const done = a.every(x => x);
+      this.qT = setTimeout(() => {
+        if (i < 5) { const nx = a.findIndex(x => !x); this.quizGo(nx < 0 ? i + 1 : Math.max(i + 1, nx < i ? i + 1 : nx)); }
+        else if (done && this.quizResRef.current) { window.scrollTo({ top: this.quizResRef.current.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' }); this.resLockUntil = Date.now() + 2200; }
+      }, val === 'dont' ? 1600 : 550);
+    };
+    const allDone = qs.every(x => x);
+    const faqData = [
+      ['2주 콜 진단은 어떻게 진행되고, 비용은 얼마인가요?', '필요한 장비는 무료로 빌려드리고, 2주 이용료만 받아요. 담당 엔지니어가 기존 회선에 장비를 연결하면 2주 동안 D voice를 병원에서 실제로 쓰시고, 마지막 날 진단 리포트를 받아보세요. 도입하지 않으셔도 장비 비용은 없어요.'],
+      ['직원들이 감시받는다고 싫어하지 않을까요?', '직원이 가장 먼저 반기는 것은 통화 후 메모와 상담일지가 사라지는 거예요. 응대 점수는 개인을 평가하는 숫자가 아니라, 잘한 통화를 찾아 병원의 응대 기준을 맞추는 데 써요. 직원 입장에서는 "잘한 것이 기록으로 남는" 도구예요.'],
+      ['환자가 녹음을 불편해하지 않을까요?', '안내 문구는 "상담과 진료 내용이 기록으로 남고, 원하시면 보여드려요"예요. 기록은 환자를 지키는 약속으로 전달되고, 상담실의 D voice 안심병원 카드가 그 약속을 보여줘요. 통화 연결 시 고지가 먼저 나가고, 모든 기록에 고지 여부가 남아요.'],
+      ['지금 쓰는 전화기와 EMR을 바꿔야 하나요?', '전화기는 그대로예요. 필요한 장비는 무료로 빌려드리고, 픽스앤컴이 관리하는 기존 회선 위에 연동하며 별도 공사가 없어요. 진료 기록은 D-Note로 정리되어 복사해 쓰실 수 있고, EMR 직접 연동은 순차 제공돼요.'],
+      ['작은 의원에도 필요한가요?', '직원이 적을수록 전화 한 통, 상담 한 건의 무게가 커요. 데스크 한 명이 진료 보조까지 하는 병원일수록 놓치는 전화가 많아요. 요금은 회선 수 기준이라 규모에 맞춰 시작해요.'],
+      ['환자 데이터는 안전한가요?', '수집, 전송, 보관 전 구간을 암호화하고 병원 단위로 분리해 보관해요. 보관 기간과 삭제 절차는 병원이 정하고, 관리자와 직원 권한이 나뉘어요.'],
+      ['도입 후 요금은 어떻게 되나요?', '채널(콜·상담·진료)과 등급, 회선 수로 정해지는 월 구독이에요. 2주 콜 진단 리포트로 우리 병원의 놓친 전화와 회수 가능 건수를 먼저 보신 뒤 견적을 드려요.']
+    ];
+    return {
+      morphRef: this.morphRef, heroStickyRef: this.heroStickyRef, ctaSecRef: this.ctaSecRef, ctaRingsRef: this.ctaRingsRef, ctaInRef: this.ctaInRef, flyRef: this.flyRef, flyNumRef: this.flyNumRef, heroBgRef: this.heroBgRef, descRef: this.descRef, hzSecRef: this.hzSecRef, hzStickyRef: this.hzStickyRef, hzViewRef: this.hzViewRef, hzTrackRef: this.hzTrackRef, introRef: this.introRef, introBlockRef: this.introBlockRef, hintRef: this.hintRef, stageRef: this.stageRef, stageBgRef: this.stageBgRef,
+      rowRef: this.rowRef, copyRef: this.copyRef, phoneBoxRef: this.phoneBoxRef, scalerRef: this.scalerRef, phoneRef: this.phoneRef, sheenRef: this.sheenRef,
+      outRef: this.outRef, yearRef: this.yearRef, ptRef: this.ptRef, b0: this.b0, b1: this.b1, b2: this.b2, b3: this.b3, b4: this.b4,
+      onPointer: e => { this.tilt.tx = (e.clientX / window.innerWidth - 0.5) * 2; this.tilt.ty = (e.clientY / window.innerHeight - 0.5) * 2; },
+      onPointerLeave: () => { this.tilt.tx = 0; this.tilt.ty = 0; },
+      fields: this.defs().map(f => ({ ...f, value: v[f.id],
+        onChange: e => this.setVal(f.id, e.target.value, f.max),
+        inc: () => { this.calc3d && this.calc3d.press('inc:' + this.defs().findIndex(d => d.id === f.id)); this.setVal(f.id, Math.min(f.max, (parseFloat(v[f.id]) || 0) + f.step), f.max); },
+        dec: () => { this.calc3d && this.calc3d.press('dec:' + this.defs().findIndex(d => d.id === f.id)); this.setVal(f.id, Math.max(0, (parseFloat(v[f.id]) || 0) - f.step), f.max); } })),
+      proof: [['35','운영 중인 병·의원'],['64만+','누적 분석 대화'],['95%','의료 음성 인식 정확도'],['511','픽스앤컴 인프라 병·의원'],['17년','병원 IT 운영'],['4건','음성 분석 특허']].map((x, i) => ({ v: x[0], l: x[1], delay: i * 60 })),
+      quizWrapRef: this.quizWrapRef, quizLeftRef: this.quizLeftRef, quizListRef: this.quizListRef, quizSecRef: this.quizSecRef, quizDescRef: this.quizDescRef, quizResRef: this.quizResRef,
+      quizSecH: 'calc(100vh + 480vh)',
+      qStep: this.state.qActive + 1, quizDone: allDone,
+      qHint: allDone ? '모든 질문에 답했어요. 아래에서 결과를 확인하세요.' : '답을 고르면 다음 질문으로 넘어가요',
+      quizSkip: () => { clearTimeout(this.qT); this.setState({ qSkip: true }, () => { const g = this.quizGeom(); const el = this.quizResRef.current || document.getElementById('day'); const y = el ? el.getBoundingClientRect().top + window.scrollY - 40 : g.top + 6 * g.step; window.scrollTo({ top: y, behavior: 'smooth' }); }); },
+      quizDots: qs.map((s, i) => { const first = qs.findIndex(x => !x), ok = first < 0 || i <= first || this.state.qSkip;
+        return { bg: s === 'dont' ? '#F04452' : s === 'know' ? '#2B45D4' : i === this.state.qActive ? '#8B95A1' : '#E5E8EB', sy: i === this.state.qActive ? 1.6 : 1,
+          cur: ok ? 'pointer' : 'not-allowed', label: `질문 ${i + 1}로 이동`, go: () => { if (ok) { clearTimeout(this.qT); this.quizGo(i); } else { this.nudge++; this.forceUpdate(); } } }; }),
+      insItems: [['어디서 왔나','광고비가 어디서 전화로 돌아왔는지','"네이버 검색하다 보고 연락드렸어요." 환자의 첫마디에서 유입 채널을 잡아 통화 기준으로 집계해요.','#2B45D4'],['무엇을 원하나','환자가 가장 많이 묻는 시술','상담 대화에서 관심 시술이 자동으로 뽑혀요. 이벤트와 재고, 상담 인력을 어디에 둘지 정하는 근거가 돼요.','#2B45D4'],['무엇에 불만인가','불만은 태그와 원래 발언으로 남아요','"불만족", "접수 불만", "응대·시설 불만" 태그가 붙은 통화를 모으면 반복되는 원인이 보여요.','#F04452'],['무엇에 만족하나','잘 된 응대에는 공통점이 있어요','점수가 높은 통화를 모아 보면, 환자가 만족한 이유가 우리 병원 말투로 보여요.','#12A26B']].map((x, i) => {
+        const p = this.state.insP || 0, a = Math.min(3, Math.floor(p)), on = i === a;
+        return { k: x[0], h: x[1], p: x[2], color: x[3], op: 1, tc: on ? '#191F28' : '#C4CAD3', kc: on ? '#6B7684' : '#C4CAD3', rows: on ? '1fr' : '0fr', prog: (i < a ? 100 : on ? Math.min(100, (p - i) * 100) : 0) + '%',
+          go: () => { const el = this.insSecRef.current; if (!el) return; const t = el.getBoundingClientRect().top + window.scrollY, h = el.offsetHeight - window.innerHeight; window.scrollTo({ top: t + h * (i + 0.15) / 4, behavior: 'smooth' }); } };
+      }),
+      insPanels: (() => { const p = this.state.insP || 0, a = Math.min(3, Math.floor(p));
+        const vb = [['금식하고 왔는데 한 시간째 기다리고 있어요.','접수 불만 · 검진 자격 조회 지연 · 응대 점수 4'],['반영구 한 지 2주 됐는데 색이 너무 진하게 나왔어요.','불만족 · 시술 경과 · 실장 인계'],['어제 받은 약이 지난번이랑 모양이 달라요.','회신필요 · 제조사 변경 안내 누락']];
+        const vg = [['가격을 한 번에, 금액으로 안내받았어요.','비용 문의 → 예약 전환 통화에서 반복'],['가능한 시간을 먼저 두 개 말해줘서 바로 골랐어요.','예약·시간 문의 · 평균 통화 시간 짧음'],['와서 뭘 준비해야 하는지 미리 알려줬어요.','내원 전 안내 · 노쇼 감소와 연결']];
+        const mk = (i, k, sample, color, extra) => { const d = i - a; return { k, sample, color, op: d === 0 ? 1 : 0, ty: d === 0 ? '0px' : d < 0 ? '-50px' : '50px', sc: d === 0 ? 1 : 0.96, bl: d === 0 ? '0px' : '12px', pe: d === 0 ? 'auto' : 'none', isDonut: false, isInterest: false, isVoice: false, ...extra }; };
+        const vs = (arr, i) => arr.map((x, j) => ({ q: x[0], s: x[1], op: a === i ? 1 : 0, ty: a === i ? '0px' : '16px', dl: (a === i ? 150 + j * 140 : 0) + 'ms' }));
+        return [mk(0, '어디서 왔나', '예시 병원 · 유입 감지 122건', '#2B45D4', { isDonut: true }), mk(1, '무엇을 원하나', '예시 병원 · 상담 16건', '#2B45D4', { isInterest: true }),
+          mk(2, '무엇에 불만인가', '예시 발언', '#F04452', { isVoice: true, voices: vs(vb, 2), vbg: '#FFF5F6' }), mk(3, '무엇에 만족하나', '응대 점수 9~10 통화 공통점', '#12A26B', { isVoice: true, voices: vs(vg, 3), vbg: '#F0FAF5' })]; })(),
+      insSecRef: this.insSecRef, insDescRef: this.insDescRef,
+      ctaRef: this.ctaRef, loopSecRef: this.loopSecRef, loopRef: this.loopRef, loopDescRef: this.loopDescRef, storySecRef: this.storySecRef, videoRef: this.videoRef,
+      calcReset: () => this.autoFill(this.exVals()),
+      calcEq: () => this.calcReplay(), calcWrapRef: this.calcWrapRef, calcCanvasRef: this.calcCanvasRef, fieldsRef: this.fieldsRef, ctaCanvasRef: this.ctaCanvasRef,
+      storyStageRef: this.storyStageRef, storyShadeRef: this.storyShadeRef, storyStickyRef: this.storyStickyRef, glassRef: this.glassRef, glassInRef: this.glassInRef,
+      safeSecRef: this.safeSecRef, safeRowRef: this.safeRowRef, safeIconRef: this.safeIconRef, safeTextRef: this.safeTextRef, safeRingRef: this.safeRingRef, safeDiscRef: this.safeDiscRef, safeShieldRef: this.safeShieldRef, safeCheckRef: this.safeCheckRef, safeLabelRef: this.safeLabelRef, safeDescRef: this.safeDescRef,
+      tocOp: this.state.tocShow ? 1 : 0, tocPe: this.state.tocShow ? 'auto' : 'none',
+      toc: this.tocList().map(([id, l], i) => { const on = i === this.state.tocA, dk = this.state.tocDark;
+        const hv = i === this.state.tocH;
+        return { label: l, w: on || hv ? '26px' : '12px', c: on || hv ? (dk ? '#FFFFFF' : '#191F28') : (dk ? 'rgba(255,255,255,0.4)' : '#C4CAD3'),
+          lop: hv ? 1 : 0, lx: hv ? '0px' : '-6px', lc: dk ? '#FFFFFF' : '#191F28', lbg: dk ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.92)',
+          enter: () => this.setState({ tocH: i }), leave: () => this.setState(st => st.tocH === i ? { tocH: -1 } : null),
+          go: () => { const el = document.getElementById(id); if (!el) return; if (i > 2) this.setState({ qSkip: true }); window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + (id === 'calc' ? window.innerHeight * 0.1 : 0), behavior: 'smooth' }); } }; }),
+      ...(() => { const A = this.state.storyA, nar = this.state.nar;
+        const P = [['0%','6%','72%'],['50%','4%','46%'],['0%','30%','46%'],['25%','8%','50%'],['50%','26%','46%'],['0%','20%','78%']];
+        const E = [[0,40],[40,0],[0,-40],[-40,0],[40,0],[0,40]];
+        const o = {};
+        P.forEach((x, i) => { const d = i - A, on = d === 0, e = E[i], k = d < 0 ? -1 : 1;
+          o['s' + i] = { l: nar ? '0%' : x[0], t: nar ? '4%' : x[1], w: nar ? '100%' : x[2], op: on ? 1 : 0, bl: on ? '0px' : '10px', tr: on ? 'translate(0px,0px)' : 'translate(' + e[0] * k + 'px,' + e[1] * k + 'px)' }; });
+        o.dots30 = Array.from({ length: 30 }, (_, i) => ({ bg: A === 1 ? '#FFFFFF' : 'transparent', dl: (A === 1 ? 300 + i * 30 : 0) + 'ms' }));
+        o.dots12 = Array.from({ length: 12 }, (_, i) => ({ bg: A === 2 && i < 9 ? '#FFFFFF' : 'transparent', dl: (A === 2 ? 300 + i * 60 : 0) + 'ms' }));
+        o.dots20 = Array.from({ length: 20 }, (_, i) => ({ x: 'calc(' + (86 + (i % 5) * 3) + '% - 4px)', y: (28 + Math.floor(i / 5) * 12) + 'px', op: A === 3 ? 1 : 0, sc: A === 3 ? 1 : 0.2, dl: (A === 3 ? 300 + i * 45 : 0) + 'ms' }));
+        o.ticks = Array.from({ length: 11 }, (_, i) => ({ x: i * 10 + '%', n: i, c: i >= 9 ? '#FFFFFF' : 'rgba(255,255,255,0.6)' }));
+        o.storyBars = [0,1,2,3,4,5].map(i => ({ bg: i <= A ? '#FFFFFF' : 'rgba(255,255,255,0.3)' }));
+        o.storyNo = '0' + (A + 1);
+        return o; })(),
+      heroSecRef: this.heroSecRef, heroGlowRef: this.heroGlowRef, heroRowRef: this.heroRowRef, heroColRef: this.heroColRef, heroH1Ref: this.heroH1Ref, heroCopyRef: this.heroCopyRef, heroLiveRef: this.heroLiveRef,
+      quiz: DV.quiz.map((q, i) => {
+        const s = qs[i], d = i - this.state.qActive, cnt = this.state.qCount && this.state.qCount.startsWith(i + ':');
+        const stack = d === 0 ? ['0px', 1, 1, '0px'] : d < 0 ? ['-90px', 0.92, 0, '8px'] : d === 1 ? ['30px', 0.94, 0.45, '2px'] : d === 2 ? ['56px', 0.88, 0.18, '4px'] : ['70px', 0.84, 0, '6px'];
+        return { ...q, i, n: i + 1, know: s === 'know', dont: s === 'dont',
+          ty: stack[0], sc: stack[1], op: stack[2], bl: stack[3], z: 10 - Math.abs(d), pe: d === 0 ? 'auto' : 'none',
+          bg: s === 'dont' ? '#FFF4F5' : s === 'know' ? '#F1F3FE' : '#F7F8FA',
+          glow: '0 16px 40px -24px rgba(30,40,60,0.25)',
+          anim: d === 0 && this.nudge ? `${this.nudge % 2 ? 'nudgeA' : 'nudgeB'} 500ms cubic-bezier(0.22,1,0.36,1)` : 'none',
+          counting: !!cnt && i < 5, barC: s === 'dont' ? '#F04452' : '#2B45D4', barMs: s === 'dont' ? '1600ms' : '550ms',
+          knowBg: s === 'know' ? '#2B45D4' : '#fff', knowFg: s === 'know' ? '#fff' : '#333D4B',
+          dontBg: s === 'dont' ? '#F04452' : '#fff', dontFg: s === 'dont' ? '#fff' : '#333D4B',
+          onKnow: () => setQ(i, 'know'), onDont: () => setQ(i, 'dont') };
+      }),
+      qScore: n, qMsg,
+      day: [
+        ['출근','08:50','어젯밤 부재중 전화는 전화기 기록을 뒤져야 알고, 대부분 그냥 지나가요.','대시보드에 ','부재중 6건과 회신할 번호','가 떠 있어요. 9시 전에 회신을 시작해요.'],
+        ['데스크','10:20','"가격만 물어보고 끊었어요." 그런 전화가 몇 통이었는지 아무도 세지 않아요.','비용 문의 통화가 모이고, ','예약으로 넘어가지 않은 통화만',' 따로 볼 수 있어요.'],
+        ['컴플레인','11:40','환자가 화를 내고 간 뒤에야 알고, 누가 뭐라고 했는지는 직원 기억에 달려 있어요.','','클레임 유의 알림','이 먼저 와요. 해당 발언과 녹음도 그대로 남아요.'],
+        ['상담실','14:30','"생각해보고 연락드릴게요." 왜 보류했는지는 실장만 알아요. 실장이 그만두면 아무도 모르죠.','보류 사유가 ','상담 D-Note에 남아요.',' 발표 일정이 끝나는 날 재상담 연락이 잡혀요.'],
+        ['진료 종료','18:30','밀린 차트를 기억나는 대로 정리하느라 퇴근이 늦어져요.','','S·O·A·P 초안이 이미 와 있어요.',' 확인하고 퇴근하세요.'],
+        ['월말','광고 정산','광고 대행사 리포트의 노출과 클릭 수만 봐요.','채널별로 ','실제 걸려온 전화 수','를 보고 다음 달 예산을 옮겨요.'],
+        ['분기','실장 교체','상담 노하우와 환자 관계가 실장과 함께 나가요.','응대 점수가 높은 통화와 상담이 ','교육 자료','가 돼요. 새 실장이 첫 주에 들어요.']
+      ].map(d => ({ when: d[0], time: d[1], no: d[2], pre: d[3], b: d[4], post: d[5] })),
+      voiceBad: [['금식하고 왔는데 한 시간째 기다리고 있어요.','접수 불만 · 검진 자격 조회 지연 · 응대 점수 4'],['반영구 한 지 2주 됐는데 색이 너무 진하게 나왔어요.','불만족 · 시술 경과 · 실장 인계'],['어제 받은 약이 지난번이랑 모양이 달라요.','회신필요 · 제조사 변경 안내 누락']].map(x => ({ q: x[0], s: x[1] })),
+      voiceGood: [['가격을 한 번에, 금액으로 안내받았어요.','비용 문의 → 예약 전환 통화에서 반복'],['가능한 시간을 먼저 두 개 말해줘서 바로 골랐어요.','예약·시간 문의 · 평균 통화 시간 짧음'],['와서 뭘 준비해야 하는지 미리 알려줬어요.','내원 전 안내 · 노쇼 감소와 연결']].map(x => ({ q: x[0], s: x[1] })),
+      caseMetrics: [['부재중 당일 회신율','22%','81','%'],['평균 응대 점수','6.9','8.5','점'],['상담 후 예약 전환','31%','42','%'],['새 실장 인수인계','2주','3','일']].map((x, i) => ({ l: x[0], from: x[1], to: x[2], u: x[3], delay: i * 80 })),
+      caseTl: [['1주차','보이지 않던 것을 봤다','첫 대시보드에서 야간·주말 부재중이 주 30건 가까이 쌓이고 있었다.'],['3주차','원인을 찾았다','불만 통화 12건 중 9건이 "접수 대기". 직원이 아니라 동선의 문제였다.'],['6주차','기준을 만들었다','응대 점수 9점 이상 통화 20건으로 전화 응대 기준을 만들고 전 직원이 들었다.'],['12주차','돈의 흐름을 바꿨다','전화가 실제로 온 채널로 광고비를 옮겼다. 네이버 플레이스 비중을 올렸다.']].map((x, i) => ({ w: x[0], b: x[1], p: x[2], delay: i * 80 })),
+      assets3: [['재진','지난 진료가 한 줄로 이어져요','"3개월 후 Lab 재평가"처럼 P에 적은 추적 계획이 환자 타임라인에 남아요. 재진 때 지난 설명을 다시 찾지 않아도 돼요.'],['설명의무','무엇을 설명했는지 근거가 남아요','처방을 보류한 이유, 생활 지도 내용, 환자의 질문까지 원문과 요약이 함께 남아요. 분쟁이 생겨도 기억이 아니라 기록으로 이야기할 수 있어요.'],['데이터','병원의 진료 데이터가 쌓여요','진단, 검사 수치, 계획이 구조화되어 쌓여요. 추적 관리 대상, 자주 하는 설명, 진료 패턴을 병원이 직접 들여다볼 수 있는 자산이 돼요.']].map((x, i) => ({ k: x[0], h: x[1], p: x[2], delay: i * 80 })),
+      points: DV.points.map((p, i) => ({ ...p, href: '#/summary?step=' + (i + 1), delay: (i % 3) * 80, tone: String(i % 6) })),
+      vows: [['먼저 알려요','기록된다는 사실을 시작할 때 알려요.'],['권유 이유를 남겨요','권유 시술, 견적, 환자의 결정이 남아요.'],['요청하면 보여드려요','본인의 상담·진료 요약을 드려요.'],['정해진 기간만 보관해요','보관 기간과 삭제 절차를 공개해요.']].map((x, i) => ({ b: x[0], s: x[1], delay: i * 60 })),
+      offer: [['장비','무료 임대','통화·상담 기록에 필요한 장비를 무료로 빌려드리고, 담당 엔지니어가 기존 회선에 연결해요. 전화기는 그대로예요.'],['비용','2주 이용료만','2주 동안 대시보드, 콜·상담 기록, 마케팅 분석을 실제로 쓰시는 이용료만 받아요.'],['결과','진단 리포트','마지막 날 부재중 전화, 불만 통화, 유입 채널, 상담 보류 사유, 추정 손실 금액을 한 장으로 드려요.']].map(x => ({ k: x[0], v: x[1], p: x[2] })),
+      steps: [['1','진단 신청','2분','병원명과 연락처만 남기시면 담당 엔지니어가 연락드려 설치 일정을 잡아요.'],['2','장비 무료 설치 · 2주 사용','14일','필요한 장비는 무료로 빌려드리고 지금 쓰는 회선에 연결해요. 2주 동안 대시보드와 콜·상담 기록을 병원에서 직접 써 보세요.'],['3','진단 리포트','1장','부재중 전화, 미회신, 불만 통화, 채널별 유입, 상담 보류 사유, 추정 손실 금액을 한 장으로 받아요.'],['4','도입 결정','회선·계정 연결','리포트를 보신 뒤 결정하세요. 도입하지 않으셔도 장비 비용은 없어요. 도입 후에는 17년째 병원 네트워크를 지켜 온 담당 엔지니어가 정기 방문 때 리포트를 함께 봐요.']].map((x, i) => ({ n: x[0], b: x[1], s: x[2], p: x[3], delay: i * 280, line: i < 3 ? '#DDE2F8' : 'transparent' })),
+      faq: faqData.map((f, i) => { const open = !!this.state.faqOpen[i]; return { q: f[0], a: f[1], open, link: i === 6, rows: open ? '1fr' : '0fr', op: open ? 1 : 0, ty: open ? '0px' : '-8px', rot: open ? '45deg' : '0deg', sbg: open ? '#191F28' : '#FFFFFF', sfg: open ? '#FFFFFF' : '#6B7684',
+        toggle: () => this.setState(st => ({ faqOpen: { ...st.faqOpen, [i]: !st.faqOpen[i] } })) }; }),
+      report: [['수신 전화','412',''],['부재중','47','w'],['당일 미회신','23','w'],['불만 태그 통화','9','b'],['1위 유입 채널','네이버 플레이스','s'],['안심병원 기준','5개 중 2개 충족','s']].map(x => ({ k: x[0], v: x[1], fs: x[2] === 's' ? '16px' : '26px', c: x[2] === 'w' ? '#D97706' : x[2] === 'b' ? '#F04452' : '#191F28' }))
+    };
+  }
+}
+</script>
+</body>
+</html>
