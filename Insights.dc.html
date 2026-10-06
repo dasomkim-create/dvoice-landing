@@ -25,7 +25,7 @@ input::placeholder{color:#8B95A1;}
     <div style="width:100%;max-width:1120px;">
       <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">인사이트</div>
       <h1 data-reveal="" data-delay="80" style="margin:16px 0 0;font-size:clamp(34px,5vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">병원 운영 이야기와 D voice 소식</h1>
-      <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:640px;">도입 사례, 언론 보도, D voice 팀이 쓴 병원 운영 글을 한곳에 모았습니다.</p>
+      <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:640px;">언론 보도와 D voice 팀이 쓴 병원 운영 글을 한곳에 모았습니다. 병원별 전후 기록은 <a href="Cases.dc.html" style="font-weight:600;">도입 사례</a>에서 보실 수 있습니다.</p>
     </div>
   </section>
 
@@ -97,7 +97,7 @@ input::placeholder{color:#8B95A1;}
 class Component extends DCLogic {
   state = { cat: 'all', q: '', limit: 6 };
   componentDidMount() {
-    this.readHash = () => { const h = location.hash.slice(1); this.setState({ cat: ['news', 'blog', 'case'].includes(h) ? h : 'all', limit: 6 }); };
+    this.readHash = () => { const h = location.hash.slice(1); this.setState({ cat: ['news', 'blog'].includes(h) ? h : 'all', limit: 6 }); };
     this.readHash(); window.addEventListener('hashchange', this.readHash);
     this.reveal();
   }
@@ -106,10 +106,6 @@ class Component extends DCLogic {
   reveal() { clearTimeout(this.t); this.t = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }
   data() {
     return [
-      { cat: 'case', date: '2026.09.30', src: '피부과 · 서울 강남', thumb: '사례 이미지 · A피부과', title: 'A피부과 · 야간 부재중 30건이 보이자, 12주 만에 광고비가 옮겨졌습니다', ex: '부재중 당일 회신율 22% → 81%, 평균 응대 점수 6.9 → 8.5. 무엇을 발견했고 무엇을 바꿨는지 정리했습니다.' },
-      { cat: 'case', date: '2026.09.16', src: '성형외과 · 서울', thumb: '사례 이미지 · B성형외과', title: 'B성형외과 · 외국인 상담이 같은 양식으로', ex: '중국어·영어 상담이 늘면서 통역 직원만 알던 상담 내용이 7항목 D-Note로 남기 시작했습니다.' },
-      { cat: 'case', date: '2026.08.20', src: '내과 · 검진센터 · 경기', thumb: '사례 이미지 · C내과', title: 'C내과 · 결과 회신 전화와 차트가 동시에 정리', ex: '본인 확인 절차가 통화 기록에 남고, 진료 차트는 SOAP 초안으로 받아 퇴근이 빨라졌습니다.' },
-      { cat: 'case', date: '2026.07.22', src: '치과 · 부산', thumb: '사례 이미지 · D치과', title: 'D치과 · 예약 변경 전화가 빈 체어가 되지 않도록', ex: '예약 변경·취소 태그가 붙은 통화를 모아 당일 빈자리를 대기 환자에게 바로 연락했습니다.' },
       { cat: 'news', date: '2026.09.24', src: '보도자료', thumb: '보도 이미지', title: 'D voice, 운영 병·의원 35곳·누적 분석 대화 64만 건 넘어', ex: '병·의원의 전화와 상담, 진료 대화를 기록하고 정리하는 D voice가 운영 병·의원 35곳, 누적 분석 대화 64만 건을 넘었습니다.' },
       { cat: 'blog', date: '2026.09.10', src: '운영', thumb: '썸네일 · 계산기 화면', title: '부재중 전화 한 통은 얼마일까, 숫자 다섯 개로 계산하기', ex: '하루 부재중 전화, 신규 문의 비율, 예약 전환율, 초진 매출, 진료일. 숫자 다섯 개면 한 달 동안 놓치고 있을 수 있는 초진 매출이 나옵니다.' },
       { cat: 'blog', date: '2026.08.27', src: '응대', thumb: '썸네일 · 통화 전사문', title: '응대 점수 9점 통화의 세 가지 공통점', ex: '가격은 한 번에 금액으로, 가능한 시간은 두 개를 먼저, 내원 전 준비사항은 꼭 붙여서. 점수가 높은 통화를 모아 보면 우리 병원 말투의 기준이 보입니다.' },
@@ -130,7 +126,7 @@ class Component extends DCLogic {
     const list = D.filter(a => (cat === 'all' || a.cat === cat) && (!qq || (a.title + a.ex + a.src).toLowerCase().includes(qq))).sort((x, y) => y.date.localeCompare(x.date)).map(deco);
     const feat = list[0];
     const rest = list.slice(1);
-    const tabs = [['all', '전체'], ['case', '도입 사례'], ['news', '뉴스'], ['blog', '블로그']];
+    const tabs = [['all', '전체'], ['news', '뉴스'], ['blog', '블로그']];
     return {
       tabs: tabs.map(([k, label]) => ({ label, n: k === 'all' ? D.length : D.filter(a => a.cat === k).length, on: cat === k ? 'true' : 'false', bg: cat === k ? '#191F28' : '#F2F4F6', fg: cat === k ? '#FFFFFF' : '#4E5968', go: () => { this.setState({ cat: k, limit: 6 }); history.replaceState(null, '', k === 'all' ? '#' : '#' + k); } })),
       q, onQ: e => this.setState({ q: e.target.value, limit: 6 }),

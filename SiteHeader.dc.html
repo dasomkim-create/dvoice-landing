@@ -16,7 +16,7 @@
           <a href="{{ n.href }}" aria-current="{{ n.cur }}" style="height:40px;padding:0 14px;display:flex;align-items:center;border-radius:10px;font-size:15px;font-weight:{{ n.fw }};color:{{ n.c }};background:{{ n.bg }};transition:background 200ms,color 200ms;" style-hover="background:{{ hoverBg }};color:{{ hoverFg }};">{{ n.label }}</a>
         </sc-if>
         <sc-if value="{{ n.isMenu }}" hint-placeholder-val="{{ false }}">
-          <button type="button" onClick="{{ n.toggle }}" aria-expanded="{{ n.exp }}" aria-haspopup="true" style="height:40px;padding:0 10px 0 14px;display:flex;align-items:center;gap:4px;border:none;border-radius:10px;font:inherit;font-size:15px;font-weight:{{ n.fw }};color:{{ n.c }};background:{{ n.bg }};cursor:pointer;transition:background 200ms,color 200ms;" style-hover="background:{{ hoverBg }};color:{{ hoverFg }};">{{ n.label }}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate({{ n.rot }});transition:transform 300ms cubic-bezier(0.22,1,0.36,1);"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <a href="{{ n.mhref }}" onClick="{{ n.tap }}" aria-expanded="{{ n.exp }}" aria-haspopup="true" style="height:40px;padding:0 10px 0 14px;display:flex;align-items:center;gap:4px;border:none;border-radius:10px;font-size:15px;font-weight:{{ n.fw }};color:{{ n.c }};background:{{ n.bg }};cursor:pointer;transition:background 200ms,color 200ms;" style-hover="background:{{ hoverBg }};color:{{ hoverFg }};">{{ n.label }}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate({{ n.rot }});transition:transform 300ms cubic-bezier(0.22,1,0.36,1);"><path d="M6 9l6 6 6-6"></path></svg></a>
           <div role="menu" aria-label="{{ n.label }}" style="position:absolute;top:50px;left:-8px;width:{{ n.pw }};padding:12px;border-radius:24px;background:#FFFFFF;box-shadow:0 0 0 1px rgba(0,0,0,0.05),0 30px 70px -24px rgba(20,30,60,0.28);display:grid;grid-template-columns:{{ n.cols }};gap:8px;opacity:{{ n.op }};visibility:{{ n.vis }};pointer-events:{{ n.pe }};transform:translateY({{ n.ty }}) scale({{ n.sc }});transform-origin:20% 0;transition:opacity 260ms cubic-bezier(0.22,1,0.36,1),transform 360ms cubic-bezier(0.22,1,0.36,1),visibility 0ms {{ n.visDelay }};">
             <span aria-hidden="true" style="position:absolute;left:0;right:0;top:-14px;height:14px;"></span>
             <sc-if value="{{ n.hasFeat }}" hint-placeholder-val="{{ false }}">
@@ -84,7 +84,7 @@ class Component extends DCLogic {
         feat: { href: 'Features.dc.html#summary', k: '3분 요약', t: 'D voice가 병원에 주는 것, 여섯 가지만', d: '진료실 밖에서 무엇이 달라지는지 핵심만 정리했습니다.', cta: '3분 요약 보기' },
         items: [
           ['대시보드', '출근하고 30초, 어젯밤과 오늘', 'Features.dc.html#f-dash'],
-          ['콜레코드', '통화를 다시 듣지 않아도 아는 통화', 'Features.dc.html#f-call'],
+          ['콜레코드', '다시 듣지 않아도 아는 통화', 'Features.dc.html#f-call'],
           ['상담레코드', '실장이 바뀌어도 남는 상담', 'Features.dc.html#f-cons'],
           ['진료레코드', '진료와 함께 끝나는 차트 초안', 'Features.dc.html#f-visit'],
           ['마케팅 분석', '광고비가 전화로 돌아온 채널', 'Features.dc.html#f-mkt'],
@@ -123,6 +123,8 @@ class Component extends DCLogic {
           fw: on ? 600 : 500,
           enter: () => this.enter(m ? k : null), leave: () => this.leave(),
           toggle: () => this.setState({ open: isOpen ? null : k }),
+          mhref: k === 'insights' ? 'Cases.dc.html' : 'Features.dc.html',
+          tap: e => { if (!window.matchMedia('(hover: hover)').matches && !isOpen) { e.preventDefault(); this.setState({ open: k }); } },
           exp: isOpen ? 'true' : 'false', rot: isOpen ? '180deg' : '0deg',
           op: isOpen ? 1 : 0, vis: isOpen ? 'visible' : 'hidden', pe: isOpen ? 'auto' : 'none', visDelay: isOpen ? '0ms' : '260ms',
           ty: isOpen ? '0px' : '-6px', sc: isOpen ? 1 : 0.98,
