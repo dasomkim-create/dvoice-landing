@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<meta name="ext-resource-dependency" content="case.mp4" data-resource-id="caseVideo">
-<meta name="ext-resource-dependency" content="interview.mp4" data-resource-id="interviewVideo">
-<meta name="ext-resource-dependency" content="interview2.mp4" data-resource-id="interviewVideo2">
-<meta name="ext-resource-dependency" content="dvoice-logo.svg" data-resource-id="dvLogo">
+<meta name="ext-resource-dependency" content="assets/case.mp4" data-resource-id="caseVideo">
+<meta name="ext-resource-dependency" content="assets/interview.mp4" data-resource-id="interviewVideo">
+<meta name="ext-resource-dependency" content="assets/interview2.mp4" data-resource-id="interviewVideo2">
+<meta name="ext-resource-dependency" content="assets/dvoice-logo.svg" data-resource-id="dvLogo">
 <template id="__bundler_thumbnail" data-bg-color="#FFFFFF"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#FFFFFF"></rect></svg></template>
 </head>
 <body>
@@ -17,7 +17,7 @@
 <script src="dv-ui.js"></script>
 <script src="calc3d.bundle.js"></script>
 <style>
-@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+@font-face{font-family:'Pretendard Variable';src:url('fonts/PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
 html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
 *{box-sizing:border-box;}
 a{color:#2B45D4;text-decoration:none;}
@@ -28,6 +28,8 @@ input[type=number]{-moz-appearance:textfield;}
 @keyframes dvStroke{0%{background-position:100% 0}45%,100%{background-position:0% 0}}
 @keyframes nudgeA{0%,100%{translate:0 0}20%{translate:0 -10px}45%{translate:0 4px}70%{translate:0 -3px}}
 @keyframes nudgeB{0%,100%{translate:0 0}20%{translate:0 -10px}45%{translate:0 4px}70%{translate:0 -3px}}
+.sc-placeholder[title="SiteHeader"],.sc-placeholder[title="SiteFooter"]{background:transparent!important;border-color:transparent!important;}
+.sc-placeholder[title="SiteHeader"]::before,.sc-placeholder[title="SiteFooter"]::before{display:none!important;}
 </style>
 </helmet>
 <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
@@ -54,7 +56,7 @@ input[type=number]{-moz-appearance:textfield;}
         <h1 data-reveal="" data-delay="80" style="margin:18px 0 0;font-size:clamp(36px,4.2vw,58px);line-height:1.22;font-weight:700;letter-spacing:-0.035em;color:#191F28;"><span style="display:block;">진료실 밖이 보이는</span><span style="display:block;color:#2B45D4;">병원 운영, D voice</span></h1>
         <p data-reveal="" data-delay="160" style="margin:24px 0 0;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:#4E5968;text-wrap:pretty;">전화, 상담, 진료의 모든 대화가 기록되고 정리돼요. 원장님은 아침에 한 화면만 보면 돼요.</p>
         <div data-reveal="" data-delay="240" style="margin-top:36px;display:flex;flex-wrap:wrap;gap:10px;">
-          <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:56px;padding:0 22px 0 26px;display:flex;align-items:center;gap:8px;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">2주 콜 진단 신청<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <a href="Contact.dc.html" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:56px;padding:0 22px 0 26px;display:flex;align-items:center;gap:8px;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">2주 콜 진단 신청<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
           <a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:56px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기</a>
         </div>
         <p data-reveal="" data-delay="320" style="margin:28px 0 0;font-size:13px;color:#8B95A1;">오른쪽 화면의 메뉴를 눌러 직접 둘러보세요.</p>
@@ -96,7 +98,7 @@ input[type=number]{-moz-appearance:textfield;}
       </div>
       <div ref="{{ ctaRef }}" style="grid-column:1;grid-row:3;align-self:start;position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:14px;opacity:0;">
         <div style="display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;">
-          <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:52px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">2주 진단으로 실제 금액 확인하기</a>
+          <a href="Contact.dc.html" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:52px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">2주 진단으로 실제 금액 확인하기</a>
           <a href="Features.dc.html#summary" style-hover="background:rgba(255,255,255,0.16);color:#FFFFFF;" style="height:52px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:rgba(255,255,255,0.1);color:#FFFFFF;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
         </div>
         <div style="display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px 14px;font-size:13px;color:rgba(255,255,255,0.62);">
@@ -203,7 +205,7 @@ input[type=number]{-moz-appearance:textfield;}
           </div>
           <b data-reveal="" data-delay="260" style="font-size:clamp(30px,4.6vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;color:#191F28;max-width:900px;text-wrap:balance;">{{ qMsg.big }}</b>
           <p data-reveal="" data-delay="380" style="margin:0;font-size:clamp(17px,1.8vw,20px);line-height:1.7;color:#4E5968;max-width:680px;">{{ qMsg.rest }}</p>
-          <a data-reveal="" data-delay="460" href="#cta" style="height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;">우리 병원 답을 2주 진단으로 받기</a>
+          <a data-reveal="" data-delay="460" href="Contact.dc.html" style="height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;">우리 병원 답을 2주 진단으로 받기</a>
         </div>
       </div>
     </section>
@@ -421,7 +423,7 @@ input[type=number]{-moz-appearance:textfield;}
           </sc-for>
           <div style="flex:none;width:clamp(240px,22vw,300px);display:flex;flex-direction:column;justify-content:center;gap:8px;">
             <a href="Cases.dc.html" style-hover="background:#fff;color:#191F28;" style="height:54px;padding:0 22px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:16px;background:rgba(255,255,255,0.7);color:#4E5968;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;">도입 사례 모두 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-            <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:54px;padding:0 22px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+            <a href="Contact.dc.html" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:54px;padding:0 22px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
           </div>
         </div>
       </div>
@@ -523,7 +525,7 @@ input[type=number]{-moz-appearance:textfield;}
       <div data-reveal="" style="margin-top:56px;border-radius:36px;padding:clamp(24px,4vw,40px);background:#F4F6FE;">
         <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;">
           <div style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:14px;font-weight:700;color:#2B45D4;">2주 콜 진단</span><b style="font-size:clamp(20px,2.4vw,26px);font-weight:700;letter-spacing:-0.02em;">2주 동안 우리 병원에서 직접 써보고, 숫자로 판단하세요</b></div>
-          <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:54px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a>
+          <a href="Contact.dc.html" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:54px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a>
         </div>
         <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px;">
           <sc-for list="{{ offer }}" as="o" hint-placeholder-count="3">
@@ -589,7 +591,7 @@ input[type=number]{-moz-appearance:textfield;}
           <span style="padding:8px 14px;border-radius:999px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.12);">도입하지 않아도 장비 비용 없음</span>
         </div>
         <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;">
-          <a href="#cta" data-cta-final="" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a>
+          <a href="Contact.dc.html" data-cta-final="" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a>
           <a href="Features.dc.html#summary" style-hover="background:#FFFFFF;color:#191F28;" style="height:58px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:rgba(255,255,255,0.9);color:#333D4B;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
         </div>
       </div>
@@ -624,10 +626,10 @@ input[type=number]{-moz-appearance:textfield;}
         <div style="min-width:0;"><b style="display:block;margin-bottom:8px;font-size:15px;color:#FFFFFF;">D voice by RobotCom</b>로봇컴 주식회사 · 대표 김재훈<br>사업자등록번호 266-88-03639<br>본점 대전광역시 중구 대종로 590, 4층 433호<br>기업부설연구소 서울시 광진구 능동로 3라길 13, 1층 104호<br>Tel 02-452-3338 · info@robotcom.ai</div>
         <div style="display:flex;flex-direction:column;"><b style="margin-bottom:8px;font-size:15px;color:#FFFFFF;">제품</b><a href="Features.dc.html#f-dash" style="color:rgba(255,255,255,0.58);">대시보드</a><a href="Features.dc.html#f-call" style="color:rgba(255,255,255,0.58);">콜레코드</a><a href="Features.dc.html#f-cons" style="color:rgba(255,255,255,0.58);">상담레코드</a><a href="Features.dc.html#f-visit" style="color:rgba(255,255,255,0.58);">진료레코드</a><a href="Features.dc.html#f-mkt" style="color:rgba(255,255,255,0.58);">마케팅 분석</a></div>
         <div style="display:flex;flex-direction:column;"><b style="margin-bottom:8px;font-size:15px;color:#FFFFFF;">알아보기</b><a href="Features.dc.html#summary" style-hover="translate:0 -2px;filter:brightness(1.06);" style="color:rgba(255,255,255,0.58);transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">3분 요약</a><a href="Cases.dc.html" style-hover="translate:0 -2px;filter:brightness(1.06);" style="color:rgba(255,255,255,0.58);transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">도입 사례</a><a href="SafeHospital.dc.html" style="color:rgba(255,255,255,0.58);">D voice 안심병원</a><a href="Pricing.dc.html" style="color:rgba(255,255,255,0.58);">요금</a><a href="Insights.dc.html" style="color:rgba(255,255,255,0.58);">아티클</a><a href="#faq" style="color:rgba(255,255,255,0.58);">자주 묻는 질문</a></div>
-        <div style="display:flex;flex-direction:column;"><b style="margin-bottom:8px;font-size:15px;color:#FFFFFF;">시작하기</b><a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="color:rgba(255,255,255,0.58);transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a><a href="#calc" style="color:rgba(255,255,255,0.58);">놓친 전화 계산기</a><span style="margin-top:10px;">머니투데이 2026.05.15 보도</span></div>
+        <div style="display:flex;flex-direction:column;"><b style="margin-bottom:8px;font-size:15px;color:#FFFFFF;">시작하기</b><a href="Contact.dc.html" style-hover="translate:0 -2px;filter:brightness(1.06);" style="color:rgba(255,255,255,0.58);transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;">2주 콜 진단 신청</a><a href="#calc" style="color:rgba(255,255,255,0.58);">놓친 전화 계산기</a><span style="margin-top:10px;">머니투데이 2026.05.15 보도</span></div>
       </div>
       <div style="margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.12);font-size:12px;line-height:1.7;color:rgba(255,255,255,0.45);">© 2026 로봇컴 주식회사 (D voice). All rights reserved. 이 사이트는 개발 전달용 시안이며, "예시"로 표시된 사례와 수치는 실측치로 교체됩니다.</div>
-      <img src="robotcom-logo-white.svg" alt="RobotCom" style="display:block;width:100%;height:auto;margin-top:120px;">
+      <img src="assets/robotcom-logo-white.svg" alt="RobotCom" style="display:block;width:100%;height:auto;margin-top:120px;">
     </div>
   </footer>
 </div>
@@ -1144,7 +1146,7 @@ class Component extends DCLogic {
     return { top, step: vh * 0.8, vh };
   }
   quizLimit() {
-    if (this.state.qSkip) return null;
+    return null;
     const first = this.state.quiz.findIndex(x => !x);
     if (first < 0) return null;
     const g = this.quizGeom();
@@ -1205,12 +1207,12 @@ class Component extends DCLogic {
     }).catch(e => console.warn('3D 계산기를 불러오지 못했어요', e));
     
     const vd = this.videoRef.current; if (vd) { vd.muted = true; vd.playsInline = true; vd.pause();
-      fetch((window.__resources && window.__resources.caseVideo) || 'case.mp4').then(r => r.blob()).then(b => { if (!this.videoRef.current) return; this.storyUrl = URL.createObjectURL(b); this.videoRef.current.src = this.storyUrl; }).catch(() => {});
-      fetch((window.__resources && window.__resources.interviewVideo) || 'interview.mp4').then(r => r.blob()).then(b => { if (!this.videoRef.current) return; this.vidUrl = URL.createObjectURL(b);
+      fetch((window.__resources && window.__resources.caseVideo) || 'assets/case.mp4').then(r => r.blob()).then(b => { if (!this.videoRef.current) return; this.storyUrl = URL.createObjectURL(b); this.videoRef.current.src = this.storyUrl; }).catch(() => {});
+      fetch((window.__resources && window.__resources.interviewVideo) || 'assets/interview.mp4').then(r => r.blob()).then(b => { if (!this.videoRef.current) return; this.vidUrl = URL.createObjectURL(b);
         document.querySelectorAll('video[data-isrc="a"]').forEach(v => { v.muted = true; v.src = this.vidUrl; v.addEventListener('loadedmetadata', () => { v.currentTime = Math.min(v.duration - 0.1, +v.dataset.ivid || 0); }, { once: true }); });
         this.ivIo = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: 0.2 });
         document.querySelectorAll('video[data-ivid]').forEach(v => this.ivIo.observe(v)); }).catch(() => {});
-      fetch((window.__resources && window.__resources.interviewVideo2) || 'interview2.mp4').then(r => r.blob()).then(b => { this.vidUrl2 = URL.createObjectURL(b); document.querySelectorAll('video[data-isrc="b"]').forEach(v => { v.muted = true; v.src = this.vidUrl2; }); }).catch(() => {}); }
+      fetch((window.__resources && window.__resources.interviewVideo2) || 'assets/interview2.mp4').then(r => r.blob()).then(b => { this.vidUrl2 = URL.createObjectURL(b); document.querySelectorAll('video[data-isrc="b"]').forEach(v => { v.muted = true; v.src = this.vidUrl2; }); }).catch(() => {}); }
     this.ptT = setInterval(() => {
       const sec = document.getElementById('points'); if (!sec) return;
       const r = sec.getBoundingClientRect(); if (r.bottom < 0 || r.top > window.innerHeight) return;
@@ -1328,9 +1330,9 @@ class Component extends DCLogic {
       quizWrapRef: this.quizWrapRef, quizLeftRef: this.quizLeftRef, quizListRef: this.quizListRef, quizSecRef: this.quizSecRef, quizDescRef: this.quizDescRef, quizResRef: this.quizResRef,
       quizSecH: 'calc(100vh + 480vh)',
       qStep: this.state.qActive + 1, quizDone: allDone,
-      qHint: allDone ? '모든 질문에 답했어요. 아래에서 결과를 확인하세요.' : '답을 고르면 다음 질문으로 넘어가요',
+      qHint: allDone ? '모든 질문에 답했어요. 아래에서 결과를 확인하세요.' : '스크롤하거나 답을 고르면 다음 질문으로 넘어가요',
       quizSkip: () => { clearTimeout(this.qT); this.setState({ qSkip: true }, () => { const g = this.quizGeom(); const el = this.quizResRef.current || document.getElementById('day'); const y = el ? el.getBoundingClientRect().top + window.scrollY - 40 : g.top + 6 * g.step; window.scrollTo({ top: y, behavior: 'smooth' }); }); },
-      quizDots: qs.map((s, i) => { const first = qs.findIndex(x => !x), ok = first < 0 || i <= first || this.state.qSkip;
+      quizDots: qs.map((s, i) => { const first = qs.findIndex(x => !x), ok = true;
         return { bg: s === 'dont' ? '#F04452' : s === 'know' ? '#2B45D4' : i === this.state.qActive ? '#8B95A1' : '#E5E8EB', sy: i === this.state.qActive ? 1.6 : 1,
           cur: ok ? 'pointer' : 'not-allowed', label: `질문 ${i + 1}로 이동`, go: () => { if (ok) { clearTimeout(this.qT); this.quizGo(i); } else { this.nudge++; this.forceUpdate(); } } }; }),
       insItems: [['어디서 왔나','광고비가 어디서 전화로 돌아왔는지','"네이버 검색하다 보고 연락드렸어요." 환자의 첫마디에서 유입 채널을 잡아 통화 기준으로 집계해요.','#2B45D4'],['무엇을 원하나','환자가 가장 많이 묻는 시술','상담 대화에서 관심 시술이 자동으로 뽑혀요. 이벤트와 재고, 상담 인력을 어디에 둘지 정하는 근거가 돼요.','#2B45D4'],['무엇에 불만인가','불만은 태그와 원래 발언으로 남아요','"불만족", "접수 불만", "응대·시설 불만" 태그가 붙은 통화를 모으면 반복되는 원인이 보여요.','#F04452'],['무엇에 만족하나','잘 된 응대에는 공통점이 있어요','점수가 높은 통화를 모아 보면, 환자가 만족한 이유가 우리 병원 말투로 보여요.','#12A26B']].map((x, i) => {

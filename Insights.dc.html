@@ -9,13 +9,16 @@
 <x-dc>
 <helmet>
 <script src="site.js"></script>
+<script src="posts.js"></script>
 <style>
-@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+@font-face{font-family:'Pretendard Variable';src:url('fonts/PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
 html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
 *{box-sizing:border-box;}
 a{color:#2B45D4;text-decoration:none;}
 a:hover{color:#2138B5;}
 input::placeholder{color:#8B95A1;}
+.sc-placeholder[title="SiteHeader"],.sc-placeholder[title="SiteFooter"]{background:transparent!important;border-color:transparent!important;}
+.sc-placeholder[title="SiteHeader"]::before,.sc-placeholder[title="SiteFooter"]::before{display:none!important;}
 </style>
 </helmet>
 <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
@@ -97,6 +100,7 @@ input::placeholder{color:#8B95A1;}
 class Component extends DCLogic {
   state = { cat: 'all', q: '', limit: 6 };
   componentDidMount() {
+    if (!window.DV_POSTS) this.poll = setInterval(() => { if (window.DV_POSTS) { clearInterval(this.poll); this.forceUpdate(); } }, 40);
     this.readHash = () => { const h = location.hash.slice(1); this.setState({ cat: ['news', 'blog'].includes(h) ? h : 'all', limit: 6 }); };
     this.readHash(); window.addEventListener('hashchange', this.readHash);
     this.reveal();
@@ -104,24 +108,12 @@ class Component extends DCLogic {
   componentWillUnmount() { window.removeEventListener('hashchange', this.readHash); }
   componentDidUpdate() { this.reveal(); }
   reveal() { clearTimeout(this.t); this.t = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }
-  data() {
-    return [
-      { cat: 'news', date: '2026.09.24', src: '보도자료', thumb: '보도 이미지', title: 'D voice, 운영 병·의원 35곳·누적 분석 대화 64만 건 넘어', ex: '병·의원의 전화와 상담, 진료 대화를 기록하고 정리하는 D voice가 운영 병·의원 35곳, 누적 분석 대화 64만 건을 넘었습니다.' },
-      { cat: 'blog', date: '2026.09.10', src: '운영', thumb: '썸네일 · 계산기 화면', title: '부재중 전화 한 통은 얼마일까, 숫자 다섯 개로 계산하기', ex: '하루 부재중 전화, 신규 문의 비율, 예약 전환율, 초진 매출, 진료일. 숫자 다섯 개면 한 달 동안 놓치고 있을 수 있는 초진 매출이 나옵니다.' },
-      { cat: 'blog', date: '2026.08.27', src: '응대', thumb: '썸네일 · 통화 전사문', title: '응대 점수 9점 통화의 세 가지 공통점', ex: '가격은 한 번에 금액으로, 가능한 시간은 두 개를 먼저, 내원 전 준비사항은 꼭 붙여서. 점수가 높은 통화를 모아 보면 우리 병원 말투의 기준이 보입니다.' },
-      { cat: 'blog', date: '2026.08.13', src: '상담', thumb: '썸네일 · 상담 D-Note', title: '실장이 바뀌어도 상담이 병원에 남으려면', ex: '보류 사유, 권유 시술, 견적이 7항목 D-Note로 남으면 인수인계는 열람으로 끝납니다.' },
-      { cat: 'blog', date: '2026.07.30', src: '마케팅', thumb: '썸네일 · 채널 도넛', title: '광고비, 클릭이 아니라 걸려온 전화로 보기', ex: '광고 대행사 리포트의 노출과 클릭 대신, 환자의 첫마디에서 잡은 유입 채널로 실제 문의 수를 집계해 봤습니다.' },
-      { cat: 'news', date: '2026.07.08', src: '보도자료', thumb: '보도 이미지', title: 'D voice 안심병원 표시, 발급 기준 초안 공개', ex: '녹음 고지, 권유 기록, 열람 제공, 불만 조치, 보관 정책. 다섯 가지 기준을 D voice 데이터로 자동 확인합니다.' },
-      { cat: 'blog', date: '2026.06.18', src: '운영', thumb: '썸네일 · 불만 태그', title: '불만 통화 12건 중 9건이 "접수 대기"였던 이유', ex: '불만 태그와 키워드를 함께 보면, 문제는 직원 태도가 아니라 접수 동선과 자격 조회 순서였습니다.' },
-      { cat: 'news', date: '2026.05.15', src: '머니투데이', thumb: '기사 이미지', title: '머니투데이 보도 · 기사 제목으로 교체', ex: '2026년 5월 15일 머니투데이에 보도된 기사입니다. 기사 제목과 요약, 원문 링크로 교체됩니다.' },
-      { cat: 'blog', date: '2026.04.29', src: '진료', thumb: '썸네일 · SOAP 초안', title: '진료가 끝나면 차트 초안도 끝나 있도록', ex: '진료 대화가 S·O·A·P 초안으로 정리되고, 차트의 한 줄이 대화의 어디서 왔는지 바로 확인합니다.' }
-    ];
-  }
+  data() { return window.DV_POSTS || []; }
   renderVals() {
     const { cat, q, limit } = this.state;
     const D = this.data();
     const CAT = { case: ['도입 사례', '#2B45D4', '#FFFFFF'], news: ['뉴스', '#191F28', '#FFFFFF'], blog: ['블로그', '#E8EDFD', '#2B45D4'] };
-    const deco = a => ({ ...a, href: a.cat === 'case' ? 'Cases.dc.html' : '#', catLabel: CAT[a.cat][0], cbg: CAT[a.cat][1], cfg: CAT[a.cat][2] });
+    const deco = a => ({ ...a, href: 'Article.dc.html?id=' + a.id, catLabel: CAT[a.cat][0], cbg: CAT[a.cat][1], cfg: CAT[a.cat][2] });
     const qq = q.trim().toLowerCase();
     const list = D.filter(a => (cat === 'all' || a.cat === cat) && (!qq || (a.title + a.ex + a.src).toLowerCase().includes(qq))).sort((x, y) => y.date.localeCompare(x.date)).map(deco);
     const feat = list[0];

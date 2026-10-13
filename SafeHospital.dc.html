@@ -15,6 +15,8 @@ html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
 *{box-sizing:border-box;}
 a{color:#2B45D4;text-decoration:none;}
 a:hover{color:#2138B5;}
+.sc-placeholder[title="SiteHeader"],.sc-placeholder[title="SiteFooter"]{background:transparent!important;border-color:transparent!important;}
+.sc-placeholder[title="SiteHeader"]::before,.sc-placeholder[title="SiteFooter"]::before{display:none!important;}
 </style>
 </helmet>
 <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
@@ -28,7 +30,7 @@ a:hover{color:#2138B5;}
         <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:600px;">기록이 병원만 보는 것이면 환자에게는 감시입니다. 환자에게도 열려 있으면 약속이 됩니다. 네 가지 약속을 지키는 병원에 안심병원 표시가 발급되고, 발급 기준은 D voice 데이터로 자동 확인됩니다.</p>
         <div data-reveal="" data-delay="240" style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;">
           <button type="button" onClick="{{ toCrit }}" style="height:56px;padding:0 24px;border:none;border-radius:16px;background:#2B45D4;color:#fff;font:inherit;font-weight:600;font-size:17px;cursor:pointer;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;" style-hover="translate:0 -2px;filter:brightness(1.06);" style-active="transform:scale(0.97);">발급 기준 보기</button>
-          <a href="Landing.dc.html#cta" style-hover="background:#EEF0F3;color:#191F28;" style="height:56px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;">2주 콜 진단 신청</a>
+          <a href="Contact.dc.html" style-hover="background:#EEF0F3;color:#191F28;" style="height:56px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;">2주 콜 진단 신청</a>
         </div>
       </div>
       <div style="min-width:0;display:flex;flex-direction:column;align-items:center;gap:14px;">
@@ -140,7 +142,7 @@ a:hover{color:#2138B5;}
         <h2 style="margin:14px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">우리 병원은 다섯 기준 중 몇 개를 충족할까요</h2>
         <p style="margin:18px 0 0;font-size:17px;line-height:1.75;color:rgba(255,255,255,0.74);">2주 콜 진단 리포트에 안심병원 기준 대비 현재 충족 항목과 부족한 항목이 함께 담깁니다.</p>
       </div>
-      <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.08);" style="flex:none;height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+      <a href="Contact.dc.html" style-hover="translate:0 -2px;filter:brightness(1.08);" style="flex:none;height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
     </div>
   </section>
 

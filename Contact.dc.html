@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="site.js"></script>
+<style>
+@font-face{font-family:'Pretendard Variable';src:url('fonts/PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
+*{box-sizing:border-box;}
+a{color:#2B45D4;text-decoration:none;}
+a:hover{color:#2138B5;}
+.sc-placeholder[title="SiteHeader"],.sc-placeholder[title="SiteFooter"]{background:transparent!important;border-color:transparent!important;}
+.sc-placeholder[title="SiteHeader"]::before,.sc-placeholder[title="SiteFooter"]::before{display:none!important;}
+input::placeholder,textarea::placeholder{color:#B0B8C1;}
+</style>
+</helmet>
+<div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
+  <dc-import name="SiteHeader" hint-size="100%,64px"></dc-import>
+
+  <section style="padding:152px 24px 120px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1120px;display:flex;flex-wrap:wrap;gap:56px clamp(40px,6vw,88px);align-items:flex-start;">
+      <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">도입 문의</div>
+        <h1 data-reveal="" data-delay="80" style="margin:16px 0 0;font-size:clamp(32px,4.4vw,48px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;text-wrap:balance;">2주 콜 진단 신청</h1>
+        <p data-reveal="" data-delay="160" style="margin:20px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:520px;">장비는 무료로 빌려드리고, 2주 이용료만 받습니다. 결정은 리포트를 보고 나서 해도 됩니다.</p>
+        <ol data-reveal="" data-delay="240" style="margin:44px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;">
+          <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;padding:18px 0;border-top:1px solid #E5E8EB;"><b style="font-size:14px;font-weight:700;color:#2B45D4;font-variant-numeric:tabular-nums;">01</b><b style="font-size:17px;font-weight:700;">신청서 접수</b><span></span><span style="font-size:15px;line-height:1.6;color:#6B7684;">병원 정보와 연락처를 남겨 주세요.</span></li>
+          <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;padding:18px 0;border-top:1px solid #E5E8EB;"><b style="font-size:14px;font-weight:700;color:#2B45D4;font-variant-numeric:tabular-nums;">02</b><b style="font-size:17px;font-weight:700;">담당자 연락 · 일정 확정</b><span></span><span style="font-size:15px;line-height:1.6;color:#6B7684;">회선 구성과 설치 일정을 함께 정합니다.</span></li>
+          <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;padding:18px 0;border-top:1px solid #E5E8EB;"><b style="font-size:14px;font-weight:700;color:#2B45D4;font-variant-numeric:tabular-nums;">03</b><b style="font-size:17px;font-weight:700;">장비 설치 후 2주 사용</b><span></span><span style="font-size:15px;line-height:1.6;color:#6B7684;">평소처럼 전화·상담·진료를 하시면 됩니다.</span></li>
+          <li style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;padding:18px 0;border-top:1px solid #E5E8EB;border-bottom:1px solid #E5E8EB;"><b style="font-size:14px;font-weight:700;color:#2B45D4;font-variant-numeric:tabular-nums;">04</b><b style="font-size:17px;font-weight:700;">진단 리포트</b><span></span><span style="font-size:15px;line-height:1.6;color:#6B7684;">부재중 전화, 불만 통화, 채널별 유입, 상담 보류 사유를 한 장으로 받아보세요.</span></li>
+        </ol>
+        <div data-reveal="" data-delay="300" style="margin-top:24px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;background:#F2F4F6;color:#4E5968;">장비 무료 임대</span>
+          <span style="font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;background:#F2F4F6;color:#4E5968;">2주 이용료만</span>
+          <span style="font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;background:#F2F4F6;color:#4E5968;">도입하지 않아도 장비 비용 없음</span>
+        </div>
+      </div>
+
+      <div data-reveal="" data-reveal-panel="" data-delay="200" style="flex:1 1 460px;min-width:0;border-radius:36px;padding:clamp(24px,4vw,40px);background:#F2F4F6;">
+        <sc-if value="{{ form }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" novalidate="" style="display:flex;flex-direction:column;gap:20px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:20px 12px;">
+              <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:14px;font-weight:600;color:#333D4B;">병원명 <span style="color:#2B45D4;">*</span></span><input value="{{ v.org }}" onChange="{{ on.org }}" placeholder="D voice 피부과" style="height:52px;padding:0 16px;border:none;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1px {{ ring.org }};font:inherit;font-size:16px;color:#191F28;outline:none;" style-focus="box-shadow:0 0 0 2px #2B45D4;"><sc-if value="{{ err.org }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#E5484D;">병원명을 입력해 주세요</span></sc-if></label>
+              <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:14px;font-weight:600;color:#333D4B;">지역</span><input value="{{ v.region }}" onChange="{{ on.region }}" placeholder="서울 강남구" style="height:52px;padding:0 16px;border:none;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1px #E5E8EB;font:inherit;font-size:16px;color:#191F28;outline:none;" style-focus="box-shadow:0 0 0 2px #2B45D4;"></label>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <span style="font-size:14px;font-weight:600;color:#333D4B;">진료과</span>
+              <div role="group" aria-label="진료과" style="display:flex;flex-wrap:wrap;gap:6px;">
+                <sc-for list="{{ depts }}" as="d" hint-placeholder-count="6">
+                  <button type="button" onClick="{{ d.go }}" aria-pressed="{{ d.on }}" style="height:40px;padding:0 14px;border:none;border-radius:999px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;background:{{ d.bg }};color:{{ d.fg }};box-shadow:0 0 0 1px {{ d.ring }};transition:background 200ms,color 200ms;">{{ d.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:20px 12px;">
+              <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:14px;font-weight:600;color:#333D4B;">담당자 성함 <span style="color:#2B45D4;">*</span></span><input value="{{ v.name }}" onChange="{{ on.name }}" placeholder="홍길동" style="height:52px;padding:0 16px;border:none;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1px {{ ring.name }};font:inherit;font-size:16px;color:#191F28;outline:none;" style-focus="box-shadow:0 0 0 2px #2B45D4;"><sc-if value="{{ err.name }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#E5484D;">성함을 입력해 주세요</span></sc-if></label>
+              <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:14px;font-weight:600;color:#333D4B;">직책</span><input value="{{ v.role }}" onChange="{{ on.role }}" placeholder="원장, 상담실장, 사무장" style="height:52px;padding:0 16px;border:none;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1px #E5E8EB;font:inherit;font-size:16px;color:#191F28;outline:none;" style-focus="box-shadow:0 0 0 2px #2B45D4;"></label>
+              <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:14px;font-weight:600;color:#333D4B;">연락처 <span style="color:#2B45D4;">*</span></span><input type="tel" inputmode="tel" value="{{ v.phone }}" onChange="{{ on.phone }}" placeholder="010-0000-0000" style="height:52px;padding:0 16px;border:none;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1px {{ ring.phone }};font:inherit;font-size:16px;color:#191F28;outline:none;font-variant-numeric:tabular-nums;" style-focus="box-shadow:0 0 0 2px #2B45D4;"><sc-if value="{{ err.phone }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#E5484D;">연락 가능한 번호를 입력해 주세요</span></sc-if></label>
+              <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:14px;font-weight:600;color:#333D4B;">이메일</span><input type="email" value="{{ v.email }}" onChange="{{ on.email }}" placeholder="리포트 받을 주소" style="height:52px;padding:0 16px;border:none;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1px #E5E8EB;font:inherit;font-size:16px;color:#191F28;outline:none;" style-focus="box-shadow:0 0 0 2px #2B45D4;"></label>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <span style="font-size:14px;font-weight:600;color:#333D4B;">전화 회선 수</span>
+              <div role="radiogroup" aria-label="전화 회선 수" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;border-radius:14px;background:#E5E8EB;">
+                <sc-for list="{{ lines }}" as="l" hint-placeholder-count="4">
+                  <button type="button" role="radio" aria-checked="{{ l.on }}" onClick="{{ l.go }}" style="height:40px;border:none;border-radius:10px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;background:{{ l.bg }};color:{{ l.fg }};box-shadow:{{ l.sh }};transition:background 200ms,color 200ms;">{{ l.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <label style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:14px;font-weight:600;color:#333D4B;">궁금한 점</span><textarea value="{{ v.msg }}" onChange="{{ on.msg }}" rows="4" placeholder="야간 부재중이 많아요, 상담 기록이 남지 않아요 등 편하게 적어 주세요." style="padding:14px 16px;border:none;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1px #E5E8EB;font:inherit;font-size:16px;line-height:1.6;color:#191F28;outline:none;resize:vertical;" style-focus="box-shadow:0 0 0 2px #2B45D4;"></textarea></label>
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+              <input type="checkbox" checked="{{ v.agree }}" onChange="{{ on.agree }}" style="margin:2px 0 0;width:20px;height:20px;flex:none;accent-color:#2B45D4;">
+              <span style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:15px;font-weight:600;color:#333D4B;">개인정보 수집·이용에 동의합니다 <span style="color:#2B45D4;">*</span></span><span style="font-size:13px;line-height:1.6;color:#8B95A1;">상담 연락을 위해 병원명, 성함, 연락처, 이메일을 수집하며 상담 종료 후 파기합니다.</span><sc-if value="{{ err.agree }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#E5484D;">동의가 필요합니다</span></sc-if></span>
+            </label>
+            <button type="submit" style="margin-top:4px;height:58px;border:none;border-radius:16px;background:#2B45D4;color:#FFFFFF;font:inherit;font-size:17px;font-weight:600;cursor:pointer;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;" style-hover="translate:0 -2px;filter:brightness(1.06);" style-active="transform:scale(0.98);">2주 콜 진단 신청하기</button>
+          </form>
+        </sc-if>
+        <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:520px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:16px;">
+            <span style="width:56px;height:56px;border-radius:50%;background:#2B45D4;display:flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+            <b style="margin-top:8px;font-size:clamp(24px,2.8vw,30px);line-height:1.4;font-weight:700;letter-spacing:-0.03em;">{{ v.org }} 신청이 접수됐습니다</b>
+            <p style="margin:0;font-size:17px;line-height:1.7;color:#4E5968;">{{ v.name }}님께 {{ v.phone }}로 연락드려 회선 구성과 설치 일정을 정하겠습니다.</p>
+            <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;">
+              <a href="Features.dc.html#summary" style="height:52px;padding:0 20px;display:flex;align-items:center;border-radius:14px;background:#FFFFFF;color:#333D4B;font-weight:600;font-size:16px;box-shadow:0 0 0 1px #E5E8EB;" style-hover="color:#191F28;background:#F7F8FA;">3분 요약 보기</a>
+              <a href="Cases.dc.html" style="height:52px;padding:0 20px;display:flex;align-items:center;border-radius:14px;background:#FFFFFF;color:#333D4B;font-weight:600;font-size:16px;box-shadow:0 0 0 1px #E5E8EB;" style-hover="color:#191F28;background:#F7F8FA;">도입 사례 보기</a>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="SiteFooter" hint-size="100%,640px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { v: { org: '', region: '', name: '', role: '', phone: '', email: '', msg: '', agree: false, dept: '', lines: '' }, tried: false, done: false };
+  componentDidMount() { this.reveal(); }
+  componentDidUpdate() { this.reveal(); }
+  reveal() { clearTimeout(this.t); this.t = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }
+  set(k, x) { this.setState(s => ({ v: { ...s.v, [k]: x } })); }
+  renderVals() {
+    const { v, tried, done } = this.state;
+    const bad = { org: !v.org.trim(), name: !v.name.trim(), phone: v.phone.replace(/\D/g, '').length < 9, agree: !v.agree };
+    const err = {}; Object.keys(bad).forEach(k => err[k] = tried && bad[k]);
+    const ring = {}; ['org', 'name', 'phone'].forEach(k => ring[k] = err[k] ? '#E5484D' : '#E5E8EB');
+    const on = {}; ['org', 'region', 'name', 'role', 'phone', 'email', 'msg'].forEach(k => on[k] = e => this.set(k, e.target.value));
+    on.agree = e => this.set('agree', e.target.checked);
+    return {
+      v, err, ring, on, form: !done, done,
+      depts: ['피부과', '성형외과', '치과', '내과·검진', '정형외과', '한의원', '기타'].map(label => { const a = v.dept === label; return { label, on: a ? 'true' : 'false', go: () => this.set('dept', a ? '' : label), bg: a ? '#191F28' : '#FFFFFF', fg: a ? '#FFFFFF' : '#4E5968', ring: a ? '#191F28' : '#E5E8EB' }; }),
+      lines: ['1~2개', '3~5개', '6~10개', '10개 이상'].map(label => { const a = v.lines === label; return { label, on: a ? 'true' : 'false', go: () => this.set('lines', label), bg: a ? '#FFFFFF' : 'transparent', fg: a ? '#191F28' : '#6B7684', sh: a ? '0 1px 3px rgba(20,30,60,0.12)' : 'none' }; }),
+      submit: e => { e.preventDefault(); if (Object.values(bad).some(Boolean)) { this.setState({ tried: true }); return; } this.setState({ done: true }); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

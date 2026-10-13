@@ -12,11 +12,13 @@
 <script src="dv-ui.js"></script>
 <script src="site.js"></script>
 <style>
-@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+@font-face{font-family:'Pretendard Variable';src:url('fonts/PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
 html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
 *{box-sizing:border-box;}
 a{color:#2B45D4;text-decoration:none;}
 a:hover{color:#2138B5;}
+.sc-placeholder[title="SiteHeader"],.sc-placeholder[title="SiteFooter"]{background:transparent!important;border-color:transparent!important;}
+.sc-placeholder[title="SiteHeader"]::before,.sc-placeholder[title="SiteFooter"]::before{display:none!important;}
 </style>
 </helmet>
 <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;letter-spacing:-0.01em;color:#191F28;background:#fff;min-height:100vh;word-break:keep-all;">
@@ -82,7 +84,7 @@ a:hover{color:#2138B5;}
                 </sc-if>
                 <sc-if value="{{ s.isLast }}" hint-placeholder-val="{{ false }}">
                   <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">
-                    <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:56px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+                    <a href="Contact.dc.html" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:56px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
                   </div>
                 </sc-if>
               </div>
@@ -188,7 +190,7 @@ a:hover{color:#2138B5;}
         <h2 style="margin:14px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">이 화면들을 우리 병원 숫자로 보고 싶으시다면</h2>
         <p style="margin:18px 0 0;font-size:17px;line-height:1.75;color:rgba(255,255,255,0.74);">장비 무료 임대, 2주 이용료만으로 우리 병원에서 직접 써보시고 리포트로 판단하세요.</p>
       </div>
-      <a href="Landing.dc.html#cta" style-hover="translate:0 -2px;filter:brightness(1.08);" style="flex:none;height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
+      <a href="Contact.dc.html" style-hover="translate:0 -2px;filter:brightness(1.08);" style="flex:none;height:58px;padding:0 28px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
     </div>
   </section>
 
