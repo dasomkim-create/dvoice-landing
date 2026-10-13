@@ -10,7 +10,7 @@
 <helmet>
 <script src="site.js"></script>
 <style>
-@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+@font-face{font-family:'Pretendard Variable';src:url('fonts/PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
 html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
 *{box-sizing:border-box;}
 a{color:#2B45D4;text-decoration:none;}
@@ -32,22 +32,18 @@ a:hover{color:#2138B5;}
         </div>
       </div>
       <div style="min-width:0;display:flex;flex-direction:column;align-items:center;gap:14px;">
-        <svg viewBox="0 0 240 240" role="img" aria-label="D voice 안심병원 표시 시안" style="width:min(100%,340px);height:auto;display:block;overflow:visible;filter:drop-shadow(0 30px 36px rgba(43,69,212,0.25));">
+        <svg viewBox="0 0 240 240" role="img" aria-label="D voice 안심병원 표시 시안" style="width:min(100%,300px);height:auto;display:block;overflow:visible;">
           <defs>
-            <linearGradient id="shFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7390F6"></stop><stop offset="0.55" stop-color="#2B45D4"></stop><stop offset="1" stop-color="#1A2A9C"></stop></linearGradient>
-            <linearGradient id="shRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5168E0"></stop><stop offset="1" stop-color="#0025B6"></stop></linearGradient>
-            <radialGradient id="shDisc" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#E4E9FB"></stop></radialGradient>
+            <linearGradient id="shFace" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0" stop-color="#6E8BFF"></stop><stop offset="1" stop-color="#2B45D4"></stop></linearGradient>
+            <linearGradient id="shGloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"></stop><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+            <radialGradient id="shShadow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#2B45D4" stop-opacity="0.22"></stop><stop offset="1" stop-color="#2B45D4" stop-opacity="0"></stop></radialGradient>
           </defs>
-          <circle cx="120" cy="120" r="100" fill="url(#shDisc)"></circle>
-          <circle cx="120" cy="120" r="90" fill="none" stroke="#5168E0" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="2 5"></circle>
-          <circle ref="{{ ringRef }}" cx="120" cy="120" r="108" fill="none" stroke="url(#shRing)" stroke-width="5" stroke-linecap="round" transform="rotate(-90 120 120)" style="stroke-dasharray:679;stroke-dashoffset:0;"></circle>
-          <g>
-            <path d="M120 60 L162 77 V114 C162 143 143 162 120 174 C97 162 78 143 78 114 V77 Z" fill="#14228A" transform="translate(0 8)"></path>
-            <path d="M120 60 L162 77 V114 C162 143 143 162 120 174 C97 162 78 143 78 114 V77 Z" fill="url(#shFace)"></path>
-            <path d="M120 60 L120 174 C97 162 78 143 78 114 V77 Z" fill="#FFFFFF" opacity="0.14"></path>
-            <path d="M121 66 L156 80" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round"></path>
+          <g ref="{{ ringRef }}" style="transform-box:fill-box;transform-origin:50% 50%;">
+            <ellipse cx="120" cy="208" rx="62" ry="10" fill="url(#shShadow)"></ellipse>
+            <path d="M120 50 C141 50 161 56 173 62.5 C178 65 181 70 181 75.5 V112 C181 151 157 177 126.5 190.5 C122.3 192.3 117.7 192.3 113.5 190.5 C83 177 59 151 59 112 V75.5 C59 70 62 65 67 62.5 C79 56 99 50 120 50 Z" fill="url(#shFace)"></path>
+            <path d="M120 50 C141 50 161 56 173 62.5 C178 65 181 70 181 75.5 V112 C181 151 157 177 126.5 190.5 C122.3 192.3 117.7 192.3 113.5 190.5 C83 177 59 151 59 112 V75.5 C59 70 62 65 67 62.5 C79 56 99 50 120 50 Z" fill="url(#shGloss)"></path>
           </g>
-          <path ref="{{ checkRef }}" d="M100 116 L115 131 L142 101" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:62;stroke-dashoffset:0;"></path>
+          <path ref="{{ checkRef }}" d="M93 121 L112 140 L148 103" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:80;stroke-dashoffset:0;"></path>
         </svg>
         <div style="display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;">
           <b style="font-size:18px;font-weight:700;color:#10203A;">D voice 안심병원</b>
@@ -113,8 +109,8 @@ a:hover{color:#2138B5;}
         </sc-for></div></sc-for>
       </div>
 
-      <div style="margin-top:96px;max-width:860px;">
-        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">자주 묻는 질문</div>
+      <div style="margin:96px auto 0;width:100%;max-width:860px;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;text-align:center;">자주 묻는 질문</div>
         <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px;">
           <sc-for list="{{ faq }}" as="f" hint-placeholder-count="3">
             <div data-reveal="" style="background:#F7F8FA;border-radius:22px;overflow:hidden;">
@@ -158,8 +154,8 @@ class Component extends DCLogic {
     this.reveal();
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const r = this.ringRef.current, c = this.checkRef.current, e = 'cubic-bezier(.22,1,.36,1)';
-    r && r.animate([{ strokeDashoffset: 679 }, { strokeDashoffset: 0 }], { duration: 1600, delay: 300, easing: e, fill: 'backwards' });
-    c && c.animate([{ strokeDashoffset: 62 }, { strokeDashoffset: 0 }], { duration: 700, delay: 1300, easing: e, fill: 'backwards' });
+    r && r.animate([{ opacity: 0, transform: 'scale(0.6)' }, { opacity: 1, transform: 'scale(1.04)', offset: 0.7 }, { opacity: 1, transform: 'scale(1)' }], { duration: 900, delay: 250, easing: e, fill: 'backwards' });
+    c && c.animate([{ strokeDashoffset: 80 }, { strokeDashoffset: 0 }], { duration: 600, delay: 900, easing: e, fill: 'backwards' });
   }
   componentDidUpdate() { this.reveal(); }
   reveal() { clearTimeout(this.t); this.t = setTimeout(() => window.dvReveal && window.dvReveal(), 30); }

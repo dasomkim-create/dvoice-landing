@@ -10,7 +10,7 @@
 <helmet>
 <script src="site.js"></script>
 <style>
-@font-face{font-family:'Pretendard Variable';src:url('PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
+@font-face{font-family:'Pretendard Variable';src:url('fonts/PretendardVariable.woff2') format('woff2-variations');font-weight:45 920;font-style:normal;font-display:swap;}
 html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased;}
 *{box-sizing:border-box;}
 a{color:#2B45D4;text-decoration:none;}
@@ -97,7 +97,7 @@ a:hover{color:#2138B5;}
           </dl>
         </div>
         <div data-reveal="" data-delay="100" style="border-radius:32px;padding:clamp(24px,3.6vw,36px);background:#FFFFFF;box-shadow:0 0 0 2px #2B45D4,0 30px 70px -40px rgba(43,69,212,0.45);">
-          <img src="dvoice-logo.svg" alt="D voice" style="height:24px;width:auto;display:block;">
+          <img src="assets/dvoice-logo.svg" alt="D voice" style="height:24px;width:auto;display:block;">
           <dl style="margin:20px 0 0;display:grid;grid-template-columns:96px minmax(0,1fr);">
             <sc-for list="{{ cmp }}" as="c" hint-placeholder-count="4">
               <dt style="padding:16px 0;border-top:1px solid #F2F4F6;font-size:14px;color:#8B95A1;">{{ c.k }}</dt><dd style="margin:0;padding:16px 0;border-top:1px solid #F2F4F6;font-size:16px;line-height:1.5;font-weight:700;color:#191F28;">{{ c.b }}</dd>
@@ -111,8 +111,8 @@ a:hover{color:#2138B5;}
 
   <section style="padding:clamp(80px,10vw,120px) 24px;display:flex;justify-content:center;">
     <div style="width:100%;max-width:860px;">
-      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">자주 묻는 질문</div>
-      <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;font-size:clamp(28px,3.6vw,40px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">비용과 도입에 대해</h2>
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;text-align:center;">자주 묻는 질문</div>
+      <h2 data-reveal="" data-delay="80" style="margin:14px 0 0;text-align:center;font-size:clamp(28px,3.6vw,40px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">비용과 도입에 대해</h2>
       <div style="margin-top:40px;display:flex;flex-direction:column;gap:8px;">
         <sc-for list="{{ faq }}" as="f" hint-placeholder-count="4">
           <div data-reveal="" style="background:#F7F8FA;border-radius:22px;overflow:hidden;">
