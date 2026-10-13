@@ -211,6 +211,31 @@ input[type=number]{-moz-appearance:textfield;}
     </section>
   </sc-if>
 
+  <section id="points" style="padding:140px 24px;display:flex;justify-content:center;">
+    <div style="width:100%;max-width:1200px;">
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">3분 요약</div>
+        <h2 data-split="" style="margin:14px 0 0;font-size:clamp(30px,4.4vw,48px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">원장님이 아셔야 할 것은 여섯 가지뿐이에요</h2>
+        <p data-reveal="" data-delay="200" style="margin:20px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:680px;">화면을 하나하나 볼 필요는 없어요. D voice가 병원에 주는 것만 핵심으로 추렸어요.</p>
+      </div>
+      <div style="margin-top:64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px 16px;">
+        <sc-for list="{{ points }}" as="p" hint-placeholder-count="6">
+          <a href="{{ p.href }}" data-reveal="" data-delay="{{ p.delay }}" style="display:flex;flex-direction:column;gap:22px;color:#191F28;" style-hover="translate:0 -6px;">
+            <div style="border-radius:28px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,0.04);">
+              <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="frag" frag="{{ p.frag }}" tone="{{ p.tone }}" hint-size="100%,340px"></x-import>
+            </div>
+            <div style="padding:0 8px;display:flex;flex-direction:column;gap:8px;">
+              <b style="font-size:20px;font-weight:700;line-height:1.45;letter-spacing:-0.02em;">{{ p.title }}</b>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#4E5968;">{{ p.short }}</p>
+              <span style="font-size:14px;color:#8B95A1;">{{ p.label }}</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+      <div data-reveal="" style="margin-top:48px;display:flex;justify-content:center;"><a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:54px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+    </div>
+  </section>
+
   <section id="day" style="padding:140px 24px;display:flex;justify-content:center;background:linear-gradient(180deg,#FFFFFF 0%,#F7F8FA 20%,#F7F8FA 80%,#FFFFFF 100%);">
     <div style="width:100%;max-width:1120px;">
       <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">같은 하루, 다른 병원</div>
@@ -451,30 +476,6 @@ input[type=number]{-moz-appearance:textfield;}
     </div>
   </section>
 
-  <section id="points" style="padding:140px 24px;display:flex;justify-content:center;">
-    <div style="width:100%;max-width:1200px;">
-      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
-        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">3분 요약</div>
-        <h2 data-split="" style="margin:14px 0 0;font-size:clamp(30px,4.4vw,48px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">원장님이 아셔야 할 것은 여섯 가지뿐이에요</h2>
-        <p data-reveal="" data-delay="200" style="margin:20px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:680px;">화면을 하나하나 볼 필요는 없어요. D voice가 병원에 주는 것만 핵심으로 추렸어요.</p>
-      </div>
-      <div style="margin-top:64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:48px 16px;">
-        <sc-for list="{{ points }}" as="p" hint-placeholder-count="6">
-          <a href="{{ p.href }}" data-reveal="" data-delay="{{ p.delay }}" style="display:flex;flex-direction:column;gap:22px;color:#191F28;" style-hover="translate:0 -6px;">
-            <div style="border-radius:28px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,0.04);">
-              <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="frag" frag="{{ p.frag }}" tone="{{ p.tone }}" hint-size="100%,340px"></x-import>
-            </div>
-            <div style="padding:0 8px;display:flex;flex-direction:column;gap:8px;">
-              <b style="font-size:20px;font-weight:700;line-height:1.45;letter-spacing:-0.02em;">{{ p.title }}</b>
-              <p style="margin:0;font-size:15px;line-height:1.6;color:#4E5968;">{{ p.short }}</p>
-              <span style="font-size:14px;color:#8B95A1;">{{ p.label }}</span>
-            </div>
-          </a>
-        </sc-for>
-      </div>
-      <div data-reveal="" style="margin-top:48px;display:flex;justify-content:center;"><a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:54px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
-    </div>
-  </section>
 
   <section id="safe-home" ref="{{ safeSecRef }}" style="position:relative;height:calc(100vh + 160vh);background:linear-gradient(180deg,#FFFFFF 0%,#F4F6FE 50%,#FFFFFF 100%);">
     <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
@@ -693,7 +694,7 @@ class Component extends DCLogic {
     this.repI = ((this.repI ?? -1) + 1) % R.length; const x = R[this.repI];
     if (this.cta3d) { this.cta3d.setDisplay({ label: x[0], main: x[1], unit: x[2], sub: '2주 콜 진단 리포트 · A피부과 · 09.01 ~ 09.14' }); this.cta3d.press('='); }
   }
-  tocList() { return [['calc','놓친 전화 계산기'],['promise','D voice의 약속'],['check','여섯 가지 질문'],['day','같은 하루'],['manage','전화와 상담'],['callrec','콜레코드'],['insight','환자 이해'],['story','도입 사례'],['cases-h','도입 인터뷰'],['visit','진료'],['points','3분 요약'],['safe-home','안심병원'],['start','시작하기'],['faq','자주 묻는 질문']]; }
+  tocList() { return [['calc','놓친 전화 계산기'],['promise','D voice의 약속'],['check','여섯 가지 질문'],['points','3분 요약'],['day','같은 하루'],['manage','전화와 상담'],['callrec','콜레코드'],['insight','환자 이해'],['story','도입 사례'],['cases-h','도입 인터뷰'],['visit','진료'],['safe-home','안심병원'],['start','시작하기'],['faq','자주 묻는 질문']]; }
   countTo(target, dur) {
     const from = { ...this.shown }, t0 = performance.now();
     cancelAnimationFrame(this.countRaf);

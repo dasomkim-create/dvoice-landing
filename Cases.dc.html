@@ -29,9 +29,9 @@ a:hover{color:#2138B5;}
       <h1 data-reveal="" data-delay="80" style="margin:16px 0 0;font-size:clamp(34px,5vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">진료실 밖이 보이기 시작한 병원들</h1>
       <p data-reveal="" data-delay="160" style="margin:22px 0 0;font-size:18px;line-height:1.7;color:#4E5968;max-width:680px;">합산 실적이 아니라 병원 한 곳의 전후입니다. 무엇을 발견했고, 무엇을 바꿨고, 숫자가 어떻게 달라졌는지.</p>
       <div data-reveal="" data-delay="240" style="margin-top:32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
-        <div role="group" aria-label="진료과 필터" style="display:flex;flex-wrap:wrap;gap:6px;">
+        <div role="group" aria-label="진료과 필터" style="flex:0 0 auto;max-width:100%;display:flex;flex-wrap:wrap;gap:6px;">
           <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
-            <button type="button" onClick="{{ f.go }}" aria-pressed="{{ f.on }}" style="height:44px;padding:0 18px;border:none;border-radius:999px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;background:{{ f.bg }};color:{{ f.fg }};transition:background 250ms,color 250ms;" style-active="transform:scale(0.97);">{{ f.label }}<span style="margin-left:6px;font-size:13px;opacity:0.6;font-variant-numeric:tabular-nums;">{{ f.n }}</span></button>
+            <button type="button" onClick="{{ f.go }}" aria-pressed="{{ f.on }}" style="flex:none;white-space:nowrap;height:44px;padding:0 18px;border:none;border-radius:999px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;background:{{ f.bg }};color:{{ f.fg }};transition:background 250ms,color 250ms;" style-active="transform:scale(0.97);">{{ f.label }}<span style="margin-left:6px;font-size:13px;opacity:0.6;font-variant-numeric:tabular-nums;">{{ f.n }}</span></button>
           </sc-for>
         </div>
         <label style="flex:0 1 320px;min-width:200px;height:44px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:14px;background:#F2F4F6;color:#8B95A1;">
@@ -47,15 +47,12 @@ a:hover{color:#2138B5;}
 
   <sc-if value="{{ showFeat }}" hint-placeholder-val="{{ true }}">
     <section style="padding:0 24px 24px;display:flex;justify-content:center;">
-      <article data-reveal="" data-reveal-panel="" style="width:100%;max-width:1120px;border-radius:40px;overflow:hidden;background:#F7F8FA;">
+      <article data-reveal="" data-reveal-panel="" style="width:100%;max-width:1120px;border-radius:40px;overflow:hidden;">
         <div style="position:relative;overflow:hidden;background:#0A1434;color:#fff;padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:40px clamp(32px,5vw,72px);">
           <div aria-hidden="true" style="position:absolute;right:-120px;top:-160px;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,90,230,0.28),rgba(60,90,230,0));pointer-events:none;"></div>
           <div style="position:relative;flex:1 1 420px;min-width:0;display:flex;flex-direction:column;">
             <span style="font-size:14px;font-weight:600;color:#A9B8FF;">피부과 · 서울 강남</span>
             <h2 style="margin:14px 0 0;font-size:clamp(26px,3.2vw,38px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;text-wrap:balance;">A피부과 · 야간 부재중 30건이 보이자, 12주 만에 광고비가 옮겨졌습니다</h2>
-            <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:6px;">
-              <sc-for list="{{ facts }}" as="x" hint-placeholder-count="5"><span style="font-size:13px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14);color:rgba(255,255,255,0.86);">{{ x }}</span></sc-for>
-            </div>
             <p style="margin:24px 0 0;font-size:16px;line-height:1.75;color:rgba(255,255,255,0.74);">원장님은 진료에 대한 자신감은 있었지만, 데스크와 상담실은 "잘 되고 있겠지"였습니다. 첫 대시보드에서 야간·주말 부재중이 주 30건 가까이 쌓이고 있다는 것을 처음 알았습니다.</p>
             <a href="CaseStudy.dc.html?id=a" style="margin-top:28px;align-self:flex-start;height:52px;padding:0 22px;display:flex;align-items:center;gap:8px;border-radius:14px;background:#FFFFFF;color:#191F28;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1);" style-hover="translate:0 -2px;color:#191F28;">12주 기록 자세히 보기<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
           </div>
@@ -68,21 +65,6 @@ a:hover{color:#2138B5;}
               </div>
             </sc-for>
           </div>
-        </div>
-        <div style="padding:clamp(28px,5vw,56px);">
-          <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:28px 24px;">
-            <sc-for list="{{ phases }}" as="p" hint-placeholder-count="4">
-              <li data-reveal="" data-delay="{{ p.delay }}" style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:2px solid {{ p.line }};">
-                <span style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;"><b style="font-size:13px;font-weight:700;color:#2B45D4;">{{ p.k }}</b><span style="font-size:28px;font-weight:200;line-height:1;color:#B0B8C1;font-variant-numeric:tabular-nums;">{{ p.no }}</span></span>
-                <b style="font-size:19px;font-weight:700;letter-spacing:-0.02em;">{{ p.b }}</b>
-                <p style="margin:0;font-size:15px;line-height:1.65;color:#6B7684;">{{ p.p }}</p>
-              </li>
-            </sc-for>
-          </ol>
-          <figure style="margin:48px 0 0;padding:clamp(24px,4vw,40px);border-radius:28px;background:#FFFFFF;display:flex;flex-direction:column;gap:16px;">
-            <blockquote style="margin:0;font-size:clamp(20px,2.4vw,28px);line-height:1.55;font-weight:700;letter-spacing:-0.025em;text-wrap:pretty;">"진료는 제가 제일 잘 압니다. 그런데 데스크와 상담실에서 무슨 일이 있는지는 몰랐어요. 이제는 아침에 그걸 먼저 봅니다."</blockquote>
-            <figcaption style="font-size:14px;color:#8B95A1;">A피부과 원장 · 예시</figcaption>
-          </figure>
         </div>
       </article>
     </section>
