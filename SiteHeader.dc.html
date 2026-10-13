@@ -67,6 +67,25 @@ class Component extends DCLogic {
     document.addEventListener('pointerdown', this.onDoc);
     this.raf = setInterval(this.onS, 250);
     this.onS(); this.onR();
+    this.cursor();
+  }
+  cursor() {
+    if (window.__dvCursor || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    window.__dvCursor = true;
+    const st = document.createElement('style');
+    st.textContent = 'html.dv-cur, html.dv-cur *{cursor:none!important}html.dv-cur input, html.dv-cur textarea, html.dv-cur [contenteditable]{cursor:text!important}';
+    document.head.appendChild(st);
+    const mk = css => { const e = document.createElement('div'); e.setAttribute('aria-hidden', 'true'); e.style.cssText = 'position:fixed;left:0;top:0;pointer-events:none;z-index:2147483646;border-radius:50%;opacity:0;transition:opacity 300ms;will-change:transform;' + css; document.body.appendChild(e); return e; };
+    const ring = mk('width:40px;height:40px;margin:-20px 0 0 -20px;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.7),0 0 0 1px rgba(16,24,40,0.14);transition:opacity 300ms,width 320ms cubic-bezier(.22,1,.36,1),height 320ms cubic-bezier(.22,1,.36,1),margin 320ms cubic-bezier(.22,1,.36,1),background 320ms;');
+    const dot = mk('display:none;width:6px;height:6px;margin:-3px 0 0 -3px;background:#FFFFFF;box-shadow:0 0 0 1px rgba(16,24,40,0.2);');
+    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y, on = false, big = false;
+    document.documentElement.classList.add('dv-cur');
+    const setBig = b => { if (b === big) return; big = b; const s = b ? 64 : 40; ring.style.width = ring.style.height = s + 'px'; ring.style.margin = (-s / 2) + 'px 0 0 ' + (-s / 2) + 'px'; ring.style.background = b ? 'rgba(255,255,255,0.18)' : 'transparent'; dot.style.opacity = b ? '0' : '1'; };
+    window.addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; x = e.clientX; y = e.clientY; if (!on) { on = true; rx = x; ry = y; ring.style.opacity = '1'; dot.style.opacity = big ? '0' : '1'; } const t = e.composedPath()[0]; setBig(!!(t && t.closest && t.closest('a,button,[role=tab],label,summary,canvas,input'))); }, { passive: true });
+    document.addEventListener('pointerleave', () => { on = false; ring.style.opacity = dot.style.opacity = '0'; });
+    window.addEventListener('pointerdown', () => { ring.style.transform += ' scale(0.85)'; });
+    const loop = () => { rx += (x - rx) * 0.18; ry += (y - ry) * 0.18; ring.style.transform = 'translate3d(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px,0)'; dot.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onS); window.removeEventListener('resize', this.onR);

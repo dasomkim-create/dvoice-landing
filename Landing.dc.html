@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 <meta name="ext-resource-dependency" content="case.mp4" data-resource-id="caseVideo">
-<template id="__bundler_thumbnail" data-bg-color="#FFFFFF"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#FFFFFF"></rect><rect x="30" y="30" width="40" height="40" rx="12" fill="#2B45D4"></rect><circle cx="50" cy="50" r="8" fill="#FFFFFF"></circle></svg></template>
+<meta name="ext-resource-dependency" content="interview.mp4" data-resource-id="interviewVideo">
+<meta name="ext-resource-dependency" content="interview2.mp4" data-resource-id="interviewVideo2">
+<meta name="ext-resource-dependency" content="dvoice-logo.svg" data-resource-id="dvLogo">
+<template id="__bundler_thumbnail" data-bg-color="#FFFFFF"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#FFFFFF"></rect></svg></template>
 </head>
 <body>
 <x-dc>
@@ -22,6 +25,7 @@ a:hover{color:#2138B5;}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
 input[type=number]{-moz-appearance:textfield;}
 @keyframes qbar{from{width:0}to{width:100%}}
+@keyframes dvStroke{0%{background-position:100% 0}45%,100%{background-position:0% 0}}
 @keyframes nudgeA{0%,100%{translate:0 0}20%{translate:0 -10px}45%{translate:0 4px}70%{translate:0 -3px}}
 @keyframes nudgeB{0%,100%{translate:0 0}20%{translate:0 -10px}45%{translate:0 4px}70%{translate:0 -3px}}
 </style>
@@ -42,34 +46,40 @@ input[type=number]{-moz-appearance:textfield;}
   <div ref="{{ morphRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;width:0;height:0;z-index:15;pointer-events:none;opacity:0;will-change:transform,width,height;"></div>
   <div ref="{{ flyRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:20;pointer-events:none;opacity:0;display:flex;align-items:baseline;gap:4px;color:#14171B;font-weight:700;letter-spacing:-0.04em;font-variant-numeric:tabular-nums;will-change:transform,opacity;transform-origin:50% 50%;"><span ref="{{ flyNumRef }}" style="font-size:72px;line-height:1;">0</span><span style="font-size:24px;font-weight:600;color:#6E6A63;">만원</span></div>
 
-  <section ref="{{ introRef }}" style="position:relative;height:220vh;background:#FFFFFF;">
-    <div ref="{{ heroStickyRef }}" style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#FFFFFF;color:#191F28;transform-origin:50% 0%;will-change:transform;">
-      <canvas ref="{{ heroBgRef }}" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;"></canvas>
-      <div ref="{{ introBlockRef }}" style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px;max-width:900px;">
-        <div ref="{{ b0 }}" style="font-size:16px;font-weight:600;color:#2B45D4;">병·의원 전화 · 상담 · 진료 운영 플랫폼</div>
-        <h1 style="margin:22px 0 0;font-size:clamp(40px,6.6vw,76px);line-height:1.22;font-weight:700;letter-spacing:-0.035em;">
-          <span ref="{{ b1 }}" style="display:block;">어제도 울렸던 전화,</span>
-          <span ref="{{ b2 }}" style="display:block;">몇 통이 그냥 끊겼을까요?</span>
-        </h1>
-        <p ref="{{ descRef }}" style="margin:40px 0 0;font-size:clamp(18px,2.1vw,24px);line-height:1.6;font-weight:500;color:#4E5968;max-width:640px;">
-          <span ref="{{ b3 }}" style="display:block;">병원 전화의 손익, 감이 아니라 숫자로 보세요.</span>
-          <span ref="{{ b4 }}" style="display:block;margin-top:6px;">우리 병원 숫자 다섯 개만 넣으면 한 달 동안 놓치고 있는 초진 매출을 바로 알 수 있어요.</span>
-        </p>
+  <section id="top" ref="{{ topRef }}" style="position:sticky;top:0;z-index:0;height:100vh;min-height:640px;overflow:hidden;background:#FFFFFF;">
+    <div ref="{{ topInRef }}" style="height:100%;display:flex;align-items:center;gap:clamp(32px,4vw,72px);padding:64px 0 0 max(24px, calc((100vw - 1180px) / 2));transform-origin:50% 30%;will-change:transform;">
+      <span aria-hidden="true" style="position:absolute;right:-10vw;top:10vh;width:70vw;height:80vh;border-radius:50%;background:radial-gradient(closest-side,rgba(43,69,212,0.08),rgba(43,69,212,0));pointer-events:none;"></span>
+      <div style="position:relative;flex:0 0 min(440px,36vw);min-width:0;display:flex;flex-direction:column;align-items:flex-start;">
+        <div data-reveal="" style="font-size:16px;font-weight:600;color:#2B45D4;">병·의원 전화 · 상담 · 진료 운영 플랫폼</div>
+        <h1 data-reveal="" data-delay="80" style="margin:18px 0 0;font-size:clamp(36px,4.2vw,58px);line-height:1.22;font-weight:700;letter-spacing:-0.035em;color:#191F28;"><span style="display:block;">진료실 밖이 보이는</span><span style="display:block;color:#2B45D4;">병원 운영, D voice</span></h1>
+        <p data-reveal="" data-delay="160" style="margin:24px 0 0;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:#4E5968;text-wrap:pretty;">전화, 상담, 진료의 모든 대화가 기록되고 정리돼요. 원장님은 아침에 한 화면만 보면 돼요.</p>
+        <div data-reveal="" data-delay="240" style="margin-top:36px;display:flex;flex-wrap:wrap;gap:10px;">
+          <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:56px;padding:0 22px 0 26px;display:flex;align-items:center;gap:8px;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">2주 콜 진단 신청<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:56px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기</a>
+        </div>
+        <p data-reveal="" data-delay="320" style="margin:28px 0 0;font-size:13px;color:#8B95A1;">오른쪽 화면의 메뉴를 눌러 직접 둘러보세요.</p>
       </div>
-      <div ref="{{ hintRef }}" style="position:absolute;bottom:36px;left:50%;width:1px;height:44px;margin-left:-0.5px;background:linear-gradient(180deg,rgba(25,31,40,0),rgba(25,31,40,0.3));"></div>
+      <div data-reveal="" data-delay="200" style="position:relative;flex:1 1 0;min-width:0;border-radius:14px 0 0 14px;overflow:hidden;background:#FFFFFF;box-shadow:0 0 0 1px rgba(16,32,58,0.08),0 50px 100px -50px rgba(30,50,110,0.4);">
+        <div style="height:40px;display:flex;align-items:center;gap:16px;padding:0 16px;background:#F4F5F7;border-bottom:1px solid #E7EAEE;">
+          <span style="width:52px;flex:none;display:flex;gap:8px;"><i style="width:12px;height:12px;border-radius:50%;background:#FF5F57;display:block;"></i><i style="width:12px;height:12px;border-radius:50%;background:#FEBC2E;display:block;"></i><i style="width:12px;height:12px;border-radius:50%;background:#28C840;display:block;"></i></span>
+          <span style="flex:1;min-width:0;display:flex;justify-content:center;"><span style="width:min(100%,320px);height:26px;border-radius:7px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:12.5px;color:#6B7684;box-shadow:0 0 0 1px rgba(0,0,0,0.05);">app.dvoice.ai</span></span>
+          <span style="width:52px;flex:none;"></span>
+        </div>
+        <x-import component-from-global-scope="dv-ui" from="./dv-ui.js" screen="app" hint-size="100%,600px"></x-import>
+      </div>
     </div>
   </section>
 
-  <section id="calc" ref="{{ stageRef }}" style="position:relative;height:220vh;margin-top:-60vh;">
-    <div onMouseMove="{{ onPointer }}" onMouseLeave="{{ onPointerLeave }}" style="position:sticky;top:0;z-index:2;background:#FFFFFF;will-change:transform,clip-path;height:100vh;overflow:hidden;display:grid;flex-direction:column;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);grid-template-rows:1fr auto auto 1.5fr;column-gap:clamp(24px,4vw,64px);row-gap:28px;align-items:center;padding:80px max(24px, calc((100vw - 1180px) / 2)) 24px;">
+  <section id="calc" data-header-dark="" ref="{{ stageRef }}" style="position:relative;height:250vh;">
+    <div onMouseMove="{{ onPointer }}" onMouseLeave="{{ onPointerLeave }}" style="position:sticky;top:0;z-index:2;background:#0A1434;color:#FFFFFF;border-radius:40px 40px 0 0;will-change:transform,clip-path;height:100vh;overflow:hidden;display:grid;flex-direction:column;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);grid-template-rows:1fr auto auto 1.5fr;column-gap:clamp(24px,4vw,64px);row-gap:28px;align-items:center;padding:80px max(24px, calc((100vw - 1180px) / 2)) 24px;">
       <div ref="{{ copyRef }}" style="position:relative;z-index:2;grid-column:1;grid-row:2;align-self:end;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:10px;opacity:0;">
-        <div style="font-size:17px;font-weight:600;color:#2B45D4;">놓친 전화 계산기</div>
-        <h2 style="margin:0;font-size:clamp(26px,3.4vw,40px);line-height:1.3;font-weight:700;letter-spacing:-0.03em;">우리 병원 숫자를 넣어 보세요.</h2>
-        <p style="margin:0;font-size:16px;line-height:1.6;color:#6B7684;">지금 보이는 숫자는 예시예요.</p>
+        <div style="font-size:17px;font-weight:600;color:#9DB2FF;">놓친 전화 계산기</div>
+        <h2 style="margin:0;font-size:clamp(30px,3.6vw,48px);line-height:1.25;font-weight:700;letter-spacing:-0.035em;color:#FFFFFF;"><span style="display:block;">어제도 울렸던 전화,</span><span style="display:block;">몇 통이 그냥 끊겼을까요?</span></h2>
+        <p style="margin:8px 0 0;font-size:17px;line-height:1.65;color:rgba(255,255,255,0.74);max-width:460px;"><span style="display:block;">병원 전화의 손익, 감이 아니라 숫자로 보세요.</span><span style="display:block;margin-top:4px;">우리 병원 숫자 다섯 개만 넣으면 한 달 동안 놓치고 있는 초진 매출을 바로 알 수 있어요.</span></p>
       </div>
       <div ref="{{ calcWrapRef }}" style="grid-column:1 / span 2;grid-row:1 / span 4;align-self:stretch;position:relative;flex:1 1 0;min-height:260px;width:100%;opacity:0;">
         <canvas ref="{{ calcCanvasRef }}" role="img" aria-label="놓친 전화 계산기 3D 모델. 액정에 계산 결과가 보여요." style="position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;"></canvas>
-        <div style="position:absolute;left:-10%;right:-10%;bottom:-1px;height:6%;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,#FFFFFF 100%);"></div>
+        <div style="position:absolute;left:-10%;right:-10%;bottom:-1px;height:6%;pointer-events:none;background:linear-gradient(180deg,rgba(10,20,52,0) 0%,#0A1434 100%);"></div>
         <span ref="{{ outRef }}" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"></span>
       </div>
       <div ref="{{ fieldsRef }}" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">
@@ -87,20 +97,20 @@ input[type=number]{-moz-appearance:textfield;}
       <div ref="{{ ctaRef }}" style="grid-column:1;grid-row:3;align-self:start;position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:14px;opacity:0;">
         <div style="display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;">
           <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:52px;padding:0 22px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">2주 진단으로 실제 금액 확인하기</a>
-          <a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:52px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <a href="Features.dc.html#summary" style-hover="background:rgba(255,255,255,0.16);color:#FFFFFF;" style="height:52px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:rgba(255,255,255,0.1);color:#FFFFFF;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
         </div>
-        <div style="display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px 14px;font-size:13px;color:#6B7684;">
-          <span><b style="font-weight:600;color:#333D4B;">장비 무료 임대</b></span>
-          <span><b style="font-weight:600;color:#333D4B;">2주 이용료만</b> 내고 직접 사용</span>
+        <div style="display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px 14px;font-size:13px;color:rgba(255,255,255,0.62);">
+          <span><b style="font-weight:600;color:#FFFFFF;">장비 무료 임대</b></span>
+          <span><b style="font-weight:600;color:#FFFFFF;">2주 이용료만</b> 내고 직접 사용</span>
           <span>진단 리포트 포함</span>
-          <span>계산기의 − + 버튼으로 숫자를 바꿔 보세요</span>
+          <span>계산기의 − + 버튼으로 숫자를 바꿔 보세요 · 지금 숫자는 예시</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="promise" ref="{{ heroSecRef }}" style="position:relative;height:calc(100vh + 170vh);">
-    <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
+  <section id="promise" ref="{{ heroSecRef }}" style="position:relative;z-index:3;height:calc(100vh + 170vh);">
+    <div ref="{{ promStickyRef }}" style="position:sticky;top:0;background:#FFFFFF;border-radius:40px 40px 0 0;box-shadow:0 -30px 60px -30px rgba(0,8,40,0.35);height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
     <div ref="{{ heroGlowRef }}" style="opacity:0;transition:opacity 300ms;position:absolute;left:50%;top:50%;width:1100px;height:1100px;margin:-550px 0 0 -550px;pointer-events:none;background:radial-gradient(50% 50% at 50% 50%, rgba(43,69,212,0.10), rgba(43,69,212,0) 70%);"></div>
     <div ref="{{ heroRowRef }}" style="position:relative;width:100%;max-width:1120px;display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,72px);align-items:center;">
       <div ref="{{ heroColRef }}" style="flex:1 1 420px;min-width:0;transform-origin:50% 50%;will-change:transform;">
@@ -108,14 +118,6 @@ input[type=number]{-moz-appearance:textfield;}
         <h1 ref="{{ heroH1Ref }}" style="margin:16px 0 0;font-size:clamp(34px,4.8vw,56px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">진료는 원장님이<br>가장 잘 아세요.<br><span style="color:#8B95A1;">진료실 밖 운영은</span><br><span style="color:#2B45D4;">D voice가</span> 책임질게요.</h1>
         <div ref="{{ heroCopyRef }}" style="opacity:0;">
         <p style="margin:24px 0 0;font-size:18px;line-height:1.7;color:#4E5968;">데스크 전화, 상담실 상담, 진료실 설명까지 모든 대화가 기록되고 정리돼요. 어디서 환자를 놓치는지, 무엇이 불만인지, 누가 잘 응대하는지 아침 30초면 알 수 있어요.</p>
-        <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;">
-          <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:56px;padding:0 24px;display:flex;align-items:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:17px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms,box-shadow 260ms;" style-active="transform:scale(0.97);">우리 병원 2주 콜 진단 신청</a>
-          <a href="Features.dc.html#summary" style-hover="background:#EEF0F3;color:#191F28;" style="height:56px;padding:0 18px 0 22px;display:flex;align-items:center;gap:6px;border-radius:16px;background:#F7F8FA;color:#4E5968;font-weight:600;font-size:17px;transition:background 200ms,color 200ms;" style-active="transform:scale(0.97);">3분 요약 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-        </div>
-        <div style="margin-top:32px;display:flex;align-items:center;gap:14px;">
-          <span style="font-size:44px;font-weight:700;letter-spacing:-0.04em;font-variant-numeric:tabular-nums;">35</span>
-          <span style="font-size:15px;line-height:1.5;color:#4E5968;">개 병·의원의 원장님이<br><b style="color:#191F28;font-weight:600;">이 화면으로 진료실 밖을 보고 있어요.</b></span>
-        </div>
         </div>
       </div>
       <div ref="{{ heroLiveRef }}" style="flex:1 1 440px;min-width:0;opacity:0;will-change:transform,opacity;">
@@ -125,9 +127,9 @@ input[type=number]{-moz-appearance:textfield;}
     </div>
   </section>
 
-  <section style="position:relative;z-index:1;margin-top:min(0px, calc(353px - 50vh));padding:0 24px 40px;display:flex;justify-content:center;">
+  <section style="position:relative;z-index:4;margin-top:min(0px, calc(353px - 50vh));padding:0 24px 40px;display:flex;justify-content:center;">
     <div style="width:100%;max-width:1120px;">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+      <div ref="{{ proofGridRef }}" style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;">
         <sc-for list="{{ proof }}" as="p" hint-placeholder-count="6">
           <div data-reveal="" data-delay="{{ p.delay }}" style="background:#F9FAFB;border-radius:24px;padding:24px 20px;display:flex;flex-direction:column;gap:6px;" style-hover="translate:0 -4px;box-shadow:0 18px 40px -20px rgba(30,40,60,0.25);">
             <b data-count="" style="font-size:32px;font-weight:700;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;">{{ p.v }}</b>
@@ -221,7 +223,7 @@ input[type=number]{-moz-appearance:textfield;}
           <div role="row" data-reveal="" style="display:grid;grid-template-columns:110px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:stretch;">
             <div role="cell" style="padding:20px 4px;display:flex;flex-direction:column;gap:2px;"><b style="font-size:16px;font-weight:700;">{{ d.when }}</b><span style="font-size:14px;color:#8B95A1;font-variant-numeric:tabular-nums;">{{ d.time }}</span></div>
             <div role="cell" style="padding:20px 22px;border-radius:20px;background:#fff;font-size:15px;line-height:1.65;color:#6B7684;">{{ d.no }}</div>
-            <div role="cell" style="padding:20px 22px;border-radius:20px;background:#fff;box-shadow:0 0 0 1.5px rgba(43,69,212,0.25);font-size:15px;line-height:1.65;color:#333D4B;">{{ d.pre }}<b style="font-weight:700;color:#2B45D4;">{{ d.b }}</b>{{ d.post }}</div>
+            <div role="cell" style="position:relative;padding:20px 22px;border-radius:20px;background:#fff;font-size:15px;line-height:1.65;color:#333D4B;"><span aria-hidden="true" style="position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;background:linear-gradient(100deg,rgba(43,69,212,0.22) 0%,rgba(43,69,212,0.22) 38%,#2B45D4 50%,rgba(43,69,212,0.22) 62%,rgba(43,69,212,0.22) 100%);background-size:300% 100%;background-position:100% 0;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:dvStroke 5.6s cubic-bezier(0.45,0,0.2,1) {{ d.dl }} infinite;"></span>{{ d.pre }}<b style="font-weight:700;color:#2B45D4;">{{ d.b }}</b>{{ d.post }}</div>
           </div>
         </sc-for>
       </div>
@@ -311,12 +313,12 @@ input[type=number]{-moz-appearance:textfield;}
       <div ref="{{ storyShadeRef }}" style="position:absolute;inset:0;background:rgba(6,8,14,0.5);"></div>
       <div style="position:absolute;inset:0;padding:84px clamp(20px,4vw,56px) 36px;display:flex;flex-direction:column;">
         <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;padding-bottom:14px;font-size:13px;font-weight:600;">
-          <span>도입 사례</span><span style="color:rgba(255,255,255,0.8);">서울 강남 · A피부과</span><span style="color:rgba(255,255,255,0.8);">도입 12주</span><span style="color:rgba(255,255,255,0.8);">예시 사례 · 실측치로 교체 예정</span>
+          <span>도입 사례</span>
         </div>
         <div ref="{{ storyStageRef }}" style="position:relative;flex:1;min-height:0;">
 
-          <div style="position:absolute;left:{{ s0.l }};top:{{ s0.t }};width:{{ s0.w }};display:flex;flex-direction:column;gap:28px;opacity:{{ s0.op }};transform:{{ s0.tr }};filter:blur({{ s0.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
-            <h3 style="margin:0;font-size:clamp(32px,4.6vw,64px);line-height:1.18;font-weight:700;letter-spacing:-0.035em;">"전화가 보이기 시작하니, 직원에게 할 말이 생겼습니다"</h3>
+          <div style="position:absolute;left:{{ s0.l }};top:{{ s0.t }};width:{{ s0.w }};display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;opacity:{{ s0.op }};transform:{{ s0.tr }};filter:blur({{ s0.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <h3 style="margin:0;font-size:clamp(32px,4.6vw,64px);line-height:1.18;font-weight:700;letter-spacing:-0.035em;">"전화가 보이기 시작하니,<br>직원에게 할 말이 생겼습니다."</h3>
             <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:560px;">
               <div style="padding:12px 12px 0 0;display:flex;flex-direction:column;gap:2px;"><b style="font-size:clamp(30px,3vw,44px);font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums;">1</b><span style="font-size:13px;color:rgba(255,255,255,0.8);">원장</span></div>
               <div style="padding:12px 12px 0 0;display:flex;flex-direction:column;gap:2px;"><b style="font-size:clamp(30px,3vw,44px);font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums;">2</b><span style="font-size:13px;color:rgba(255,255,255,0.8);">상담실장</span></div>
@@ -325,18 +327,18 @@ input[type=number]{-moz-appearance:textfield;}
             </div>
           </div>
 
-          <div style="position:absolute;left:{{ s1.l }};top:{{ s1.t }};width:{{ s1.w }};opacity:{{ s1.op }};transform:{{ s1.tr }};filter:blur({{ s1.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">01</b><span style="font-size:15px;font-weight:600;">1주차</span></div>
+          <div style="position:absolute;left:{{ s1.l }};top:{{ s1.t }};width:{{ s1.w }};display:flex;flex-direction:column;align-items:center;text-align:center;opacity:{{ s1.op }};transform:{{ s1.tr }};filter:blur({{ s1.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <div style="display:flex;align-items:baseline;justify-content:center;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">01</b><span style="font-size:15px;font-weight:600;">1주차</span></div>
             <h3 style="margin:18px 0 0;font-size:clamp(28px,3.4vw,46px);line-height:1.25;font-weight:700;letter-spacing:-0.03em;">보이지 않던 것을 봤다</h3>
             <p style="margin:12px 0 0;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:rgba(255,255,255,0.88);">첫 대시보드에서 야간·주말 부재중이 주 30건 가까이 쌓이고 있었다.</p>
-            <div style="margin-top:24px;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:4px;max-width:380px;">
+            <div style="margin-top:24px;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:4px;width:100%;max-width:380px;">
               <sc-for list="{{ dots30 }}" as="d" hint-placeholder-count="30"><span style="aspect-ratio:1/1;border:1px solid rgba(255,255,255,0.6);background:{{ d.bg }};transition:background 300ms {{ d.dl }};"></span></sc-for>
             </div>
-            <div style="margin-top:8px;max-width:380px;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.75);"><span>야간·주말 부재중</span><span>주 30건 가까이</span></div>
+            <div style="margin-top:8px;width:100%;max-width:380px;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.75);"><span>야간·주말 부재중</span><span>주 30건 가까이</span></div>
           </div>
 
-          <div style="position:absolute;left:{{ s2.l }};top:{{ s2.t }};width:{{ s2.w }};opacity:{{ s2.op }};transform:{{ s2.tr }};filter:blur({{ s2.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">02</b><span style="font-size:15px;font-weight:600;">3주차</span></div>
+          <div style="position:absolute;left:{{ s2.l }};top:{{ s2.t }};width:{{ s2.w }};display:flex;flex-direction:column;align-items:center;text-align:center;opacity:{{ s2.op }};transform:{{ s2.tr }};filter:blur({{ s2.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <div style="display:flex;align-items:baseline;justify-content:center;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">02</b><span style="font-size:15px;font-weight:600;">3주차</span></div>
             <h3 style="margin:18px 0 0;font-size:clamp(28px,3.4vw,46px);line-height:1.25;font-weight:700;letter-spacing:-0.03em;">원인을 찾았다</h3>
             <p style="margin:12px 0 0;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:rgba(255,255,255,0.88);">불만 통화 12건 중 9건이 "접수 대기". 직원이 아니라 동선의 문제였다.</p>
             <div style="margin-top:24px;display:grid;grid-template-columns:repeat(6,28px);gap:10px;">
@@ -345,11 +347,11 @@ input[type=number]{-moz-appearance:textfield;}
             <div style="margin-top:12px;display:flex;gap:18px;font-size:12px;color:rgba(255,255,255,0.75);"><span>● 접수 대기 9</span><span>○ 그 밖의 불만 3</span></div>
           </div>
 
-          <div style="position:absolute;left:{{ s3.l }};top:{{ s3.t }};width:{{ s3.w }};opacity:{{ s3.op }};transform:{{ s3.tr }};filter:blur({{ s3.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">03</b><span style="font-size:15px;font-weight:600;">6주차</span></div>
+          <div style="position:absolute;left:{{ s3.l }};top:{{ s3.t }};width:{{ s3.w }};display:flex;flex-direction:column;align-items:center;text-align:center;opacity:{{ s3.op }};transform:{{ s3.tr }};filter:blur({{ s3.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <div style="display:flex;align-items:baseline;justify-content:center;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">03</b><span style="font-size:15px;font-weight:600;">6주차</span></div>
             <h3 style="margin:18px 0 0;font-size:clamp(28px,3.4vw,46px);line-height:1.25;font-weight:700;letter-spacing:-0.03em;">기준을 만들었다</h3>
             <p style="margin:12px 0 0;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:rgba(255,255,255,0.88);">응대 점수 9점 이상 통화 20건으로 전화 응대 기준을 만들고 전 직원이 들었다.</p>
-            <div style="position:relative;margin-top:24px;max-width:440px;height:96px;">
+            <div style="position:relative;margin-top:24px;width:100%;max-width:440px;height:96px;">
               <sc-for list="{{ dots20 }}" as="d" hint-placeholder-count="20"><span style="position:absolute;left:{{ d.x }};bottom:{{ d.y }};width:8px;height:8px;border-radius:50%;background:#fff;opacity:{{ d.op }};transform:scale({{ d.sc }});transition:opacity 300ms {{ d.dl }},transform 400ms cubic-bezier(0.22,1,0.36,1) {{ d.dl }};"></span></sc-for>
               <span style="position:absolute;left:0;right:0;bottom:20px;height:1px;background:rgba(255,255,255,0.6);"></span>
               <sc-for list="{{ ticks }}" as="t" hint-placeholder-count="11"><span style="position:absolute;left:{{ t.x }};bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:{{ t.c }};"><i style="display:block;width:1px;height:6px;background:rgba(255,255,255,0.6);"></i>{{ t.n }}</span></sc-for>
@@ -357,38 +359,38 @@ input[type=number]{-moz-appearance:textfield;}
             <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,0.75);">응대 점수 · 9점 이상 통화 20건</div>
           </div>
 
-          <div style="position:absolute;left:{{ s4.l }};top:{{ s4.t }};width:{{ s4.w }};opacity:{{ s4.op }};transform:{{ s4.tr }};filter:blur({{ s4.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">04</b><span style="font-size:15px;font-weight:600;">12주차</span></div>
+          <div style="position:absolute;left:{{ s4.l }};top:{{ s4.t }};width:{{ s4.w }};display:flex;flex-direction:column;align-items:center;text-align:center;opacity:{{ s4.op }};transform:{{ s4.tr }};filter:blur({{ s4.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+            <div style="display:flex;align-items:baseline;justify-content:center;gap:16px;padding-bottom:10px;"><b style="font-size:clamp(56px,7vw,104px);font-weight:200;line-height:0.9;font-variant-numeric:tabular-nums;">04</b><span style="font-size:15px;font-weight:600;">12주차</span></div>
             <h3 style="margin:18px 0 0;font-size:clamp(28px,3.4vw,46px);line-height:1.25;font-weight:700;letter-spacing:-0.03em;">돈의 흐름을 바꿨다</h3>
             <p style="margin:12px 0 0;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:rgba(255,255,255,0.88);">전화가 실제로 온 채널로 광고비를 옮겼다. 네이버 플레이스 비중을 올렸다.</p>
-            <div style="margin-top:24px;display:grid;grid-template-columns:auto minmax(0,1fr);max-width:460px;font-size:14px;">
+            <div style="margin-top:24px;display:grid;grid-template-columns:auto minmax(0,1fr);width:100%;max-width:460px;font-size:14px;text-align:left;">
               <span style="padding:12px 18px 12px 0;color:rgba(255,255,255,0.7);">이전</span><span style="padding:12px 0;color:rgba(255,255,255,0.85);">광고 대행사 리포트의 노출과 클릭 수</span>
               <span style="padding:12px 18px 12px 0;color:rgba(255,255,255,0.7);">이후</span><span style="padding:12px 0;font-weight:700;">실제 걸려온 전화 수 → 네이버 플레이스 비중 ↑</span>
             </div>
           </div>
 
-          <div style="position:absolute;left:{{ s5.l }};top:{{ s5.t }};width:{{ s5.w }};display:flex;flex-direction:column;gap:20px;opacity:{{ s5.op }};transform:{{ s5.tr }};filter:blur({{ s5.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
+          <div style="position:absolute;left:{{ s5.l }};top:{{ s5.t }};width:{{ s5.w }};display:flex;flex-direction:column;align-items:center;text-align:center;display:flex;flex-direction:column;gap:20px;opacity:{{ s5.op }};transform:{{ s5.tr }};filter:blur({{ s5.bl }});transition:opacity 700ms cubic-bezier(0.22,1,0.36,1),transform 800ms cubic-bezier(0.22,1,0.36,1),filter 700ms;">
             <span style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.8);max-width:240px;">A피부과 원장</span>
             <h3 style="margin:0;font-size:clamp(36px,5.4vw,76px);line-height:1.15;font-weight:700;letter-spacing:-0.04em;">진료는 제가 제일 잘 압니다.</h3>
             <p style="margin:0;font-size:clamp(18px,2vw,24px);line-height:1.6;color:rgba(255,255,255,0.9);max-width:640px;">그런데 데스크와 상담실에서 무슨 일이 있는지는 몰랐어요. 이제는 아침에 그걸 먼저 봅니다.</p>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:20px;padding-top:14px;">
-          <b style="font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;">{{ storyNo }} / 06</b>
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:20px;padding-top:14px;">
           <div style="display:flex;gap:6px;flex:1;max-width:320px;">
             <sc-for list="{{ storyBars }}" as="b" hint-placeholder-count="6"><span style="flex:1;height:2px;background:{{ b.bg }};transition:background 400ms;"></span></sc-for>
           </div>
+          <b style="font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;">{{ storyNo }} / 06</b>
         </div>
       </div>
-      <div ref="{{ glassRef }}" style="position:absolute;left:50%;top:50%;width:min(940px,calc(100% - 40px));transform:translate(-50%,-50%) scale(0.18);opacity:0;visibility:hidden;border-radius:36px;padding:clamp(24px,4vw,48px);background:linear-gradient(135deg,rgba(28,46,160,0.6) 0%,rgba(10,20,80,0.55) 100%);-webkit-backdrop-filter:blur(28px) saturate(150%);backdrop-filter:blur(28px) saturate(150%);border:1px solid rgba(255,255,255,0.22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.28),0 40px 120px -30px rgba(0,10,60,0.6);">
+      <div ref="{{ glassRef }}" style="position:absolute;left:50%;top:50%;width:min(940px,calc(100% - 40px));transform:translate(-50%,-50%) scale(0.18);opacity:0;visibility:hidden;border-radius:36px;padding:clamp(24px,4vw,48px);background:#F2F4F6;color:#191F28;">
         <div ref="{{ glassInRef }}" style="opacity:0;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.25);"><b style="font-size:clamp(20px,2.2vw,28px);font-weight:700;">도입 효과</b><span style="font-size:14px;color:rgba(255,255,255,0.8);">A피부과 · 도입 12주 뒤</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid #E1E5EA;"><b style="font-size:clamp(20px,2.2vw,28px);font-weight:700;">도입 효과</b><span style="font-size:14px;color:#6B7684;">A피부과 · 도입 12주 뒤 · 예시</span></div>
           <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:28px 24px;">
             <sc-for list="{{ caseMetrics }}" as="m" hint-placeholder-count="4">
               <div style="display:flex;flex-direction:column;gap:8px;">
-                <span style="font-size:14px;color:rgba(255,255,255,0.82);">{{ m.l }}</span>
-                <span style="font-size:15px;color:rgba(255,255,255,0.55);text-decoration:line-through;font-variant-numeric:tabular-nums;">{{ m.from }}</span>
-                <span data-gcount="" style="font-size:clamp(40px,4.4vw,60px);font-weight:700;line-height:1;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;">{{ m.to }}<small style="font-size:0.4em;font-weight:600;margin-left:2px;">{{ m.u }}</small></span>
+                <span style="font-size:14px;color:#4E5968;">{{ m.l }}</span>
+                <span style="font-size:15px;color:#8B95A1;text-decoration:line-through;font-variant-numeric:tabular-nums;">{{ m.from }}</span>
+                <span data-gcount="" style="color:#2B45D4;font-size:clamp(40px,4.4vw,60px);font-weight:700;line-height:1;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;">{{ m.to }}<small style="font-size:0.4em;font-weight:600;margin-left:2px;">{{ m.u }}</small></span>
               </div>
             </sc-for>
           </div>
@@ -400,32 +402,23 @@ input[type=number]{-moz-appearance:textfield;}
   <section id="cases-h" ref="{{ hzSecRef }}" style="position:relative;height:calc(100vh + 220vh);background:#F5F6F8;">
     <div ref="{{ hzStickyRef }}" style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(32px,6vh,72px);padding:84px 0 48px;overflow:hidden;">
       <div style="width:100%;max-width:1120px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:14px;">
-        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">도입 사례</div>
-        <h2 data-split="" style="margin:0;font-size:clamp(30px,4.4vw,52px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">서울 강남 A피부과,<br>도입 12주 뒤에 달라진 것</h2>
+        <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">도입 인터뷰</div>
+        <h2 data-split="" style="margin:0;font-size:clamp(30px,4.4vw,52px);line-height:1.3;font-weight:700;letter-spacing:-0.035em;">쓰는 병원이<br>직접 말하는 D voice</h2>
       </div>
       <div ref="{{ hzViewRef }}" style="width:100%;overflow:visible;">
         <div ref="{{ hzTrackRef }}" style="display:flex;gap:24px;width:max-content;padding:0 max(24px, calc((100vw - 1120px) / 2 + 24px));will-change:transform;">
-          <sc-for list="{{ caseMetrics }}" as="m" hint-placeholder-count="4">
-            <article style="flex:none;width:clamp(280px,30vw,400px);padding:14px;border-radius:40px;background:#fff;display:flex;flex-direction:column;gap:22px;box-shadow:0 30px 60px -40px rgba(30,40,60,0.25);transition:translate 300ms cubic-bezier(0.22,1,0.36,1);" style-hover="translate:0 -6px;">
-              <div style="position:relative;height:clamp(220px,34vh,340px);border-radius:28px;overflow:hidden;background:linear-gradient(160deg,#F1F3F8 0%,#E6EBF6 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
-                <span style="position:absolute;left:50%;top:50%;width:70%;height:70%;margin:-35% 0 0 -35%;border-radius:50%;background:radial-gradient(closest-side,rgba(43,69,212,0.14),rgba(43,69,212,0));"></span>
-                <span style="position:relative;font-size:17px;color:#8B95A1;text-decoration:line-through;font-variant-numeric:tabular-nums;">{{ m.from }}</span>
-                <span style="position:relative;font-size:clamp(48px,5vw,72px);font-weight:700;line-height:1;letter-spacing:-0.04em;color:#2B45D4;font-variant-numeric:tabular-nums;">{{ m.to }}<small style="font-size:0.36em;font-weight:600;margin-left:3px;">{{ m.u }}</small></span>
-              </div>
-              <div style="padding:0 18px 18px;display:flex;flex-direction:column;gap:6px;">
-                <span style="font-size:15px;color:#8B95A1;">A피부과 · 도입 12주</span>
-                <b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">{{ m.l }}</b>
-              </div>
-            </article>
+          <sc-for list="{{ interviews }}" as="iv" hint-placeholder-count="3">
+            <a href="Cases.dc.html" style="flex:none;position:relative;width:clamp(300px,34vw,480px);height:clamp(380px,62vh,600px);border-radius:32px;overflow:hidden;background:#0B0D10;color:#FFFFFF;display:block;transition:translate 300ms cubic-bezier(0.22,1,0.36,1);" style-hover="translate:0 -6px;color:#FFFFFF;">
+              <video data-ivid="{{ iv.t }}" data-isrc="{{ iv.src }}" muted="" loop="" playsinline="" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ iv.pos }};"></video>
+              <span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,14,0.15) 0%,rgba(6,8,14,0.1) 40%,rgba(6,8,14,0.82) 100%);"></span>
+              <span style="position:absolute;left:24px;top:22px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:#FF5A5F;"></span>인터뷰</span>
+              <span style="position:absolute;right:20px;top:18px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.18);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);display:grid;place-items:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"></path></svg></span>
+              <span style="position:absolute;left:0;right:0;bottom:0;padding:28px;display:flex;flex-direction:column;gap:18px;">
+                <blockquote style="margin:0;font-size:clamp(20px,1.9vw,26px);line-height:1.5;font-weight:700;letter-spacing:-0.02em;text-wrap:pretty;">{{ iv.q }}</blockquote>
+                <span style="display:flex;flex-direction:column;gap:2px;"><b style="font-size:16px;font-weight:700;">{{ iv.who }}</b><span style="font-size:14px;color:rgba(255,255,255,0.78);">{{ iv.role }}</span></span>
+              </span>
+            </a>
           </sc-for>
-          <article style="flex:none;width:clamp(280px,30vw,400px);padding:14px;border-radius:40px;background:#fff;display:flex;flex-direction:column;gap:22px;box-shadow:0 30px 60px -40px rgba(30,40,60,0.25);">
-            <div style="height:clamp(220px,34vh,340px);border-radius:28px;background:linear-gradient(160deg,#F3F1EF 0%,#E9E6E3 100%);display:flex;align-items:center;padding:32px;"><blockquote style="margin:0;font-size:clamp(19px,1.7vw,23px);line-height:1.55;font-weight:700;letter-spacing:-0.02em;">"놓치는 전화가 사라지고, 상담 인수인계가 5분으로 줄었어요."</blockquote></div>
-            <div style="padding:0 18px 18px;display:flex;flex-direction:column;gap:6px;"><span style="font-size:15px;color:#8B95A1;">상담실장</span><b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">서울 강남구 ○○성형외과</b></div>
-          </article>
-          <article style="flex:none;width:clamp(280px,30vw,400px);padding:14px;border-radius:40px;background:#fff;display:flex;flex-direction:column;gap:22px;box-shadow:0 30px 60px -40px rgba(30,40,60,0.25);">
-            <div style="height:clamp(220px,34vh,340px);border-radius:28px;background:linear-gradient(160deg,#EEF1FA 0%,#E2E8F7 100%);display:flex;align-items:center;padding:32px;"><blockquote style="margin:0;font-size:clamp(19px,1.7vw,23px);line-height:1.55;font-weight:700;letter-spacing:-0.02em;">"외국인 상담도, 진료 차트 정리도 알아서 됩니다."</blockquote></div>
-            <div style="padding:0 18px 18px;display:flex;flex-direction:column;gap:6px;"><span style="font-size:15px;color:#8B95A1;">원장</span><b style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">경기 ○○피부과</b></div>
-          </article>
           <div style="flex:none;width:clamp(240px,22vw,300px);display:flex;flex-direction:column;justify-content:center;gap:8px;">
             <a href="Cases.dc.html" style-hover="background:#fff;color:#191F28;" style="height:54px;padding:0 22px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:16px;background:rgba(255,255,255,0.7);color:#4E5968;font-weight:600;font-size:16px;transition:background 200ms,color 200ms;">도입 사례 모두 보기<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
             <a href="#cta" style-hover="translate:0 -2px;filter:brightness(1.06);" style="height:54px;padding:0 22px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#2B45D4;color:#fff;font-weight:600;font-size:16px;transition:translate 260ms cubic-bezier(0.22,1,0.36,1),filter 260ms;">2주 콜 진단 신청</a>
@@ -485,24 +478,18 @@ input[type=number]{-moz-appearance:textfield;}
     <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 40px;overflow:hidden;">
       <div ref="{{ safeRowRef }}" style="width:100%;max-width:1120px;display:flex;align-items:center;gap:clamp(32px,6vw,88px);perspective:1400px;">
         <div ref="{{ safeIconRef }}" style="flex:none;width:min(340px,34vw);display:flex;flex-direction:column;align-items:center;gap:14px;will-change:transform;">
-          <svg viewBox="0 0 240 240" role="img" aria-label="D voice 안심병원 표시 시안" style="width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 30px 36px rgba(43,69,212,0.25));">
+          <svg viewBox="0 0 240 240" role="img" aria-label="D voice 안심병원 표시 시안" style="width:100%;height:auto;display:block;overflow:visible;">
             <defs>
-              <linearGradient id="sgFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7390F6"></stop><stop offset="0.55" stop-color="#2B45D4"></stop><stop offset="1" stop-color="#1A2A9C"></stop></linearGradient>
-              <linearGradient id="sgRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5168E0"></stop><stop offset="1" stop-color="#0025B6"></stop></linearGradient>
-              <radialGradient id="sgDisc" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#E4E9FB"></stop></radialGradient>
+              <linearGradient id="sgFace" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0" stop-color="#6E8BFF"></stop><stop offset="1" stop-color="#2B45D4"></stop></linearGradient>
+              <linearGradient id="sgGloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"></stop><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+              <radialGradient id="sgShadow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#2B45D4" stop-opacity="0.22"></stop><stop offset="1" stop-color="#2B45D4" stop-opacity="0"></stop></radialGradient>
             </defs>
-            <g ref="{{ safeDiscRef }}" style="opacity:0;">
-              <circle cx="120" cy="120" r="100" fill="url(#sgDisc)"></circle>
-              <circle cx="120" cy="120" r="90" fill="none" stroke="#5168E0" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="2 5"></circle>
-            </g>
-            <circle ref="{{ safeRingRef }}" cx="120" cy="120" r="108" fill="none" stroke="url(#sgRing)" stroke-width="5" stroke-linecap="round" transform="rotate(-90 120 120)" style="stroke-dasharray:679;stroke-dashoffset:679;"></circle>
             <g ref="{{ safeShieldRef }}" style="transform-box:fill-box;transform-origin:50% 50%;opacity:0;">
-              <path d="M120 60 L162 77 V114 C162 143 143 162 120 174 C97 162 78 143 78 114 V77 Z" fill="#14228A" transform="translate(0 8)"></path>
-              <path d="M120 60 L162 77 V114 C162 143 143 162 120 174 C97 162 78 143 78 114 V77 Z" fill="url(#sgFace)"></path>
-              <path d="M120 60 L120 174 C97 162 78 143 78 114 V77 Z" fill="#FFFFFF" opacity="0.14"></path>
-              <path d="M121 66 L156 80" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round"></path>
+              <ellipse cx="120" cy="208" rx="62" ry="10" fill="url(#sgShadow)"></ellipse>
+              <path d="M120 50 C141 50 161 56 173 62.5 C178 65 181 70 181 75.5 V112 C181 151 157 177 126.5 190.5 C122.3 192.3 117.7 192.3 113.5 190.5 C83 177 59 151 59 112 V75.5 C59 70 62 65 67 62.5 C79 56 99 50 120 50 Z" fill="url(#sgFace)"></path>
+              <path d="M120 50 C141 50 161 56 173 62.5 C178 65 181 70 181 75.5 V112 C181 151 157 177 126.5 190.5 C122.3 192.3 117.7 192.3 113.5 190.5 C83 177 59 151 59 112 V75.5 C59 70 62 65 67 62.5 C79 56 99 50 120 50 Z" fill="url(#sgGloss)"></path>
             </g>
-            <path ref="{{ safeCheckRef }}" d="M100 116 L115 131 L142 101" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:62;stroke-dashoffset:62;"></path>
+            <path ref="{{ safeCheckRef }}" d="M93 121 L112 140 L148 103" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:80;stroke-dashoffset:80;"></path>
           </svg>
           <div ref="{{ safeLabelRef }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;opacity:0;">
             <b style="font-size:18px;font-weight:700;color:#10203A;">D voice 안심병원</b>
@@ -514,7 +501,7 @@ input[type=number]{-moz-appearance:textfield;}
           <div style="font-size:17px;font-weight:600;color:#2B45D4;">D voice 안심병원</div>
           <h2 style="margin:14px 0 0;font-size:clamp(30px,4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">기록을 남기고 보여주는 병원이라는 표시</h2>
           <p ref="{{ safeDescRef }}" style="margin:20px 0 0;font-size:17px;line-height:1.75;color:#4E5968;">상담에서 무엇을 권했고 진료에서 무엇을 설명했는지 기록으로 남고, 환자가 원하면 볼 수 있어요. 권유와 설명이 기록으로 남으니 환자는 안심하고 결정하고, 분쟁이 생겨도 양쪽 모두 근거를 가져요. 같은 견적이라면 환자에게는 이 표시가 병원을 고를 이유가 하나 더 돼요.</p>
-          <ul style="margin:28px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;">
+          <ul style="margin:28px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(max(200px,calc(50% - 4px)),1fr));gap:8px;">
             <sc-for list="{{ vows }}" as="v" hint-placeholder-count="4">
               <li style="background:#fff;border-radius:20px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 0 0 1px #E5E8EB;transition:translate 300ms cubic-bezier(0.22,1,0.36,1),box-shadow 300ms;" style-hover="translate:0 -4px;box-shadow:0 18px 40px -20px rgba(30,40,60,0.25);">
                 <span style="flex:none;width:24px;height:24px;margin-top:1px;border-radius:50%;background:#2B45D4;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
@@ -562,18 +549,18 @@ input[type=number]{-moz-appearance:textfield;}
 
   <section id="faq" style="padding:140px 24px;display:flex;justify-content:center;">
     <div style="width:100%;max-width:860px;">
-      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;">자주 묻는 질문</div>
-      <h2 data-split="" style="margin:14px 0 0;font-size:clamp(30px,4.4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">원장님들이 도입 전에 가장 많이 물으신 것</h2>
+      <div data-reveal="" style="font-size:17px;font-weight:600;color:#2B45D4;text-align:center;">자주 묻는 질문</div>
+      <h2 data-split="" style="margin:14px 0 0;text-align:center;text-wrap:balance;font-size:clamp(30px,4.4vw,44px);line-height:1.35;font-weight:700;letter-spacing:-0.03em;">원장님들이 도입 전에 가장 많이 물으신 것</h2>
       <div style="margin-top:48px;display:flex;flex-direction:column;gap:8px;">
         <sc-for list="{{ faq }}" as="f" hint-placeholder-count="7">
           <div data-reveal="" style="background:#F7F8FA;border-radius:22px;overflow:hidden;">
-            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;border:none;background:transparent;font:inherit;cursor:pointer;padding:22px 24px;text-align:left;font-size:17px;font-weight:600;color:#191F28;">
-              <span>{{ f.q }}</span>
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:grid;grid-template-columns:minmax(0,1fr) 30px;align-items:center;gap:16px;border:none;background:transparent;font:inherit;cursor:pointer;padding:22px 24px;text-align:left;font-size:17px;line-height:1.5;font-weight:600;color:#191F28;">
+              <span style="text-wrap:pretty;">{{ f.q }}</span>
               <span style="flex:none;width:30px;height:30px;border-radius:50%;background:{{ f.sbg }};color:{{ f.sfg }};display:flex;align-items:center;justify-content:center;transform:rotate({{ f.rot }});transition:transform 450ms cubic-bezier(0.22,1,0.36,1),background 300ms,color 300ms;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>
             </button>
             <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows 520ms cubic-bezier(0.22,1,0.36,1);">
               <div style="overflow:hidden;min-height:0;">
-                <div style="padding:0 24px 24px;font-size:15px;line-height:1.75;color:#4E5968;opacity:{{ f.op }};transform:translateY({{ f.ty }});transition:opacity 420ms cubic-bezier(0.22,1,0.36,1),transform 520ms cubic-bezier(0.22,1,0.36,1);">{{ f.a }}<sc-if value="{{ f.link }}" hint-placeholder-val="{{ false }}"> <a href="Pricing.dc.html" style="font-weight:600;">요금 구조 보기 →</a></sc-if></div>
+                <div style="padding:0 24px 26px;text-align:left;text-wrap:pretty;font-size:15px;line-height:1.75;color:#4E5968;opacity:{{ f.op }};transform:translateY({{ f.ty }});transition:opacity 420ms cubic-bezier(0.22,1,0.36,1),transform 520ms cubic-bezier(0.22,1,0.36,1);">{{ f.a }}<sc-if value="{{ f.link }}" hint-placeholder-val="{{ false }}"> <a href="Pricing.dc.html" style="font-weight:600;">요금 구조 보기 →</a></sc-if></div>
               </div>
             </div>
           </div>
@@ -649,7 +636,7 @@ input[type=number]{-moz-appearance:textfield;}
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    ['morphRef','heroStickyRef','ctaSecRef','ctaRingsRef','ctaInRef','flyRef','flyNumRef','heroBgRef','descRef','hzSecRef','hzStickyRef','hzViewRef','hzTrackRef','introRef','introBlockRef','hintRef','stageRef','stageBgRef','rowRef','copyRef','phoneBoxRef','scalerRef','phoneRef','sheenRef','outRef','yearRef','ptRef','b0','b1','b2','b3','b4','quizWrapRef','quizLeftRef','quizListRef','quizSecRef','quizDescRef','quizResRef','insSecRef','insDescRef','heroSecRef','heroGlowRef','heroRowRef','heroColRef','heroH1Ref','heroCopyRef','heroLiveRef','ctaRef','loopSecRef','loopRef','loopDescRef','storySecRef','videoRef','calcWrapRef','calcCanvasRef','fieldsRef','ctaCanvasRef','storyStageRef','storyShadeRef','storyStickyRef','glassRef','glassInRef','safeSecRef','safeRowRef','safeIconRef','safeTextRef','safeRingRef','safeDiscRef','safeShieldRef','safeCheckRef','safeLabelRef','safeDescRef'].forEach(k => this[k] = React.createRef());
+    ['proofGridRef','topRef','topInRef','haloRef','promStickyRef','morphRef','heroStickyRef','ctaSecRef','ctaRingsRef','ctaInRef','flyRef','flyNumRef','heroBgRef','descRef','hzSecRef','hzStickyRef','hzViewRef','hzTrackRef','introRef','introBlockRef','hintRef','stageRef','stageBgRef','rowRef','copyRef','phoneBoxRef','scalerRef','phoneRef','sheenRef','outRef','yearRef','ptRef','b0','b1','b2','b3','b4','quizWrapRef','quizLeftRef','quizListRef','quizSecRef','quizDescRef','quizResRef','insSecRef','insDescRef','heroSecRef','heroGlowRef','heroRowRef','heroColRef','heroH1Ref','heroCopyRef','heroLiveRef','ctaRef','loopSecRef','loopRef','loopDescRef','storySecRef','videoRef','calcWrapRef','calcCanvasRef','fieldsRef','ctaCanvasRef','storyStageRef','storyShadeRef','storyStickyRef','glassRef','glassInRef','safeSecRef','safeRowRef','safeIconRef','safeTextRef','safeRingRef','safeDiscRef','safeShieldRef','safeCheckRef','safeLabelRef','safeDescRef'].forEach(k => this[k] = React.createRef());
     this.insP = 0; this.nudge = 0;
     this.state = { v: { k1: '0', k2: '0', k3: '0', k4: '0', k5: '0' }, tocA: -1, tocH: -1, nar: false, tocShow: false, tocDark: false, storyA: 0, ptA: 0, quiz: [null,null,null,null,null,null], faqOpen: { 0: true }, qActive: 0, qSkip: false };
     this.shown = { out: 0, year: 0, pt: 0 };
@@ -704,7 +691,7 @@ class Component extends DCLogic {
     this.repI = ((this.repI ?? -1) + 1) % R.length; const x = R[this.repI];
     if (this.cta3d) { this.cta3d.setDisplay({ label: x[0], main: x[1], unit: x[2], sub: '2주 콜 진단 리포트 · A피부과 · 09.01 ~ 09.14' }); this.cta3d.press('='); }
   }
-  tocList() { return [['calc','놓친 전화 계산기'],['promise','D voice의 약속'],['check','여섯 가지 질문'],['day','같은 하루'],['manage','전화와 상담'],['callrec','콜레코드'],['insight','환자 이해'],['story','도입 사례'],['visit','진료'],['points','3분 요약'],['safe-home','안심병원'],['start','시작하기'],['faq','자주 묻는 질문']]; }
+  tocList() { return [['calc','놓친 전화 계산기'],['promise','D voice의 약속'],['check','여섯 가지 질문'],['day','같은 하루'],['manage','전화와 상담'],['callrec','콜레코드'],['insight','환자 이해'],['story','도입 사례'],['cases-h','도입 인터뷰'],['visit','진료'],['points','3분 요약'],['safe-home','안심병원'],['start','시작하기'],['faq','자주 묻는 질문']]; }
   countTo(target, dur) {
     const from = { ...this.shown }, t0 = performance.now();
     cancelAnimationFrame(this.countRaf);
@@ -763,6 +750,7 @@ class Component extends DCLogic {
     const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('a').forEach(a => {
       if (a.__dvb && a.querySelector('[data-dvb]')) return;
+      if (a.querySelector('video')) return;
       const cs = getComputedStyle(a), bg = cs.backgroundColor, h = a.offsetHeight;
       const primary = bg === 'rgb(43, 69, 212)';
       const secondary = !primary && h >= 50 && cs.borderRadius !== '0px' && bg !== 'rgba(0, 0, 0, 0)' && !!a.querySelector('svg');
@@ -829,6 +817,18 @@ class Component extends DCLogic {
     const vh = window.innerHeight, vw = window.innerWidth, cl = x => Math.max(0, Math.min(1, x));
     const blur = this.props.blurAmount ?? 12;
     const ease = t => 1 - Math.pow(1 - t, 3);
+    {
+      const tp = this.topRef.current, ti = this.topInRef.current, it = this.stageRef.current, itIn = it && it.firstElementChild;
+      if (tp && ti && it) {
+        const narrowH = vw < 900;
+        if (narrowH !== this._topN) { this._topN = narrowH; tp.style.position = narrowH ? 'relative' : 'sticky'; tp.style.height = narrowH ? 'auto' : '100vh'; ti.style.flexDirection = narrowH ? 'column' : 'row'; ti.style.alignItems = narrowH ? 'stretch' : 'center'; ti.style.padding = narrowH ? '112px 0 64px 20px' : '64px 0 0 max(24px, calc((100vw - 1180px) / 2))'; if (ti.children[1]) ti.children[1].style.flex = narrowH ? 'none' : '0 0 min(440px,36vw)'; }
+        const k = narrowH ? 0 : ease(cl(1 - it.getBoundingClientRect().top / vh));
+        ti.style.transform = k > 0 ? 'translateY(' + (-k * 8).toFixed(2) + 'vh) scale(' + (1 - k * 0.08).toFixed(4) + ')' : 'none';
+        ti.style.opacity = (1 - k * 0.6).toFixed(3);
+        const r = (1 - k) * 40; if (itIn) itIn.style.borderTopLeftRadius = itIn.style.borderTopRightRadius = narrowH ? '0' : r.toFixed(1) + 'px';
+        tp.style.visibility = !narrowH && it.getBoundingClientRect().top < -vh * 0.2 ? 'hidden' : 'visible';
+      }
+    }
     const intro = this.introRef.current;
     if (intro) {
       const r = intro.getBoundingClientRect();
@@ -859,8 +859,8 @@ class Component extends DCLogic {
       if (cp.lastElementChild) cp.lastElementChild.style.display = tiny ? 'none' : '';
       if (cta.lastElementChild) cta.lastElementChild.style.display = tiny ? 'none' : '';
       const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const r = st.getBoundingClientRect(), q = rm ? 1 : cl((vh * 1.0 - r.top) / (vh * 1.2));
-      const mvF = (rm || this.cmpMode) ? 1 : ease(cl((-r.top / vh - 0.12) / 0.55)), shPx = this.cmpMode ? 0 : this.colShift();
+      const r = st.getBoundingClientRect(), q = rm ? 1 : cl((vh * 0.95 - r.top) / (vh * 0.55));
+      const mvF = 1, shPx = this.cmpMode ? 0 : this.colShift();
       const link = !!this.linkMode;
       const exR = link ? cl((-r.top - 2 * vh) / vh) : cl((vh * 1.25 - r.bottom) / (vh * 0.6));
       const ex = rm ? 0 : ease(exR);
@@ -868,15 +868,21 @@ class Component extends DCLogic {
       this.tilt.y += (this.tilt.ty - this.tilt.y) * 0.06;
       const sil = cl(q / 0.8);
       const bodyOut = link ? ease(cl(exR / 0.55)) : ex * 0.15;
-      cw.style.opacity = cl(q * 2) * (1 - bodyOut);
-      cw.style.filter = sil < 1 ? 'blur(' + (1 - sil) * 18 + 'px)' : 'none';
-      cw.style.transform = link && bodyOut > 0 ? 'translateY(' + (bodyOut * 14).toFixed(2) + 'vh) scale(' + (1 - bodyOut * 0.1).toFixed(4) + ')' : 'none';
+      const qe = ease(q);
+      cw.style.opacity = qe.toFixed(3);
+      cw.style.filter = 'none';
+      cw.style.transform = qe < 1 ? 'translateY(' + ((1 - qe) * 60).toFixed(1) + 'px)' : 'none';
       this.calcExit = link ? exR : 0;
-      { const inner = st.firstElementChild, bgA = (rm || this.cmpMode) ? 1 : ease(cl((mvF - 0.5) / 0.5)); if (inner) inner.style.backgroundColor = 'rgba(255,255,255,' + bgA.toFixed(3) + ')'; }
-      if (this.calc3d) this.calc3d.setPose(q, mvF > 0.95 ? this.tilt.x : 0, mvF > 0.95 ? this.tilt.y : 0, ex, 1 - mvF, shPx * mvF);
-      const c = (rm ? 1 : cl((mvF - 0.6) / 0.4)) * (link ? 1 - ease(cl(exR / 0.3)) : 1);
-      [cp, cta].forEach(el => { el.style.opacity = c; el.style.transform = 'translateY(' + (1 - c) * 24 + 'px)'; el.style.filter = c < 1 ? 'blur(' + (1 - c) * 8 + 'px)' : 'none'; });
-      if (!this.counted && q > 0.88) { this.counted = true; this.autoFill(this.exVals()); }
+      { const inner = st.firstElementChild, pr = this.heroSecRef.current, ha = this.haloRef.current;
+        const kp = (pr && !this.cmpMode && !rm) ? ease(cl(1 - pr.getBoundingClientRect().top / vh)) : 0;
+        if (inner) { inner.style.transform = kp > 0 ? 'translateY(' + (-kp * 6).toFixed(2) + 'vh) scale(' + (1 - kp * 0.06).toFixed(4) + ')' : 'none'; inner.style.filter = kp > 0 ? 'brightness(' + (1 - kp * 0.45).toFixed(3) + ')' : 'none'; }
+                const ps = this.promStickyRef.current; if (ps && pr) { const rr = (1 - ease(cl(1 - pr.getBoundingClientRect().top / vh))) * 40; ps.style.borderTopLeftRadius = ps.style.borderTopRightRadius = this.cmpMode ? '0' : rr.toFixed(1) + 'px'; } }
+      if (this.calc3d) this.calc3d.setPose(1, this.tilt.x, this.tilt.y, 0, 0, shPx);
+      const c = q;
+      const lines = Array.from(cp.children).concat([cta]);
+      cp.style.opacity = 1; cp.style.transform = 'none'; cp.style.filter = 'none';
+      lines.forEach((el, i) => { const ci = rm ? 1 : cl((c * 1.6) - i * 0.15); const e2 = ease(ci); el.style.opacity = e2; el.style.transform = 'translateY(' + ((1 - e2) * 28).toFixed(1) + 'px)'; el.style.filter = e2 < 1 ? 'blur(' + ((1 - e2) * 10).toFixed(1) + 'px)' : 'none'; });
+      if (!this.counted && q > 0.7) { this.counted = true; this.autoFill(this.exVals()); }
       if (this.counted && q < 0.25 && !rm) { this.counted = false; cancelAnimationFrame(this.fillRaf); this.filling = false; this.setState({ v: { k1: '0', k2: '0', k3: '0', k4: '0', k5: '0' } }); }
     }
     {
@@ -904,7 +910,7 @@ class Component extends DCLogic {
           this.hzX = (this.hzX ?? 0) + (p * max - (this.hzX ?? 0)) * 0.14;
           ht.style.transform = 'translate3d(' + (-this.hzX).toFixed(1) + 'px,0,0)';
         } else if (hs.style.height !== 'auto') {
-          hs.style.height = 'auto'; hst.style.position = 'relative'; hst.style.height = 'auto'; hst.style.padding = '120px 0'; hv.style.overflowX = 'auto'; ht.style.transform = 'none';
+          hs.style.height = 'auto'; hst.style.position = 'relative'; hst.style.height = 'auto'; hst.style.padding = '120px 0'; hv.style.overflowX = 'auto'; hv.style.scrollbarWidth = 'none'; ht.style.transform = 'none';
         }
       }
     }
@@ -931,7 +937,7 @@ class Component extends DCLogic {
       if (this.safeRingRef.current) this.safeRingRef.current.style.strokeDashoffset = 679 * (1 - ring);
       if (this.safeDiscRef.current) this.safeDiscRef.current.style.opacity = pop;
       if (this.safeShieldRef.current) { this.safeShieldRef.current.style.opacity = cl(pop * 1.5); this.safeShieldRef.current.style.transform = 'scale(' + (0.4 + 0.6 * pop) + ')'; }
-      if (this.safeCheckRef.current) this.safeCheckRef.current.style.strokeDashoffset = 62 * (1 - chk);
+      if (this.safeCheckRef.current) this.safeCheckRef.current.style.strokeDashoffset = 80 * (1 - chk);
       if (this.safeLabelRef.current) this.safeLabelRef.current.style.opacity = chk;
       const dx = wd ? sr.offsetWidth / 2 - (si.offsetLeft + si.offsetWidth / 2) : 0;
       si.style.transform = 'translateX(' + dx * (1 - mv) + 'px) scale(' + (1 + (wd ? 0.45 : 0) * (1 - mv)) + ') rotateY(' + (1 - pop) * -40 + 'deg)';
@@ -982,7 +988,7 @@ class Component extends DCLogic {
         if (ui && !ui.hasAttribute('data-manual')) ui.setAttribute('data-manual', '');
       }
     }
-    const mode = (wide ? 'W' : 'N') + (vw >= 900 ? 'w' : 'n') + (vh < 860 ? 's' : 't') + (vw < 700 || vh < 760 ? 'c' : 'r');
+    const mode = (wide ? 'W' : 'N') + (vw >= 900 ? 'w' : 'n') + (vh < 860 ? 's' : 't') + (vw < 700 || vh < 760 ? 'c' : 'r') + (vw >= 1040 ? 'x' : vw >= 560 ? 'm' : 'p');
     if (mode !== this._mode) { this._mode = mode; this.applyLayout(wide, vw >= 900, vh < 860); }
     if (hs && hc && hl && hrow && hcp) {
       const narrow = !wide, r = hs.getBoundingClientRect();
@@ -1051,7 +1057,7 @@ class Component extends DCLogic {
     }
     {
       // 도입 효과 glass box → 도입 사례 first card: one shape morphs between the two sections
-      const mo = this.morphRef.current, gl = this.glassRef.current, hs = this.hzSecRef.current, ht = this.hzTrackRef.current;
+      const mo = this.morphRef.current, gl = null, hs = this.hzSecRef.current, ht = this.hzTrackRef.current;
       const card = ht && ht.querySelector('article');
       if (mo && gl && hs && card) {
         const hr = hs.getBoundingClientRect(), active = vw >= 900 && vh >= 700 && !matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1073,11 +1079,12 @@ class Component extends DCLogic {
     this.raf = requestAnimationFrame(() => this.frame());
   }
   applyLayout(wide, wideW, short) {
+    const pg = this.proofGridRef.current; if (pg) { const w = window.innerWidth; pg.style.gridTemplateColumns = 'repeat(' + (w >= 1040 ? 6 : w >= 560 ? 3 : 2) + ',minmax(0,1fr))'; }
     const cs = this.stageRef.current, cwr = this.calcWrapRef.current, fld = this.fieldsRef.current;
     if (cs && cwr && fld) {
       const cmp = window.innerWidth < 700 || window.innerHeight < 760, inner = cs.firstElementChild;
-      this.linkMode = !cmp && window.innerWidth >= 900 && window.innerHeight >= 700;
-      cs.style.height = cmp ? 'auto' : (this.linkMode ? '400vh' : '220vh'); cs.style.marginTop = cmp ? '0' : (this.linkMode ? '-170vh' : '-100vh'); if (this.introRef.current) this.introRef.current.style.height = (!cmp && this.linkMode) ? '290vh' : '220vh'; this.cmpMode = cmp;
+      this.linkMode = false;
+      cs.style.height = cmp ? 'auto' : '250vh'; cs.style.marginTop = '0'; if (this.introRef.current) this.introRef.current.style.height = (!cmp && this.linkMode) ? '290vh' : '220vh'; this.cmpMode = cmp;
       if (inner) { inner.style.position = cmp ? 'relative' : 'sticky'; inner.style.height = cmp ? 'auto' : '100vh'; inner.style.padding = cmp ? '96px 20px 72px' : '80px max(24px, calc((100vw - 1180px) / 2)) 24px'; inner.style.display = cmp ? 'flex' : 'grid'; inner.style.gap = cmp ? '16px' : ''; inner.style.columnGap = cmp ? '' : 'clamp(24px,4vw,64px)'; inner.style.rowGap = cmp ? '' : '28px'; }
       if (this.copyRef.current) this.copyRef.current.style.alignSelf = cmp ? 'stretch' : 'end';
       if (this.ctaRef.current) this.ctaRef.current.style.alignSelf = cmp ? 'stretch' : 'start';
@@ -1104,7 +1111,7 @@ class Component extends DCLogic {
       hrow.style.flexWrap = wide ? 'nowrap' : 'wrap';
       hc.style.flex = wide ? '1 1 0' : '1 1 420px'; hl.style.flex = wide ? '1 1 0' : '1 1 440px';
       hs.style.height = wide ? 'calc(100vh + 170vh)' : 'auto';
-      hs.style.marginTop = this.linkMode ? '-100vh' : '0';
+      hs.style.marginTop = wide ? '-100vh' : '0';
       const st = hs.firstElementChild; if (st) { st.style.position = wide ? 'sticky' : 'relative'; st.style.height = wide ? '100vh' : 'auto'; st.style.padding = wide ? '84px 24px 40px' : '120px 24px'; }
     }
     const ins = this.insSecRef.current;
@@ -1168,15 +1175,42 @@ class Component extends DCLogic {
     window.addEventListener('keydown', this.onKey);
     window.addEventListener('scroll', this.onScroll, { passive: true });
   }
+  installSmooth() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let cur = window.scrollY, tgt = cur, run = false;
+    const canScroll = (e, dy) => e.composedPath().some(el => { if (!(el instanceof Element) || el === document.documentElement || el === document.body) return false; const s = getComputedStyle(el); if (!/(auto|scroll)/.test(s.overflowY) || el.scrollHeight <= el.clientHeight + 1) return false; return dy > 0 ? el.scrollTop + el.clientHeight < el.scrollHeight - 1 : el.scrollTop > 0; });
+    const tick = () => {
+      if (Math.abs(window.scrollY - Math.round(cur)) > 3) { cur = tgt = window.scrollY; run = false; return; }
+      cur += (tgt - cur) * 0.1;
+      if (Math.abs(tgt - cur) < 0.5) cur = tgt;
+      window.scrollTo(0, cur);
+      if (cur !== tgt) requestAnimationFrame(tick); else run = false;
+    };
+    this.onSmooth = e => {
+      if (e.defaultPrevented || e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY) || canScroll(e, e.deltaY)) return;
+      e.preventDefault();
+      if (!run) cur = tgt = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      tgt = Math.max(0, Math.min(max, tgt + e.deltaY * (e.deltaMode === 1 ? 32 : 1)));
+      if (!run) { run = true; requestAnimationFrame(tick); }
+    };
+    window.addEventListener('wheel', this.onSmooth, { passive: false });
+  }
   componentDidMount() {
     this.installQuizLock();
+    this.installSmooth();
     new Promise(res => { if (window.mountCalc) return res({ mountCalc: window.mountCalc }); const t = setInterval(() => { if (window.mountCalc) { clearInterval(t); res({ mountCalc: window.mountCalc }); } }, 50); }).then(m => {
       if (this.calcCanvasRef.current) m.mountCalc(this.calcCanvasRef.current, { mode: 'stepper', frame: { top: 5.1, bottom: -5.15, width: 6.9 }, onKey: l => this.onCalcKey(l) }).then(c => { this.calc3d = c; });
       if (this.ctaCanvasRef.current) m.mountCalc(this.ctaCanvasRef.current, { mode: 'stepper', idle: true, frame: { top: 5.1, bottom: -5.15, width: 6.9 }, onKey: l => this.onCalcKey(l) }).then(c => { this.cta3d = c; });
     }).catch(e => console.warn('3D 계산기를 불러오지 못했어요', e));
     
     const vd = this.videoRef.current; if (vd) { vd.muted = true; vd.playsInline = true; vd.pause();
-      fetch((window.__resources && window.__resources.caseVideo) || 'case.mp4').then(r => r.blob()).then(b => { if (!this.videoRef.current) return; this.vidUrl = URL.createObjectURL(b); this.videoRef.current.src = this.vidUrl; }).catch(() => {}); }
+      fetch((window.__resources && window.__resources.caseVideo) || 'case.mp4').then(r => r.blob()).then(b => { if (!this.videoRef.current) return; this.storyUrl = URL.createObjectURL(b); this.videoRef.current.src = this.storyUrl; }).catch(() => {});
+      fetch((window.__resources && window.__resources.interviewVideo) || 'interview.mp4').then(r => r.blob()).then(b => { if (!this.videoRef.current) return; this.vidUrl = URL.createObjectURL(b);
+        document.querySelectorAll('video[data-isrc="a"]').forEach(v => { v.muted = true; v.src = this.vidUrl; v.addEventListener('loadedmetadata', () => { v.currentTime = Math.min(v.duration - 0.1, +v.dataset.ivid || 0); }, { once: true }); });
+        this.ivIo = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: 0.2 });
+        document.querySelectorAll('video[data-ivid]').forEach(v => this.ivIo.observe(v)); }).catch(() => {});
+      fetch((window.__resources && window.__resources.interviewVideo2) || 'interview2.mp4').then(r => r.blob()).then(b => { this.vidUrl2 = URL.createObjectURL(b); document.querySelectorAll('video[data-isrc="b"]').forEach(v => { v.muted = true; v.src = this.vidUrl2; }); }).catch(() => {}); }
     this.ptT = setInterval(() => {
       const sec = document.getElementById('points'); if (!sec) return;
       const r = sec.getBoundingClientRect(); if (r.bottom < 0 || r.top > window.innerHeight) return;
@@ -1193,9 +1227,8 @@ class Component extends DCLogic {
         s.style.transition = `opacity 700ms cubic-bezier(0.25,1,0.5,1) ${d}ms, transform 700ms cubic-bezier(0.25,1,0.5,1) ${d}ms, filter 700ms cubic-bezier(0.25,1,0.5,1) ${d}ms`;
       });
     });
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      [this.b0, this.b1, this.b2, this.b3, this.b4].forEach(ref => (ref.current && ref.current.__split || []).forEach(s => { s.style.opacity = 1; s.style.filter = 'blur(0px)'; s.style.transform = 'translateY(0)'; }));
-    }));
+    const showIntro = () => [this.b0, this.b1, this.b2, this.b3, this.b4].forEach(ref => (ref.current && ref.current.__split || []).forEach(s => { s.style.opacity = 1; s.style.filter = 'blur(0px)'; s.style.transform = 'translateY(0)'; }));
+    if (this.introBlockRef.current) { this.introIo = new IntersectionObserver(es => { if (es[0].isIntersecting) { this.introIo.disconnect(); showIntro(); } }, { threshold: 0.35 }); this.introIo.observe(this.introBlockRef.current); } else showIntro();
     this.raf = requestAnimationFrame(() => this.frame());
     setTimeout(() => this.enhanceButtons(), 400); this.btnT = setInterval(() => this.enhanceButtons(), 1500);
     this.setupReveal();
@@ -1205,10 +1238,10 @@ class Component extends DCLogic {
     this.setupReveal();
   }
   componentWillUnmount() {
-    cancelAnimationFrame(this.raf); cancelAnimationFrame(this.countRaf); cancelAnimationFrame(this.fillRaf); clearInterval(this.ptT); clearInterval(this.repT); clearInterval(this.btnT); this.calc3d && this.calc3d.dispose(); this.cta3d && this.cta3d.dispose(); if (this.vidUrl) URL.revokeObjectURL(this.vidUrl);
-    this.io && this.io.disconnect();
+    cancelAnimationFrame(this.raf); cancelAnimationFrame(this.countRaf); cancelAnimationFrame(this.fillRaf); clearInterval(this.ptT); clearInterval(this.repT); clearInterval(this.btnT); this.calc3d && this.calc3d.dispose(); this.cta3d && this.cta3d.dispose(); if (this.vidUrl) URL.revokeObjectURL(this.vidUrl); if (this.storyUrl) URL.revokeObjectURL(this.storyUrl);
+    this.io && this.io.disconnect(); this.introIo && this.introIo.disconnect(); this.ivIo && this.ivIo.disconnect();
     clearTimeout(this.qT);
-    window.removeEventListener('wheel', this.onWheel); window.removeEventListener('touchstart', this.onTS);
+    window.removeEventListener('wheel', this.onWheel); window.removeEventListener('wheel', this.onSmooth); window.removeEventListener('touchstart', this.onTS);
     window.removeEventListener('touchmove', this.onTM); window.removeEventListener('keydown', this.onKey);
     window.removeEventListener('scroll', this.onScroll);
   }
@@ -1282,7 +1315,7 @@ class Component extends DCLogic {
       ['도입 후 요금은 어떻게 되나요?', '채널(콜·상담·진료)과 등급, 회선 수로 정해지는 월 구독이에요. 2주 콜 진단 리포트로 우리 병원의 놓친 전화와 회수 가능 건수를 먼저 보신 뒤 견적을 드려요.']
     ];
     return {
-      morphRef: this.morphRef, heroStickyRef: this.heroStickyRef, ctaSecRef: this.ctaSecRef, ctaRingsRef: this.ctaRingsRef, ctaInRef: this.ctaInRef, flyRef: this.flyRef, flyNumRef: this.flyNumRef, heroBgRef: this.heroBgRef, descRef: this.descRef, hzSecRef: this.hzSecRef, hzStickyRef: this.hzStickyRef, hzViewRef: this.hzViewRef, hzTrackRef: this.hzTrackRef, introRef: this.introRef, introBlockRef: this.introBlockRef, hintRef: this.hintRef, stageRef: this.stageRef, stageBgRef: this.stageBgRef,
+      proofGridRef: this.proofGridRef, topRef: this.topRef, topInRef: this.topInRef, haloRef: this.haloRef, promStickyRef: this.promStickyRef, morphRef: this.morphRef, heroStickyRef: this.heroStickyRef, ctaSecRef: this.ctaSecRef, ctaRingsRef: this.ctaRingsRef, ctaInRef: this.ctaInRef, flyRef: this.flyRef, flyNumRef: this.flyNumRef, heroBgRef: this.heroBgRef, descRef: this.descRef, hzSecRef: this.hzSecRef, hzStickyRef: this.hzStickyRef, hzViewRef: this.hzViewRef, hzTrackRef: this.hzTrackRef, introRef: this.introRef, introBlockRef: this.introBlockRef, hintRef: this.hintRef, stageRef: this.stageRef, stageBgRef: this.stageBgRef,
       rowRef: this.rowRef, copyRef: this.copyRef, phoneBoxRef: this.phoneBoxRef, scalerRef: this.scalerRef, phoneRef: this.phoneRef, sheenRef: this.sheenRef,
       outRef: this.outRef, yearRef: this.yearRef, ptRef: this.ptRef, b0: this.b0, b1: this.b1, b2: this.b2, b3: this.b3, b4: this.b4,
       onPointer: e => { this.tilt.tx = (e.clientX / window.innerWidth - 0.5) * 2; this.tilt.ty = (e.clientY / window.innerHeight - 0.5) * 2; },
@@ -1326,11 +1359,11 @@ class Component extends DCLogic {
           enter: () => this.setState({ tocH: i }), leave: () => this.setState(st => st.tocH === i ? { tocH: -1 } : null),
           go: () => { const el = document.getElementById(id); if (!el) return; if (i > 2) this.setState({ qSkip: true }); window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + (id === 'calc' ? window.innerHeight * 0.1 : 0), behavior: 'smooth' }); } }; }),
       ...(() => { const A = this.state.storyA, nar = this.state.nar;
-        const P = [['0%','6%','72%'],['50%','4%','46%'],['0%','30%','46%'],['25%','8%','50%'],['50%','26%','46%'],['0%','20%','78%']];
-        const E = [[0,40],[40,0],[0,-40],[-40,0],[40,0],[0,40]];
+        const P = [['8%','28%','84%'],['15%','14%','70%'],['15%','14%','70%'],['15%','14%','70%'],['15%','14%','70%'],['10%','24%','80%']];
+        const E = [[0,20],[0,20],[0,20],[0,20],[0,20],[0,20]];
         const o = {};
         P.forEach((x, i) => { const d = i - A, on = d === 0, e = E[i], k = d < 0 ? -1 : 1;
-          o['s' + i] = { l: nar ? '0%' : x[0], t: nar ? '4%' : x[1], w: nar ? '100%' : x[2], op: on ? 1 : 0, bl: on ? '0px' : '10px', tr: on ? 'translate(0px,0px)' : 'translate(' + e[0] * k + 'px,' + e[1] * k + 'px)' }; });
+          o['s' + i] = { l: nar ? '0%' : x[0], t: nar ? '4%' : x[1], w: nar ? '100%' : x[2], op: on ? 1 : 0, bl: on ? '0px' : '10px', tr: on ? 'translate(0px,0px)' : 'translate(0px,' + e[1] * k + 'px)' }; });
         o.dots30 = Array.from({ length: 30 }, (_, i) => ({ bg: A === 1 ? '#FFFFFF' : 'transparent', dl: (A === 1 ? 300 + i * 30 : 0) + 'ms' }));
         o.dots12 = Array.from({ length: 12 }, (_, i) => ({ bg: A === 2 && i < 9 ? '#FFFFFF' : 'transparent', dl: (A === 2 ? 300 + i * 60 : 0) + 'ms' }));
         o.dots20 = Array.from({ length: 20 }, (_, i) => ({ x: 'calc(' + (86 + (i % 5) * 3) + '% - 4px)', y: (28 + Math.floor(i / 5) * 12) + 'px', op: A === 3 ? 1 : 0, sc: A === 3 ? 1 : 0.2, dl: (A === 3 ? 300 + i * 45 : 0) + 'ms' }));
@@ -1361,9 +1394,10 @@ class Component extends DCLogic {
         ['진료 종료','18:30','밀린 차트를 기억나는 대로 정리하느라 퇴근이 늦어져요.','','S·O·A·P 초안이 이미 와 있어요.',' 확인하고 퇴근하세요.'],
         ['월말','광고 정산','광고 대행사 리포트의 노출과 클릭 수만 봐요.','채널별로 ','실제 걸려온 전화 수','를 보고 다음 달 예산을 옮겨요.'],
         ['분기','실장 교체','상담 노하우와 환자 관계가 실장과 함께 나가요.','응대 점수가 높은 통화와 상담이 ','교육 자료','가 돼요. 새 실장이 첫 주에 들어요.']
-      ].map(d => ({ when: d[0], time: d[1], no: d[2], pre: d[3], b: d[4], post: d[5] })),
+      ].map((d, i) => ({ when: d[0], time: d[1], no: d[2], pre: d[3], b: d[4], post: d[5], dl: (i * 0.35).toFixed(2) + 's' })),
       voiceBad: [['금식하고 왔는데 한 시간째 기다리고 있어요.','접수 불만 · 검진 자격 조회 지연 · 응대 점수 4'],['반영구 한 지 2주 됐는데 색이 너무 진하게 나왔어요.','불만족 · 시술 경과 · 실장 인계'],['어제 받은 약이 지난번이랑 모양이 달라요.','회신필요 · 제조사 변경 안내 누락']].map(x => ({ q: x[0], s: x[1] })),
       voiceGood: [['가격을 한 번에, 금액으로 안내받았어요.','비용 문의 → 예약 전환 통화에서 반복'],['가능한 시간을 먼저 두 개 말해줘서 바로 골랐어요.','예약·시간 문의 · 평균 통화 시간 짧음'],['와서 뭘 준비해야 하는지 미리 알려줬어요.','내원 전 안내 · 노쇼 감소와 연결']].map(x => ({ q: x[0], s: x[1] })),
+      interviews: [['"놓치는 전화가 사라지고, 상담 인수인계가 5분으로 줄었어요."','서울 강남구 ○○성형외과','상담실장 · 예시', 0, '50% 30%', 'a'],['"외국인 상담도, 진료 차트 정리도 알아서 됩니다."','경기 ○○피부과','원장 · 예시', 0, '50% 30%', 'b']].map(x => ({ q: x[0], who: x[1], role: x[2], t: String(x[3]), pos: x[4], src: x[5] })),
       caseMetrics: [['부재중 당일 회신율','22%','81','%'],['평균 응대 점수','6.9','8.5','점'],['상담 후 예약 전환','31%','42','%'],['새 실장 인수인계','2주','3','일']].map((x, i) => ({ l: x[0], from: x[1], to: x[2], u: x[3], delay: i * 80 })),
       caseTl: [['1주차','보이지 않던 것을 봤다','첫 대시보드에서 야간·주말 부재중이 주 30건 가까이 쌓이고 있었다.'],['3주차','원인을 찾았다','불만 통화 12건 중 9건이 "접수 대기". 직원이 아니라 동선의 문제였다.'],['6주차','기준을 만들었다','응대 점수 9점 이상 통화 20건으로 전화 응대 기준을 만들고 전 직원이 들었다.'],['12주차','돈의 흐름을 바꿨다','전화가 실제로 온 채널로 광고비를 옮겼다. 네이버 플레이스 비중을 올렸다.']].map((x, i) => ({ w: x[0], b: x[1], p: x[2], delay: i * 80 })),
       assets3: [['재진','지난 진료가 한 줄로 이어져요','"3개월 후 Lab 재평가"처럼 P에 적은 추적 계획이 환자 타임라인에 남아요. 재진 때 지난 설명을 다시 찾지 않아도 돼요.'],['설명의무','무엇을 설명했는지 근거가 남아요','처방을 보류한 이유, 생활 지도 내용, 환자의 질문까지 원문과 요약이 함께 남아요. 분쟁이 생겨도 기억이 아니라 기록으로 이야기할 수 있어요.'],['데이터','병원의 진료 데이터가 쌓여요','진단, 검사 수치, 계획이 구조화되어 쌓여요. 추적 관리 대상, 자주 하는 설명, 진료 패턴을 병원이 직접 들여다볼 수 있는 자산이 돼요.']].map((x, i) => ({ k: x[0], h: x[1], p: x[2], delay: i * 80 })),

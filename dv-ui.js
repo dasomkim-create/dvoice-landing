@@ -219,6 +219,23 @@ circle.seg{transition:opacity .3s,stroke-width .3s}
 .app .crow .dur{font-size:10px;color:var(--ink-2)}.app .crow .wm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}.app .crow .nt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-3)}.app .crow .nt b{color:var(--blue);font-weight:600}
 .app .crow.open{border-color:var(--blue-line)}.app .crow.open .nt{grid-column:1/-1;white-space:normal;background:#F8FAFD;border:1px solid var(--line);border-radius:7px;padding:6px 9px;color:var(--ink-2);animation:up .3s both}
 @media (max-width:700px){.app-nav{display:none}.app .who{display:none}.app .ag2{grid-template-columns:1fr}.app .alines{grid-template-columns:1fr 1fr}.app .amet{grid-template-columns:1fr 1fr}.app .ainfo{grid-template-columns:auto 1fr}}
+button.ani{display:block;width:100%;border:0;background:transparent;text-align:left;font:inherit;cursor:default}
+.app-nav .logo img{height:18px;width:auto;display:block}
+.happ{position:relative;zoom:1.1}
+.happ .app{height:min(560px,calc(100vh - 230px));min-height:440px}
+.happ .ani{cursor:pointer;transition:background .2s,color .2s}.happ .ani:not(.on):hover{background:var(--mist);color:var(--ink)}
+.happ .app-main{animation:hsw .5s cubic-bezier(.22,1,.36,1)}
+@keyframes hsw{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.toasts{position:absolute;right:12px;top:42px;width:236px;display:flex;flex-direction:column;gap:7px;pointer-events:none;z-index:5}
+.tsum{background:rgba(22,28,40,.9);color:#fff;border-radius:11px;padding:9px 12px;font-size:10.5px;display:grid;gap:3px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.tsum span{color:rgba(255,255,255,.7)}.tsum b{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}.tsum b em{font-style:normal;color:#8FB0FF;margin-left:3px}
+.tst{background:#fff;border-radius:11px;padding:9px 12px;box-shadow:0 14px 30px -14px rgba(16,32,58,.35),0 0 0 1px rgba(16,32,58,.07);display:grid;grid-template-columns:22px 1fr;gap:2px 9px;align-items:center;font-size:10.5px;color:var(--ink-2);animation:tin .55s cubic-bezier(.22,1,.36,1) both}
+.tst i{grid-row:1/span 3;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:700;color:#fff;align-self:start}
+.tst .k{font-weight:600}.tst b{font-size:12px;color:var(--ink);font-weight:700}
+.tst.out{animation:tout .4s cubic-bezier(.4,0,1,1) both}
+@keyframes tin{from{opacity:0;transform:translateX(16px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes tout{to{opacity:0;transform:translateY(-8px) scale(.97)}}
+@media (max-width:700px){.happ{zoom:1}.toasts{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 `;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -235,7 +252,7 @@ const FRAG={
   timeline:`<div class="fr"><div class="fr-h"><b>최○○ 환자</b><span>콜 12 · 상담 2 · 진료 2</span></div><ul class="fr-tl"><li><span class="ty visit">진료</span><span>검진 결과 · 3개월 후 추적<small>08.31 · 원장 김도현</small></span></li><li><span class="ty call">콜</span><span>시술 경과 문의 · 내원 예약<small>08.30 · 실장 윤채원</small></span></li><li><span class="ty cons">상담</span><span>리쥬란 아이 · 촬영 후 진행<small>08.27 · 실장 박유리</small></span></li><li><span class="ty call">콜</span><span>제증명 발급 문의<small>08.21 · 실장 박유리</small></span></li></ul></div>`
 };
 const NAV=['대시보드','환자목록','콜레코드','상담레코드','진료레코드','마케팅 분석','직원 통계','설정'];
-const shell=(el,active,title,sub,body)=>{el.className='app';el.innerHTML=`<aside class="app-nav" aria-hidden="true"><div class="logo"><i></i>D voice</div>${NAV.map(n=>`<span class="ani ${n===active?'on':''}">${n}</span>`).join('')}<div class="app-rec"><span>상담 녹음 →</span><span>진료 녹음 →</span></div></aside><div class="app-main"><div class="app-top"><b>${esc(title)}</b><small>${esc(sub)}</small><span class="who">로봇컴 의원 · 실장 김하늘</span></div><div class="app-body">${body}</div></div>`;return el;};
+const shell=(el,active,title,sub,body)=>{el.className='app';el.innerHTML=`<aside class="app-nav"><div class="logo"><img src="${(window.__resources&&window.__resources.dvLogo)||'dvoice-logo.svg'}" alt="D voice"></div>${NAV.map(n=>`<button type="button" class="ani ${n===active?'on':''}" data-nav="${n}" tabindex="-1">${n}</button>`).join('')}<div class="app-rec"><span>상담 녹음 →</span><span>진료 녹음 →</span></div></aside><div class="app-main"><div class="app-top"><b>${esc(title)}</b><small>${esc(sub)}</small><span class="who">로봇컴 의원 · 실장 김하늘</span></div><div class="app-body">${body}</div></div>`;return el;};
 
 class DvUi extends HTMLElement{
   static get observedAttributes(){return['screen','frag','bare','tone'];}
@@ -295,6 +312,24 @@ class DvUi extends HTMLElement{
         inc('#c-in');inc('#c-miss');},1300));
     };
     this.onShow=()=>{this.timers.push(setTimeout(()=>{if(!this.hasAttribute('data-manual'))this.start();},600));};
+  }
+
+  s_app(r,D){
+    const MAP=[['대시보드','mk_dash'],['환자목록','mk_client'],['콜레코드','mk_call'],['상담레코드','mk_cons'],['진료레코드','mk_visit'],['마케팅 분석','mk_mkt']];
+    r.innerHTML='<div class="happ"><div id="hv"></div><div class="toasts" id="tst" aria-hidden="true"><div class="tsum"><span>오늘 · 실시간</span><b id="tsn">총 수신 32 · 부재중 <em>6</em></b></div></div></div>';
+    const hv=this.$('#hv'),ts=this.$('#tst');let cur=0,base=0;
+    const show=i=>{this.timers.splice(base).forEach(clearInterval);cur=i;this.onShow=null;hv.className='';this['s_'+MAP[i][1]](hv,D);this.seq();if(this.onShow)this.onShow();};
+    hv.addEventListener('click',e=>{const b=e.target.closest('[data-nav]');if(!b)return;const i=MAP.findIndex(m=>m[0]===b.dataset.nav);if(i<0)return;this.idle=Date.now()+15000;if(i!==cur)show(i);});
+    const T=[['#3D6FE3','콜','통화중','김○○ (14560)','재진 · 예약 변경 문의'],['#E08A1E','!','부재중 → 회신 대기','010-****-0123','신규 · 비용 문의'],['#12A26B','상','상담 녹음 시작','상담실 2 · 이서준 실장','울쎄라 · 필러 상담'],['#F04452','!','클레임 유의','접수 대기 불만 감지','응대 점수 4 · 원장님께 알림'],['#3D6FE3','콜','통화 종료 · 요약 완료','박○○ (10201)','예약 10/16 14:00 확정']];
+    let ti=0,calls=32,miss=6;
+    const push=()=>{const t=T[ti++%T.length],el=document.createElement('div');el.className='tst';el.innerHTML=`<i style="background:${t[0]}">${t[1]}</i><span class="k" style="color:${t[0]}">${t[2]}</span><b>${t[3]}</b><span>${t[4]}</span>`;ts.appendChild(el);
+      if(t[2].startsWith('통화중'))calls++;if(t[2].startsWith('부재중'))miss++;this.$('#tsn').innerHTML=`총 수신 ${calls} · 부재중 <em>${miss}</em>`;
+      const all=this.$$('.tst:not(.out)',ts);if(all.length>2){const o=all[0];o.classList.add('out');setTimeout(()=>o.remove(),400);}};
+    this.timers.push(setTimeout(push,900),setTimeout(push,2200));
+    this.every(3600,push);
+    this.every(8000,()=>show((cur+1)%MAP.length));
+    base=this.timers.length;
+    show(0);
   }
 
   s_loop(r){
